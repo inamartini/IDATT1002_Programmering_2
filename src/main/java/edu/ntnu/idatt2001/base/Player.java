@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001;
+package edu.ntnu.idatt2001.base;
 
 import java.util.ArrayList;
 import java.util.List;
