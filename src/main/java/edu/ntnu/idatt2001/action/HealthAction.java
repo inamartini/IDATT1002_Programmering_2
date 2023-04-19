@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * HealthAction is a class that represents an action that adds health to a player.

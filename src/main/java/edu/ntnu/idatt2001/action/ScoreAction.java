@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * ScoreAction is an action that adds a certain amount of points to the player's score.
