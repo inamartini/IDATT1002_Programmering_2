@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * An interface for actions that can be performed on a player.

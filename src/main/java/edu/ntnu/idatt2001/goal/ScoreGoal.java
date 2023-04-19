@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.goal;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * ScoreGoal is a class that checks if the player has reached a certain score.

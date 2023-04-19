@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * InventoryAction is a class that adds an item to the player's inventory.

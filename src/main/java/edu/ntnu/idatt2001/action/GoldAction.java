@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * GoldAction is a class that represents an action that adds gold to a player.

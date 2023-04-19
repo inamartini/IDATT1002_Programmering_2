@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.goal;
 
-import edu.ntnu.idatt2001.Player;
+import edu.ntnu.idatt2001.base.Player;
 
 /**
  * HealthGoal is a class that checks if the player has a certain amount of health.
