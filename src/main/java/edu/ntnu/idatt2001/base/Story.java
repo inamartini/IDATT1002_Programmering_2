@@ -1,4 +1,7 @@
-package edu.ntnu.idatt2001;
+package edu.ntnu.idatt2001.base;
+
+import edu.ntnu.idatt2001.base.Link;
+import edu.ntnu.idatt2001.base.Passage;
 
 import java.util.ArrayList;
 import java.util.Collection;
