@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="idatt2001_paths" />
+        <module name="Paths_mappevurdering" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="idatt2001_paths" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
