@@ -2,14 +2,10 @@ package edu.ntnu.idatt2001.base;
 
 import edu.ntnu.idatt2001.action.GoldAction;
 import edu.ntnu.idatt2001.action.HealthAction;
-import edu.ntnu.idatt2001.base.Link;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,9 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkTest {
 
-  Link link;
-  GoldAction goldAction;
-  HealthAction healthAction;
+  private Link link;
+  private GoldAction goldAction;
+  private HealthAction healthAction;
+  private String notEmptyString;
 
   @Nested
   class GetMethodsWorkAsExpected {
@@ -36,34 +33,27 @@ public class LinkTest {
     }
 
     @Test
-    @DisplayName("getText() returns the correct text")
+    @DisplayName("The correct text is returned")
     void getTextShouldReturnCorrectText() {
       assertEquals("Text", link.getText());
     }
 
     @Test
-    @DisplayName("getReference() returns the correct reference")
+    @DisplayName("The correct reference is returned")
     void getReferenceShouldReturnCorrectReference() {
       assertEquals("Reference", link.getReference());
-    }
-
-    @Test
-    @DisplayName("getActions() returns an empty list")
-    void getActionsReturnsEmptyList() {
-      assertTrue(link.getActions().isEmpty());
     }
   }
 
   @Nested
-  class ActionMethodsWorkAsExpected {
+  class FunctionalityWorksAsExpected {
     @BeforeEach
     public void setUp() {
       link = new Link("Text", "Reference");
       healthAction = new HealthAction(5);
     }
-
     @Test
-    @DisplayName("addActions() returns the correct actions")
+    @DisplayName("The correct actions are returned")
     void addActionsReturnsCorrectActions() {
       goldAction = new GoldAction(10);
       healthAction = new HealthAction(13);
@@ -71,39 +61,42 @@ public class LinkTest {
       link.addAction(goldAction);
       assertEquals(2, link.getActions().size());
     }
-
     @Test
-    @DisplayName("actionIsValid() throws IllegalArgumentException if action is null")
-    void throwsIllegalArgumentExceptionIfActionIsNull() {
-      assertThrows(IllegalArgumentException.class, () -> link.actionIsValid(null));
-    }
-
-    @Test
-    @DisplayName("actionIsValid() returns true if action is not null")
+    @DisplayName("Returns true if action is not null")
     void returnsTrueIfActionIsNotNull() {
       assertTrue(link.actionIsValid(healthAction));
+    }
+    @Test
+    @DisplayName("Empty list is returned when no actions are added")
+    void getActionsReturnsEmptyList() {
+      assertTrue(link.getActions().isEmpty());
     }
   }
 
   @Nested
   class ExceptionsAreThrown {
-    String notEmptyString;
 
     @BeforeEach
     public void setUp() {
       notEmptyString = "Test";
     }
-
     @Test
-    @DisplayName("Constructor throws IllegalArgumentException if text is null")
+    @DisplayName("IllegalArgumentException is thrown if text is null")
     void textThrowIllegalArgumentExceptionTest() {
       assertThrows(IllegalArgumentException.class, () -> link = new Link(null, notEmptyString));
     }
 
     @Test
-    @DisplayName("Constructor throws IllegalArgumentException if reference is null")
+    @DisplayName("IllegalArgumentException is thrown if reference is null")
     void throwsIllegalArgumentExceptionIfReferenceIsNull() {
       assertThrows(IllegalArgumentException.class, () -> link = new Link(notEmptyString, null));
+    }
+    @Test
+    @DisplayName("IllegalArgumentException is thrown if action is null")
+    void throwsIllegalArgumentExceptionIfActionIsNull() {
+      link = new Link("Text", "Reference");
+      healthAction = new HealthAction(5);
+      assertThrows(IllegalArgumentException.class, () -> link.actionIsValid(null));
     }
   }
 }
