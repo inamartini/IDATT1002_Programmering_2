@@ -1,8 +1,5 @@
 package edu.ntnu.idatt2001.base;
 
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
-import edu.ntnu.idatt2001.base.Story;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,10 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StoryTest {
 
-  private Passage openingPassage ;
+  private Passage openingPassage, passage ;
   private Link link ;
   private Story story ;
   private Map<Link, Passage> passages ;
+  private String notEmptyString;
 
   @BeforeEach
   public void setUp() {
@@ -40,42 +38,43 @@ public class StoryTest {
   }
 
   @Nested
+  @DisplayName("Tests that get methods work as expected")
   class TestGetMethods {
     @Test
-    @DisplayName("Test if getTitle() returns the correct title")
+    @DisplayName("The correct title is returned")
     void getTitleShouldReturnCorrectTitle() {
       assertEquals("This is a title", story.getTitle());
     }
 
     @Test
-    @DisplayName("Test if getOpeningPassage() returns the correct opening passage")
+    @DisplayName("The correct opening passage is returned")
     void getOpeningPassageShouldReturnCorrectOpeningPassage() {
       assertEquals(openingPassage, story.getOpeningPassage());
     }
 
     @Test
-    @DisplayName("Test if getPassage() returns the correct passage")
+    @DisplayName("Test that the correct passage is returned")
     void getPassageShouldReturnCorrectPassage() {
       story.addPassage(openingPassage);
       assertEquals(openingPassage, story.getPassage(link));
     }
 
     @Test
-    @DisplayName("Test if getPassages() returns the correct collection of passages")
+    @DisplayName("The correct passages are returned")
     void getPassagesTest() {
       story.addPassage(openingPassage);
       assertEquals(passages.values().toString(), story.getPassages().toString());
     }
 
     @Test
-    @DisplayName("Test if getPassages() returns an empty collection if the story has no passages")
+    @DisplayName("Empty collection is returned if story has no passages")
     void getPassagesShouldReturnEmptyCollectionIfStoryHasNoPassages() {
       Collection<Passage> actualPassages = story.getPassages();
       assertTrue(actualPassages.isEmpty());
     }
 
     @Test
-    @DisplayName("Test if addPassage() adds a new passage")
+    @DisplayName("Test that the a passage is added")
     public void testAddPassage() {
       openingPassage.addLink(link);
       story.addPassage(openingPassage);
@@ -85,9 +84,8 @@ public class StoryTest {
   }
 
   @Nested
-  class TestExceptions {
-
-    String notEmptyString;
+  @DisplayName("Tests that exceptions are thrown")
+  class ExceptionsAreThrown {
 
     @BeforeEach
     public void setUp() {
@@ -95,35 +93,34 @@ public class StoryTest {
     }
 
     @Test
-    @DisplayName("Tests if constructor throws an IllegalArgumentException if title is null ")
+    @DisplayName("IllegalArgumentException is thrown if title is null ")
     void titleThrowIllegalArgumentExceptionTest() {
       openingPassage = new Passage("New passage", "This is a test-passage.");
       assertThrows(IllegalArgumentException.class, () -> story = new Story(null, openingPassage));
     }
 
     @Test
-    @DisplayName("Tests if constructor throws an IllegalArgumentException if openingPassage is null")
+    @DisplayName("IllegalArgumentException is thrown if openingPassage is null")
     void openingPassageThrowIllegalArgumentExceptionTest() {
       assertThrows(IllegalArgumentException.class, () -> story = new Story(notEmptyString, null));
     }
 
     @Test
-    @DisplayName("Tests if addPassage() throws an IllegalArgumentException if passage is null")
+    @DisplayName("IllegalArgumentException is thrown if passage is null")
     void addPassageThrowIllegalArgumentExceptionTest() {
       assertThrows(IllegalArgumentException.class, () -> story.addPassage(null));
     }
 
     @Test
-    @DisplayName("Test if getPassage() throws an IllegalArgumentException if link is null")
+    @DisplayName("IllegalArgumentException is thrown if link is null")
     void getPassageShouldThrowIllegalArgumentException() {
       assertThrows(IllegalArgumentException.class, () -> story.getPassage(null));
     }
   }
 
   @Nested
+  @DisplayName("Tests that the core functionality of the class works as expected")
   class testDivCoreFunctionality {
-
-    Passage passage;
 
     @BeforeEach
     void setUp() {
@@ -133,13 +130,13 @@ public class StoryTest {
     }
 
     @Test
-    @DisplayName("Tests if removePassage() throws an IllegalArgumentException if link is null")
+    @DisplayName("IllegalArgumentException is thrown if link is null")
     void removePassageShouldThrowIllegalArgumentException() {
       assertThrows(IllegalArgumentException.class, () -> story.removePassage(null));
     }
 
     @Test
-    @DisplayName("Test if removePassage() removes a passage")
+    @DisplayName("Passage is removed if it exists")
     public void removePassageShouldRemovePassage() {
       story.addPassage(passage);
       story.removePassage(link);
@@ -147,7 +144,7 @@ public class StoryTest {
     }
 
     @Test
-    @DisplayName("Test if removePassage() does not remove a passage")
+    @DisplayName("Passage is not removed if it does not exist")
     void removePassageShouldNotRemovePassage() {
       Link link1 = new Link("Passage 2", "Passage 2");
       passage.addLink(link1);
@@ -157,7 +154,7 @@ public class StoryTest {
     }
 
     @Test
-    @DisplayName("Test if getBrokenLinks() returns a list of links not connected to a passage")
+    @DisplayName("Returns a list of links not connected to a passage")
     void shouldReturnListOfDeadLinks() {
       Link link1 = new Link("Passage 2", "Passage 2");
       passage.addLink(link1);
@@ -166,7 +163,7 @@ public class StoryTest {
     }
 
     @Test
-    @DisplayName("Test if getBrokenLinks() returns an empty list if there are no broken links")
+    @DisplayName("Returns an empty list if there are no broken links")
     void shouldReturnEmptyListIfNoDeadLinks() {
       story.addPassage(passage);
       assertEquals(0, story.getBrokenLinks().size());

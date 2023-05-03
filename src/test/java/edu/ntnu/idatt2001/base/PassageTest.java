@@ -1,7 +1,5 @@
 package edu.ntnu.idatt2001.base;
 
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,12 +21,11 @@ public class PassageTest {
 
   private Passage passage;
   private Link links;
+  private String notEmptyString;
 
   @Nested
-  @DisplayName("Tests if expected exceptions are thrown")
+  @DisplayName("Tests that exceptions are thrown")
   class ExceptionsAreThrown {
-
-    String notEmptyString;
 
     @BeforeEach
     public void setUp() {
@@ -36,22 +33,22 @@ public class PassageTest {
     }
 
     @Test
-    @DisplayName("Tests if constructor throws an IllegalArgumentException if title is null")
-    void titleThrowIllegalArgumentExceptionTest() {
+    @DisplayName("IllegalArgumentException is thrown if title is null")
+    void throwsIllegalArgumentExceptionIfTitleIsNull() {
       assertThrows(IllegalArgumentException.class,
               () -> passage = new Passage(null, notEmptyString));
     }
 
     @Test
-    @DisplayName("Tests if constructor throws an IllegalArgumentException if content is null")
-    void contentThrowIllegalArgumentExceptionTest() {
+    @DisplayName("IllegalArgumentException is thrown if content is null")
+    void throwsIllegalArgumentExceptionIfContentIsNull() {
       assertThrows(IllegalArgumentException.class,
               () -> passage = new Passage(notEmptyString, null));
     }
 
     @Test
-    @DisplayName("Tests if addLink throws an IllegalArgumentException if link is null")
-    void addLinkThrowIllegalArgumentExceptionTest() {
+    @DisplayName("IllegalArgumentException is thrown if link is null")
+    void throwsIllegalArgumentExceptionIfLinkIsNull() {
       passage = new Passage(notEmptyString, notEmptyString);
       assertThrows(IllegalArgumentException.class,
               () -> passage.addLink(null));
@@ -59,27 +56,27 @@ public class PassageTest {
   }
 
   @Nested
-  @DisplayName("Tests if getMethods are returning the right values")
-  class getMethodsAreReturningCorrectValues {
+  @DisplayName("Tests that get methods work as expected")
+  class GetMethodsWorkAsExpected {
     @BeforeEach
     void setUp() {
       passage = new Passage("Title", "Content");
     }
 
     @Test
-    @DisplayName("getTitle() should return the correct title")
+    @DisplayName("The correct title is returned")
     void getTitleShouldReturnCorrectTitle() {
       assertEquals("Title", passage.getTitle());
     }
 
     @Test
-    @DisplayName("getContent() should return the correct content")
+    @DisplayName("The correct content is returned")
     void getContentShouldReturnCorrectContent() {
       assertEquals("Content", passage.getContent());
     }
 
     @Test
-    @DisplayName("getListOfLinks() should return a list of links")
+    @DisplayName("The correct list of links is returned")
     void getListOfLinksTest() {
       links = new Link("Text", "Reference");
       passage.addLink(links);
@@ -99,6 +96,7 @@ public class PassageTest {
     }
 
     @Test
+    @DisplayName("Returns the correct size of list of links")
     void addLinkTestSize() {
       passage.addLink(links);
       links = new Link("new text", "new reference2");
@@ -107,6 +105,7 @@ public class PassageTest {
     }
 
     @Test
+    @DisplayName("Returns the the correct link by index")
     void addLinkTestIndex() {
       passage.addLink(links);
       links = new Link("new text", "new reference2");
@@ -115,15 +114,15 @@ public class PassageTest {
     }
 
     @Test
-    @DisplayName("hasLinks() should return true")
-    void hasLinksIsNotEmptyTest() {
+    @DisplayName("Returns true if list of links is not empty")
+    void hasLinksIsNotEmpty() {
       passage.addLink(links);
       assertTrue(passage.hasLinks());
     }
 
     @Test
-    @DisplayName("hasLinks() should return false")
-    void hasLinksIsEmptyTest() {
+    @DisplayName("Returns false if list of links is empty")
+    void hasLinksIsEmpty() {
       assertFalse(passage.hasLinks());
     }
   }

@@ -4,6 +4,7 @@ import edu.ntnu.idatt2001.goal.Goal;
 import edu.ntnu.idatt2001.goal.ScoreGoal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -39,69 +40,78 @@ public class GameTest {
     game = new Game(player, story, goals);
   }
 
-  @Test
-  @DisplayName("Tests if the constructor throws an exception when player is null")
-  void constructorPlayerNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> new Game(null, story, goals));
+  @Nested
+  @DisplayName("Tests that exceptions are thrown")
+  class ExceptionsAreThrown {
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown when player is null")
+    void illegalArgumentIsThrownIfPlayerIsNull() {
+      assertThrows(IllegalArgumentException.class, () -> new Game(null, story, goals));
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown when story is null")
+    void illegalArgumentIsThrownIfStoryIsNull() {
+      assertThrows(IllegalArgumentException.class, () -> new Game(player, null, goals));
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown when goal is null")
+    void illegalArgumentIsThrownIfGoalIsNull() {
+      assertThrows(IllegalArgumentException.class, () -> new Game(player, story, null));
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown when link is null")
+    void IllegalArgumentIsThrownIfLinkIsNull() {
+      assertThrows(IllegalArgumentException.class, () -> game.go(null));
+    }
   }
 
-  @Test
-  @DisplayName("Tests if the constructor throws an exception when story is null")
-  void constructorStoryNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> new Game(player, null, goals));
-  }
+  @Nested
+  @DisplayName("Tests that correct values are returned")
+  class CorrectValuesAreReturned {
 
-  @Test
-  @DisplayName("Tests if the constructor throws an exception when goals is null")
-  void constructorGoalsNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> new Game(player, story, null));
-  }
+    @Test
+    @DisplayName("Correct players are returned")
+    void getPlayerTest() {
+      assertAll("Player",
+              () -> assertEquals("Name", game.getPlayer().getName()),
+              () -> assertEquals(1, game.getPlayer().getHealth()),
+              () -> assertEquals(2, game.getPlayer().getScore()),
+              () -> assertEquals(3, game.getPlayer().getGold()));
+    }
 
-  @Test
-  @DisplayName("Tests if getPlayer() returns the correct values")
-  void getPlayerTest() {
-    assertAll("Player",
-            () -> assertEquals("Name", game.getPlayer().getName()),
-            () -> assertEquals(1, game.getPlayer().getHealth()),
-            () -> assertEquals(2, game.getPlayer().getScore()),
-            () -> assertEquals(3, game.getPlayer().getGold()));
-  }
+    @Test
+    @DisplayName("Correct info about the story is returned")
+    void correctValuesForStoryIsReturned() {
+      assertAll("Story",
+              () -> assertEquals("Title", game.getStory().getTitle()),
+              () -> assertEquals("PassageTitle", game.getStory().getOpeningPassage().getTitle()),
+              () -> assertEquals("Content", game.getStory().getOpeningPassage().getContent()));
+    }
 
-  @Test
-  @DisplayName("Tests if getStory() returns the correct values")
-  void getStoryTest() {
-    assertAll("Story",
-            () -> assertEquals("Title", game.getStory().getTitle()),
-            () -> assertEquals("PassageTitle", game.getStory().getOpeningPassage().getTitle()),
-            () -> assertEquals("Content", game.getStory().getOpeningPassage().getContent()));
-  }
+    @Test
+    @DisplayName("Correct goals are returned")
+    void correctValuesForTheGoalsAreReturned() {
+      assertEquals(goals, game.getGoals());
+    }
 
+    @Test
+    @DisplayName("Correct opening passage is returned")
+    void correctValuesForTheOpeningPassageIsReturned() {
+      assertEquals(openingPassage, game.begin());
+    }
 
-  @Test
-  @DisplayName("Tests if getGoals() returns the correct values")
-  void getGoalsTest() {
-    assertEquals(goals, game.getGoals());
-  }
-
-  @Test
-  @DisplayName("Tests if begin() returns the right value")
-  void beginTest() {
-    assertEquals(openingPassage, game.begin());
-  }
-
-  @Test
-  @DisplayName("Tests if go() returns the right value")
-  void goTest() {
-    Link link = new Link("Text", "PassageTitle end");
-    Passage end = new Passage("PassageTitle end", "Content end");
-    story.addPassage(end);
-    story.getOpeningPassage().addLink(link);
-    assertEquals(end, game.go(link));
-  }
-
-  @Test
-  @DisplayName("Tests if go() returns the right value when the link is null")
-  void goNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> game.go(null));
+    @Test
+    @DisplayName("Correct passage is returned")
+    void correctValuesForThePassageIsReturned() {
+      Link link = new Link("Text", "PassageTitle end");
+      Passage end = new Passage("PassageTitle end", "Content end");
+      story.addPassage(end);
+      story.getOpeningPassage().addLink(link);
+      assertEquals(end, game.go(link));
+    }
   }
 }
