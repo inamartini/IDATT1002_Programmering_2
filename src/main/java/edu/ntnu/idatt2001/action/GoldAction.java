@@ -36,13 +36,13 @@ public class GoldAction implements Action {
      * Executes the GoldAction by adding the specified amount of gold to the player's balance.
      *
      * @param player the player to add the gold to
-     * @throws NullPointerException if the player parameter is null
+C     * @throws IllegalArgumentException if the player parameter is null
      */
 
     @Override
     public void execute(Player player) {
         if (player == null) {
-            throw new NullPointerException("Player can't be null");
+            throw new IllegalArgumentException("Player can't be null");
         }
         player.addGold(gold);
     }
