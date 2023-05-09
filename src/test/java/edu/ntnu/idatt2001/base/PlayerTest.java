@@ -127,5 +127,42 @@ public class PlayerTest {
       assertEquals("Player", player.getName());
     }
   }
+  @Nested
+  @DisplayName("Builder pattern works as expected")
+  class builderPatternWorksAsExpected {
+
+    @Test
+    @DisplayName("Correct values are set")
+    void correctValuesInBuilderPatternAreSet() {
+      Player player = new Player.Builder("Player")
+              .gold(100)
+              .health(100)
+              .score(100)
+              .build();
+      assertEquals(100, player.getGold());
+      assertEquals(100, player.getHealth());
+      assertEquals(100, player.getScore());
+      assertEquals("Player", player.getName());
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown if name in builder is null")
+    void builderPatternThrowsExceptionIfNameIsNull() {
+      assertThrows(IllegalArgumentException.class, () -> new Player.Builder(null));
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown if health in builder is negative")
+    void builderPatternThrowsExceptionIfHealthIsNegative() {
+      assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").health(-1));
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException is thrown if gold in builder is negative")
+    void builderPatternThrowsExceptionIfGoldIsNegative() {
+      assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").gold(-1));
+    }
+  }
 }
+
 

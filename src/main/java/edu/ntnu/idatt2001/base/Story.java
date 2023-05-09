@@ -40,6 +40,7 @@ public class Story {
     this.title = title;
     this.openingPassage = openingPassage;
     this.passages = new HashMap<>();
+    this.addPassage(openingPassage);
   }
 
   /**

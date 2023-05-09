@@ -159,6 +159,9 @@ public class Player {
      * @param name The name of the player.
      */
     public Builder(String name) {
+      if (name == null) {
+        throw new IllegalArgumentException("Name can't be empty");
+      }
       this.name = name;
     }
 
@@ -169,6 +172,9 @@ public class Player {
      * @return The Builder object.
      */
     public Builder health(int health) {
+      if(health < 0) {
+        throw new IllegalArgumentException("Health can't be negative");
+      }
       this.health = health;
       return this;
     }
@@ -180,6 +186,9 @@ public class Player {
      * @return The Builder object.
      */
     public Builder score(int score) {
+      if(score < 0) {
+        throw new IllegalArgumentException("Score can't be negative");
+      }
       this.score = score;
       return this;
     }
@@ -191,6 +200,9 @@ public class Player {
      * @return The Builder object.
      */
     public Builder gold(int gold) {
+      if(gold < 0) {
+        throw new IllegalArgumentException("Gold can't be negative");
+      }
       this.gold = gold;
       return this;
     }
@@ -207,7 +219,7 @@ public class Player {
     }
 
     /**
-     * Method that builds the player object with the provided parameters..
+     * Method that builds the player object with the provided parameters.
      *
      * @return A new player object.
      */
