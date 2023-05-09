@@ -1,11 +1,11 @@
 package edu.ntnu.idatt2001.util;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.FileSystems;
 
 import edu.ntnu.idatt2001.base.Link;
 import edu.ntnu.idatt2001.base.Passage;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test class for StoryWriter
+ *
  * @author Malin Haugland Høli
  * @author Ina Martini
  *
@@ -30,7 +31,7 @@ public class StoryWriterTest {
 
     @BeforeEach
     void setUp() {
-        path = "src/test/resources/test.paths";
+        path = FileSystems.getDefault().getPath("src", "test", "resources", "test.paths").toString();
     }
 
     @Nested
@@ -38,21 +39,29 @@ public class StoryWriterTest {
     class TestFunctionality {
         @Test
         @DisplayName("Story is correctly written to file")
-        void shouldWriteStoryToFile() throws IOException {
-            Passage passage = new Passage("Title of passage", "Content");
-            story = new Story("Test Story", passage);
-            Link link = new Link("Test Link 1", "Passage 2");
-            passage.addLink(link);
-            Passage passage1 = new Passage("Passage 2", "Content 2");
-            story.addPassage(passage);
-            story.addPassage(passage1);
-            File file1 = new File("src/test/resources/precomputedvalues.paths");
+        void writeStoryToFile() throws IOException {
+            Passage openingPassage = new Passage("Title of the opening passage", "Content in the opening passage");
+            story = new Story("Test Story", openingPassage);
+            Link link1 = new Link("Test Link 1", "Title of the second passage");
+            openingPassage.addLink(link1);
+            Passage secondPassage = new Passage("Title of the second passage", "Content in the second passage");
+            Link link2 = new Link("Test Link 2", "Title of the third passage");
+            secondPassage.addLink(link2);
+            Passage thirdPassage = new Passage("Title of the third passage", "Content in the third passage");
+            story.addPassage(openingPassage);
+            story.addPassage(secondPassage);
+            story.addPassage(thirdPassage);
+
             StoryWriter.writeStoryToFile(story, path);
             File file = new File(path);
-            byte[] f1 = Files.readAllBytes(file1.toPath());
-            byte[] f2 = Files.readAllBytes(file.toPath());
-            assertArrayEquals(f1, f2);
+            StoryReader.readStoryFromFile(file);
 
+            assertEquals(story.getTitle(), StoryReader.readStoryFromFile(file).getTitle());
+            assertEquals(story.getOpeningPassage().getTitle(), StoryReader.readStoryFromFile(file).getOpeningPassage().getTitle());
+            assertEquals(story.getOpeningPassage().getContent(), StoryReader.readStoryFromFile(file).getOpeningPassage().getContent());
+            assertEquals(story.getPassages().size(), StoryReader.readStoryFromFile(file).getPassages().size());
+            assertEquals(story.getOpeningPassage().getListOfLinks(), StoryReader.readStoryFromFile(file).getOpeningPassage().getListOfLinks());
+            assertEquals(story.getPassage(link2).getListOfLinks(), StoryReader.readStoryFromFile(file).getPassage(link2).getListOfLinks());
         }
     }
 
@@ -72,7 +81,7 @@ public class StoryWriterTest {
         }
 
         @Test
-        @DisplayName("IllegalArgumentException is thrown if file is not a .paths file")
+        @DisplayName("IllegalArgumentException is thrown if file is not a test1.paths file")
         void shouldThrowIllegalArgumentExceptionIfFileIsNotAPathsFile() {
             assertThrows(IllegalArgumentException.class,
                     () -> StoryWriter.writeStoryToFile(story, "src/test/resources/test.txt"));

@@ -12,20 +12,21 @@ import java.util.ArrayList;
  * The .paths format is used to represent a story with passages and links.
  * Each passage in the story are represented by a title, content and links.
  * The passages are stored in a story object, which represents a complete story.
+ * <p>
  * The file should be structured as follows:
  * - The first line should be the title of the story.
  * - The second line should be blank.
  * - Each new passage starts with a new line and "::" followed by the title of the passage.
  * - The second line in each passage should be the content of the passage.
  * - The third line should be blank.
- * - Optional links follows the format: [link text](passage reference).And should be written on the next lines.
+ * - Optional links follows the format: [link text](passage reference), and should be written on the next lines.
  * - The last line of each passage should be blank.
- *
+ * <p>
  * This class provides a static method for writing a Story object to a file.
  * The method takes a Story object and a path as parameters to create a file with the .paths format.
  * The method throws an IllegalArgumentException if the path is null,
  * the story is null or the file is not a .paths file.
- *
+ * <p>
  * Example usage:
  * Story story = new Story("Story title", new Passage("Passage title", "Passage content"));
  * StoryWriter.writeStoryToFile(story, "path/to/file.paths");
@@ -39,6 +40,7 @@ public class StoryWriter {
   private static final String NEWLINE = "\n";
   private static ArrayList<String> passagesAlreadyWritten = new ArrayList<>();
   private static ArrayList<Link> allLinks = new ArrayList<>();
+
 
   /**
    * Method that writes a story to a file on the format .paths.
@@ -57,13 +59,14 @@ public class StoryWriter {
       throw new IllegalArgumentException("File must be a .paths file");
     }
     File file = new File(path);
-
     String storyTitle = story.getTitle();
+
     try (FileWriter fileWriter = new FileWriter(file)) {
       fileWriter.write(storyTitle + NEWLINE);
       fileWriter.write(NEWLINE + "::" + story.getOpeningPassage().getTitle());
       fileWriter.write(NEWLINE + story.getOpeningPassage().getContent());
       for (Link link : story.getOpeningPassage().getListOfLinks()) {
+
         fileWriter.write(NEWLINE +"[" + link.getText() + "]" + "(" + link.getReference() + ")");
       }
       passagesAlreadyWritten.add(story.getOpeningPassage().getTitle());
