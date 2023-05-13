@@ -19,8 +19,10 @@ public class HomePageView extends Scene {
     String cssPath = Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm();
     getStylesheets().add(cssPath);
 
-    Image backgroundImage = new Image("images/background.png");
+    Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/background.png")));
     ImageView backgroundImageView = new ImageView(backgroundImage);
+
+
     backgroundImageView.fitWidthProperty().bind(widthProperty());
     backgroundImageView.fitHeightProperty().bind(heightProperty());
 
