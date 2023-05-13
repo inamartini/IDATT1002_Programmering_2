@@ -19,7 +19,7 @@ public class PlayGameController {
   private PlayGameView playGameView;
 
 
-  public PlayGameController(ViewSwitcher viewSwitcher, String storyPath) {
+  public PlayGameController(ViewSwitcher viewSwitcher, String storyPath){
     this.viewSwitcher = viewSwitcher;
 
     File storyFile = new File(storyPath);
@@ -28,6 +28,8 @@ public class PlayGameController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    //this.story = StoryReader.readStoryFromFile(storyFile);
 
     this.currentPassage = story.getOpeningPassage();
   }

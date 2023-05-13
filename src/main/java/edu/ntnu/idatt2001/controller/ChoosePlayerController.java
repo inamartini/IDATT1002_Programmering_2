@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 
 public class ChoosePlayerController {
 
@@ -17,10 +19,10 @@ public class ChoosePlayerController {
   public ChoosePlayerController(ViewSwitcher viewSwitcher) {
     this.viewSwitcher = viewSwitcher;
 
-    Image princessImage = new Image("princess.png");
+    Image princessImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/princess.png")));
     princessImageView = new ImageView(princessImage);
 
-    Image princeImage = new Image("prince.png");
+    Image princeImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/prince.png")));
     princeImageView = new ImageView(princeImage);
 
     btnPrincess = new Button("Princess");
