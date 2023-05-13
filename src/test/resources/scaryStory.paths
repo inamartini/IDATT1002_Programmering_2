@@ -1,0 +1,40 @@
+Scary Story
+
+::Haunted house
+You are in a haunted house, there are two doors, one leads to a room full of flesh eating zombies, the other leads to a room full of fire breathing dragons. Which door do you choose?
+[Door 1](Door 1)
+[Door 2](Door 2)
+
+::Door 1
+You open the door and a zombie eats your brains. Do you grab a knife and stab the zombie or do you run away?
+[Stab](Stab the zombie)
+[Run](Run from the zombie)
+
+::Door 2
+You open the door and a dragon burns you to a crisp. You die.
+
+::Stab the zombie
+You stab the zombie and it dies. There are two more zombies, do you run or do you stab them?
+[Stab](Stab the zombies)
+[Run](Run from the zombies)
+
+::Run from the zombie
+You run away and the zombies chase you. You trip and fall and the zombies eat you. You die.
+
+::Stab the zombies
+You stab the zombies and they die. Now there are two new doors, one leads to a room full of exams, and one leads to a peaceful meadow. Which door do you choose?
+[Mystery door 1](Mystery door 1)
+[Mystery door 2](Mystery door 2)
+[I want to stay here](Stay here)
+
+::Run from the zombies
+You run away and the zombies chase you. You trip and fall and the zombies eat you. You die.
+
+::Mystery door 1
+You open the door and there is a beautiful meadow. You live happily ever after.
+
+::Mystery door 2
+You open the door and there is a math exam. You fail the exam and die.
+
+::Stay here
+You stay in the room and the zombies come back and eat you. You die.
