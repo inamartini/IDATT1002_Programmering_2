@@ -1,0 +1,79 @@
+.button {
+    -fx-background-color: #F7EDE2;
+    -fx-text-fill: #F28482;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #F28482;
+    -fx-text-fill: #F7EDE2;
+}
+
+.button:pressed {
+    -fx-background-color: #84A59D;
+}
+
+.title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+    -fx-font-family: Arial;
+}
+
+
+.story-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #32746D;
+    -fx-font-family: Arial;
+}
+
+.passage-title {
+    -fx-font-size: 16px;
+    -fx-fill: #D66BA0;
+    -fx-font-family: Arial;
+}
+
+.passage-content {
+    -fx-wrap-text: true;
+    -fx-font-size: 15px;
+}
+
+.passage-link {
+    -fx-background-color: #59c989;
+    -fx-text-fill:#006949;
+}
+
+.passage-link:hover {
+    -fx-background-color: #F4E4BA;
+    -fx-text-fill: #006949;
+}
+
+.scene2-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #32746D;
+    -fx-font-family: Arial;
+}
+
+.princess {
+    -fx-background-color: #F7EDE2;
+    -fx-text-fill: #db4f87;
+}
+
+.princess:hover {
+    -fx-background-color: #db4f87;
+    -fx-text-fill: #F7EDE2;
+}
+
+.prince {
+    -fx-background-color: #F7EDE2;
+    -fx-text-fill: #457dcc;
+}
+
+.prince:hover {
+    -fx-background-color: #457dcc;
+    -fx-text-fill: #F7EDE2;
+}
