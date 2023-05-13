@@ -62,7 +62,7 @@ public class Game {
   /**
    * Method that returns the goals of the game.
    *
-   * @return The goals of the game as List<Goal>.
+   * @return The goals of the game as List.
    */
   public List<Goal> getGoals() {
     return goals;
