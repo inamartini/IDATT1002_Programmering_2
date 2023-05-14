@@ -52,6 +52,7 @@ public class PlayGameView extends Scene {
     contentWithCharacter.setAlignment(Pos.CENTER);
 
     StackPane root = (StackPane) getRoot();
+    root.getStyleClass().add("playGameView-root");
     root.getChildren().addAll(contentWithCharacter);
 
     controller.setPlayGameView(this);
