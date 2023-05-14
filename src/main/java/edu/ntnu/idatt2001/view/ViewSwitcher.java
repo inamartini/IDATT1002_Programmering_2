@@ -73,6 +73,10 @@ public class ViewSwitcher implements ViewController {
     return this.playGameView;
   }
 
+  public ChoosePlayerView getChoosePlayerView() {
+    return this.choosePlayerView;
+  }
+
   // Method to get the current scene
   public Scene getCurrentScene() {
     return this.currentScene;
