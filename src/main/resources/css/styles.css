@@ -77,3 +77,7 @@
     -fx-background-color: #457dcc;
     -fx-text-fill: #F7EDE2;
 }
+
+.playGameView-root {
+    -fx-background-color: #d9e7ff;
+}
