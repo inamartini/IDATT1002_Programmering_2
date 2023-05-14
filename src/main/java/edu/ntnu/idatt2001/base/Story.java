@@ -106,7 +106,6 @@ public class Story {
     if (link == null) {
       throw new IllegalArgumentException("Link can't be null");
     }
-
     ArrayList<Link> allLinks = new ArrayList<>(passages.keySet());
     Passage passage = getPassage(link);
 
@@ -115,7 +114,7 @@ public class Story {
             .anyMatch(link1 -> link1.getReference().equals(passage.getTitle()))) {
       return;
     }
-    passages.remove(link);
+    passages.remove(new Link(link.getReference(), link.getReference()));
   }
 
   /**
