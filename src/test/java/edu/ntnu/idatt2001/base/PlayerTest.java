@@ -5,6 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -158,9 +161,25 @@ public class PlayerTest {
     }
 
     @Test
+    @DisplayName("IllegalArgumentException is thrown if score in builder is negative")
+    void builderPatternThrowsExceptionIfScoreIsNegative() {
+      assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").score(-1));
+    }
+
+    @Test
     @DisplayName("IllegalArgumentException is thrown if gold in builder is negative")
     void builderPatternThrowsExceptionIfGoldIsNegative() {
       assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").gold(-1));
+    }
+
+    @Test
+    @DisplayName("The inventory is set correctly")
+    void builderPatternSetsInventoryCorrectly() {
+      List<String> inventory = Arrays.asList("Item1", "Item2");
+      Player player = new Player.Builder("Player")
+              .inventory(inventory)
+              .build();
+      assertEquals(inventory, player.getInventory());
     }
   }
 }
