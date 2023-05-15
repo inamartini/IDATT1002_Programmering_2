@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @version 2023.MM.DD
  */
-
-
 public class PlayerTest {
 
   private Player player;
@@ -141,10 +139,12 @@ public class PlayerTest {
               .gold(100)
               .health(100)
               .score(100)
+              .inventory(Arrays.asList("Item1", "Item2"))
               .build();
       assertEquals(100, player.getGold());
       assertEquals(100, player.getHealth());
       assertEquals(100, player.getScore());
+      assertEquals(Arrays.asList("Item1", "Item2"), player.getInventory());
       assertEquals("Player", player.getName());
     }
 
