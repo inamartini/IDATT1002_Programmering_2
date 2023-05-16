@@ -28,33 +28,43 @@ public class PlayerTest {
     @Test
     @DisplayName("IllegalArgumentException is thrown if name is null")
     void constructorIllegalArgumentExceptionIfNameIsNull() {
-      assertThrows(IllegalArgumentException.class, () -> player = new Player(null, 100, 100, 100));
+      assertThrows(IllegalArgumentException.class, () ->
+              player = new PlayerBuilder(null).build());
     }
 
     @Test
     @DisplayName("IllegalArgumentException is thrown if health is negative")
     void constructorThrowsIllegalArgumentExceptionIfHealthIsNegative() {
-      assertThrows(IllegalArgumentException.class,
-              () -> player = new Player("Player", -1, 100, 100));
+      assertThrows(IllegalArgumentException.class, () ->
+              player = new PlayerBuilder("Player").health(-1).build());
     }
 
     @Test
     @DisplayName("IllegalArgumentException is thrown if item is null")
     void throwsIllegalArgumentExceptionIfItemIsNull() {
-      player = new Player("Player", 100, 100, 100);
+      player = new PlayerBuilder("Player")
+              .score(100)
+              .health(100)
+              .build();
       assertThrows(IllegalArgumentException.class, () -> player.addToInventory(null));
     }
 
     @Test
     @DisplayName("IllegalArgumentException is thrown if health is negative")
     void throwsIllegalArgumentExceptionIfHealthIsNegative() {
-      player = new Player("Player", 100, 100, 100);
+      player = new PlayerBuilder("Player")
+              .score(100)
+              .build();
       assertThrows(IllegalArgumentException.class, () -> player.addHealth(-1));
     }
   }
   @BeforeEach
   void setUp() {
-    player = new Player("Player", 100, 100, 100);
+    player = new PlayerBuilder("Player")
+            .gold(100)
+            .health(100)
+            .score(100)
+            .build();
   }
 
   @Nested
@@ -125,42 +135,6 @@ public class PlayerTest {
     @DisplayName("The correct name is returned")
     void getName() {
       assertEquals("Player", player.getName());
-    }
-  }
-  @Nested
-  @DisplayName("Builder pattern works as expected")
-  class builderPatternWorksAsExpected {
-
-    @Test
-    @DisplayName("Correct values are set")
-    void correctValuesInBuilderPatternAreSet() {
-      Player player = new Player.Builder("Player")
-              .gold(100)
-              .health(100)
-              .score(100)
-              .build();
-      assertEquals(100, player.getGold());
-      assertEquals(100, player.getHealth());
-      assertEquals(100, player.getScore());
-      assertEquals("Player", player.getName());
-    }
-
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if name in builder is null")
-    void builderPatternThrowsExceptionIfNameIsNull() {
-      assertThrows(IllegalArgumentException.class, () -> new Player.Builder(null));
-    }
-
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if health in builder is negative")
-    void builderPatternThrowsExceptionIfHealthIsNegative() {
-      assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").health(-1));
-    }
-
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if gold in builder is negative")
-    void builderPatternThrowsExceptionIfGoldIsNegative() {
-      assertThrows(IllegalArgumentException.class, () -> new Player.Builder("Player").gold(-1));
     }
   }
 }
