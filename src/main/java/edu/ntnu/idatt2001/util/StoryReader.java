@@ -1,5 +1,12 @@
 package edu.ntnu.idatt2001.util;
 
+import edu.ntnu.idatt2001.action.Action;
+import edu.ntnu.idatt2001.action.ActionFactory;
+import edu.ntnu.idatt2001.action.ActionType;
+import edu.ntnu.idatt2001.action.GoldAction;
+import edu.ntnu.idatt2001.action.HealthAction;
+import edu.ntnu.idatt2001.action.InventoryAction;
+import edu.ntnu.idatt2001.action.ScoreAction;
 import edu.ntnu.idatt2001.base.Link;
 import edu.ntnu.idatt2001.base.Passage;
 import edu.ntnu.idatt2001.base.Story;
@@ -9,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,15 +41,24 @@ public class StoryReader {
   private static final String LINK_PATTERN = "\\[(.*?)\\]\\((.*?)\\)";
 
   /**
+   * Regex pattern to match actions in a passage.
+   */
+  private static final String ACTION_PATTERN =  "\\{(.*?)\\}\\((.*?)\\)";
+
+  /**
    * Pattern object that compiles the regex pattern for passages.
    */
   private static final Pattern PASSAGE = Pattern.compile(PASSAGE_PATTERN);
-
 
   /**
    * Pattern object that compiles the regex pattern for links.
    */
   private static final Pattern LINK = Pattern.compile(LINK_PATTERN);
+
+  /**
+   * Pattern object that compiles the regex pattern for actions.
+   */
+  private static final Pattern ACTION = Pattern.compile(ACTION_PATTERN);
 
   /**
    * Method that reads a story from a file and returns a story object. Before reading the file, the file is validated.
@@ -69,6 +86,7 @@ public class StoryReader {
     Passage currentPassage = null;
     Story story = null;
     String storyTitle;
+    Action action;
 
     try (Scanner sc = new Scanner(file)) {
       storyTitle = sc.nextLine();
@@ -81,6 +99,7 @@ public class StoryReader {
 
         Matcher passageMatcher = PASSAGE.matcher(line);
         Matcher linkMatcher = LINK.matcher(line);
+        Matcher actionMatcher = ACTION.matcher(line);
 
         if (passageMatcher.find()) {
           String passageTitle = passageMatcher.group(2);
@@ -101,6 +120,19 @@ public class StoryReader {
           String linkReference = linkMatcher.group(2);
           Link link = new Link(linkText, linkReference);
           currentPassage.addLink(link);
+
+          while(actionMatcher.find()){
+            String actionType = actionMatcher.group(1).toUpperCase();
+            String actionValue = actionMatcher.group(2);
+
+            if(actionType.equalsIgnoreCase("Inventory")) {
+              action = ActionFactory.createInventoryAction(actionType, actionValue);
+            } else {
+              int actionValueInt = Integer.parseInt(actionValue);
+              action = ActionFactory.createAction(actionType, actionValueInt);
+            }
+            link.addAction(action);
+          }
         }
         else {
           throw new IllegalArgumentException("Line is not on the correct format: " + line);
