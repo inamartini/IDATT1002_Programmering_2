@@ -46,4 +46,11 @@ C     * @throws IllegalArgumentException if the player parameter is null
         }
         player.addGold(gold);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "Gold}" + "(" + gold +
+                ')';
+    }
 }

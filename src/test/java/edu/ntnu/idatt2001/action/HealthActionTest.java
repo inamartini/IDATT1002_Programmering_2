@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,14 @@ import org.junit.jupiter.api.Test;
  */
 public class HealthActionTest {
 
+    private PlayerBuilder playerBuilder;
     private Player player;
     private HealthAction healthAction;
 
     @BeforeEach
     public void setUp() {
-        player = new Player("Ina", 3,3, 3);
+        player = new PlayerBuilder("Player 1")
+                .health(3).build();
         healthAction = new HealthAction(3);
     }
 

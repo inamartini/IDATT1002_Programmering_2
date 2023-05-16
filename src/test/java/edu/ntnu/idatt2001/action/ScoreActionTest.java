@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.action;
 
 import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,9 @@ public class ScoreActionTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("Ina", 100, 4, 3);
+        player = new PlayerBuilder("Player 1")
+                .score(4)
+                .build();
         scoreAction = new ScoreAction(5);
     }
 
