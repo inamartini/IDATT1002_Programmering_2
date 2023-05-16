@@ -38,4 +38,11 @@ public class HealthAction implements Action {
         }
         player.addHealth(points);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "Health}" + "(" + points +
+                ')';
+    }
 }

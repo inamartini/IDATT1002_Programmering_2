@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,9 @@ public class GoldActionTest {
 
     @BeforeEach
     public void setUp() {
-        player = new Player("Malin", 4,4,4);
+        player = new PlayerBuilder("Malin")
+                .gold(4)
+                .build();
         goldAction = new GoldAction(10);
     }
 
