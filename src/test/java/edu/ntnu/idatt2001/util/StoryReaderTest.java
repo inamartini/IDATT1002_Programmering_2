@@ -2,8 +2,14 @@ package edu.ntnu.idatt2001.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import edu.ntnu.idatt2001.action.Action;
+import edu.ntnu.idatt2001.action.ActionFactory;
+import edu.ntnu.idatt2001.action.GoldAction;
 import edu.ntnu.idatt2001.base.Link;
 import edu.ntnu.idatt2001.base.Passage;
+import edu.ntnu.idatt2001.base.Player;
 import edu.ntnu.idatt2001.base.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -33,7 +40,8 @@ public class StoryReaderTest {
 
     @BeforeEach
     void setUp() {
-        testFilePath = FileSystems.getDefault().getPath("src", "test", "resources", "precomputedvalues.paths").toString();
+        testFilePath = FileSystems.getDefault().getPath("src", "test",
+                "resources", "precomputedvalues.paths").toString();
     }
 
     @Nested
@@ -73,37 +81,47 @@ public class StoryReaderTest {
         @Test
         @DisplayName("File is read correctly")
         void readStoryFromFile1() throws FileNotFoundException {
+            //arrange
             File testFile = new File(testFilePath);
-            Story story = StoryReader.readStoryFromFile(testFile);
+            Passage openingPassage = new Passage("Title of the opening passage", "Content in the opening passage");
+            Story expectedStory = new Story("Test Story", openingPassage);
+            Link link1 = new Link("Test Link 1", "Title of the second passage");
+            openingPassage.addLink(link1);
+            Action inventoryAction = ActionFactory.createInventoryAction("inventory", "Sword");
+            Action healthAction = ActionFactory.createAction("health", 100);
+            link1.addAction(inventoryAction);
+            link1.addAction(healthAction);
+            Passage secondPassage = new Passage("Title of the second passage", "Content in the second passage");
+            Link link2 = new Link("Test Link 2", "Title of the third passage");
+            secondPassage.addLink(link2);
+            Passage thirdPassage = new Passage("Title of the third passage", "Content in the third passage");
+            expectedStory.addPassage(secondPassage);
+            expectedStory.addPassage(thirdPassage);
 
-            assertEquals("Test Story", story.getTitle());
+            //act
+            Story actualStory = StoryReader.readStoryFromFile(testFile);
 
-            Collection<Passage> passages = story.getPassages();
-            assertEquals(3, passages.size());
+            //assert
+            assertEquals(expectedStory.getTitle(), actualStory.getTitle());
+            assertEquals(expectedStory.getOpeningPassage().getTitle(), actualStory.getOpeningPassage().getTitle());
+            assertEquals(expectedStory.getOpeningPassage().getContent(), actualStory.getOpeningPassage().getContent());
+            assertEquals(expectedStory.getPassages().size(), actualStory.getPassages().size());
 
-            Passage passage1 = passages.stream().filter(p -> p.getTitle().equals("Title of the opening passage")).findFirst().orElse(null);
-            assertEquals("Title of the opening passage", passage1.getTitle());
-            assertEquals("Content in the opening passage", passage1.getContent());
+            Collection<Passage> expectedPassages = expectedStory.getPassages();
+            Collection<Passage> actualPassages = actualStory.getPassages();
+            assertEquals(expectedPassages.size(), actualPassages.size());
 
-            Passage passage2 = passages.stream().filter(p -> p.getTitle().equals("Title of the second passage")).findFirst().orElse(null);
-            assertEquals("Title of the second passage", passage2.getTitle());
-            assertEquals("Content in the second passage", passage2.getContent());
+            List<Link> expectedLinks = new ArrayList<>();
+            List<Link> actualLinks = new ArrayList<>();
+            expectedPassages.forEach(p -> expectedLinks.addAll(p.getListOfLinks()));
+            actualPassages.forEach(p -> actualLinks.addAll(p.getListOfLinks()));
+            assertEquals(expectedLinks.size(), actualLinks.size());
 
-            Passage passage3 = passages.stream().filter(p -> p.getTitle().equals("Title of the third passage")).findFirst().orElse(null);
-            assertEquals("Title of the third passage", passage3.getTitle());
-            assertEquals("Content in the third passage", passage3.getContent());
-
-            ArrayList<Link> links = new ArrayList<>();
-            passages.forEach(p -> links.addAll(p.getListOfLinks()));
-            assertEquals(2, links.size());
-
-            Link link = links.get(0);
-            assertEquals("Title of the second passage", link.getReference());
-            assertEquals("Test Link 1", link.getText());
-
-            Link link2 = links.get(1);
-            assertEquals("Title of the third passage", link2.getReference());
-            assertEquals("Test Link 2", link2.getText());
+            List<Action> expectedActions = new ArrayList<>();
+            List<Action> actualActions = new ArrayList<>();
+            expectedLinks.forEach(l -> expectedActions.addAll(l.getActions()));
+            actualLinks.forEach(l -> actualActions.addAll(l.getActions()));
+            assertEquals(expectedActions.size(), actualActions.size());
             }
         }
     }

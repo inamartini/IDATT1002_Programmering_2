@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.util;
 
+import edu.ntnu.idatt2001.action.ActionType;
 import edu.ntnu.idatt2001.base.Link;
 import edu.ntnu.idatt2001.base.Story;
 import java.io.File;
@@ -67,7 +68,11 @@ public class StoryWriter {
       fileWriter.write(NEWLINE + story.getOpeningPassage().getContent());
       for (Link link : story.getOpeningPassage().getListOfLinks()) {
 
-        fileWriter.write(NEWLINE +"[" + link.getText() + "]" + "(" + link.getReference() + ")");
+        if(link.getActions() != null) {
+          fileWriter.write(NEWLINE + link.toStringWithActions());
+        } else {
+          fileWriter.write(NEWLINE +"[" + link.getText() + "]" + "(" + link.getReference() + ")");
+        }
       }
       passagesAlreadyWritten.add(story.getOpeningPassage().getTitle());
       allLinks.addAll(story.getOpeningPassage().getListOfLinks());
@@ -78,7 +83,11 @@ public class StoryWriter {
             fileWriter.write(NEWLINE + NEWLINE + "::" + passage.getTitle());
             fileWriter.write(NEWLINE + passage.getContent());
             for (Link link : passage.getListOfLinks()) {
-              fileWriter.write(NEWLINE + "[" + link.getText() + "]" + "(" + link.getReference() + ")");
+                if(link.getActions() != null) {
+                    fileWriter.write(NEWLINE + link.toStringWithActions());
+                } else {
+                    fileWriter.write(NEWLINE +"[" + link.getText() + "]" + "(" + link.getReference() + ")");
+                }
             }
             passagesAlreadyWritten.add(passage.getTitle());
           } catch (IOException e) {
