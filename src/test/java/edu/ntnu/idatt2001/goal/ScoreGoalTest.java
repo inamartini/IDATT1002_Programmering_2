@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.goal;
 
 import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,13 +34,17 @@ public class ScoreGoalTest {
         @Test
         @DisplayName("True is returned if player has more than minimum points")
         void returnsTrueIfPlayerHasMorePointsThanMinimum() {
-            player = new Player("Ina", 5, 20, 20);
+            player = new PlayerBuilder("Player 2")
+                    .score(15)
+                    .build();
             assertTrue(scoreGoal.isFulfilled(player));
         }
         @Test
         @DisplayName("False is returned if player has less gold than minimum")
         void returnsFalseIfPlayerHasLessPointsThanMinimum() {
-            player = new Player("Ina", 5, 5, 5);
+            player = new PlayerBuilder("Player 1")
+                    .score(5)
+                    .build();
             assertFalse(scoreGoal.isFulfilled(player));
         }
     }
