@@ -28,6 +28,19 @@
     -fx-fill: #ffffff;
     -fx-font-family: Arial;
 }
+.loadGameView-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: #F28482;
+    -fx-font-family: Arial;
+}
+.table-view {
+    -fx-background-color: #F7EDE2;
+    -fx-text-fill: #F28482;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
 
 .help-button {
     -fx-background-color: #ffe5ba;

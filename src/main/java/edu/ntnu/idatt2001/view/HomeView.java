@@ -43,11 +43,15 @@ public class HomeView extends View {
     btnStart.setOnAction(e -> screenController.activate("playerView"));
     btnStart.getStyleClass().add("homeView-button");
 
+    Button btnLoadGame = new Button("LOAD GAME");
+    btnLoadGame.setOnAction(e -> screenController.activate("loadGameView"));
+    btnLoadGame.getStyleClass().add("homeView-button");
+
     Button btnHelp = new Button("HOW TO PLAY");
     btnHelp.setOnAction(e -> screenController.activate("helpView"));
     btnHelp.getStyleClass().add("homeView-button");
 
-    VBox content = new VBox(10, title, btnStart, btnHelp);
+    VBox content = new VBox(10, title, btnStart, btnLoadGame, btnHelp);
     content.setAlignment(Pos.CENTER);
 
     root.getChildren().addAll(backgroundImageView, content);

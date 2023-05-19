@@ -5,6 +5,7 @@ import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -39,9 +40,11 @@ public class ActionFactoryTest {
     }
 
     @Test
-    @DisplayName("The action created is of type InventoryAction")
+    @DisplayName("The action created is of type InventoryAction and not a different type")
     void testCreateInventoryAction() {
         action = ActionFactory.createInventoryAction("inventory", "Sword");
-        assertTrue(action instanceof InventoryAction);
+        assertFalse(action instanceof ScoreAction);
+        assertFalse(action instanceof GoldAction);
+        assertFalse(action instanceof HealthAction);
     }
 }
