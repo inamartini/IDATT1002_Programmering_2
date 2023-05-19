@@ -97,6 +97,26 @@ public class Link {
     return "Link: " + this.text + this.reference;
   }
 
+
+  public String toStringWithActions() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("[")
+            .append(this.text)
+            .append("](")
+            .append(this.reference)
+            .append(")");
+
+      if (!actions.isEmpty()) {
+        sb.append("[");
+        for (Action action : actions) {
+          sb.append(action.toString());
+        }
+        sb.append("]");
+      }
+      return sb.toString();
+  }
+
+
   /**
    * Method to identify if one object equals the other argument.
    *
