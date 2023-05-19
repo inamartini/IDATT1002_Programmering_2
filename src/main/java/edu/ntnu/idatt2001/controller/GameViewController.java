@@ -1,10 +1,10 @@
 package edu.ntnu.idatt2001.controller;
 
 import edu.ntnu.idatt2001.base.Passage;
+import edu.ntnu.idatt2001.base.Player;
 import edu.ntnu.idatt2001.base.Story;
 import edu.ntnu.idatt2001.util.StoryReader;
 import edu.ntnu.idatt2001.view.GameView;
-import edu.ntnu.idatt2001.view.ScreenController;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
@@ -48,6 +48,10 @@ public class GameViewController {
     return currentPassage;
   }
 
+  public void setOpeningPassageToCurrentPassage() {
+    currentPassage = story.getOpeningPassage();
+  }
+
   public Image getPlayerImage() {
     return PlayerViewController.getInstance().getPlayerImage();
   }
@@ -66,4 +70,16 @@ public class GameViewController {
     }).collect(Collectors.toList());
   }
 
+  public Player getPlayer() {
+    return PlayerViewController.getInstance().getPlayer();
+  }
+
+  public void resetGame() {
+    setOpeningPassageToCurrentPassage();
+  }
+
+  public void resetPlayer() {
+    getPlayer();
+    //PlayerViewController.getInstance().getPlayer();
+  }
 }

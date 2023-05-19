@@ -1,3 +1,10 @@
+.help-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #1AC8ED;
+    -fx-font-family: Arial;
+}
+
 
 .help-text {
     -fx-font-size: 18px;
@@ -23,10 +30,11 @@
 }
 
 .homeView-title {
-    -fx-font-size: 30px;
+    -fx-font-size: 40px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
     -fx-font-family: Arial;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,1 );
 }
 
 .help-button {
@@ -156,4 +164,31 @@
     -fx-fill: #32746D;
     -fx-font-family: Arial;
     -fx-padding: 15px;
+}
+
+.gameView-player-info {
+    -fx-font-size: 16px;
+    -fx-fill: #EF709D;
+    -fx-font-family: Arial;
+    -fx-padding: 15px;
+}
+
+.gameView-returnHome-button {
+    -fx-background-color: #3772FF;
+    -fx-text-fill: #FAEDCA;
+}
+
+.gameView-returnHome-button:hover {
+    -fx-background-color: #F2C078;
+    -fx-text-fill: #FE5D26;
+}
+
+.playerView-slider-text {
+    -fx-font-size: 14px;
+    -fx-fill: #8C2155;
+    -fx-font-family: Arial;
+}
+
+.playerView-slider .track {
+    -fx-background-color: #AF7595;
 }
