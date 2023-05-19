@@ -3,6 +3,7 @@ package edu.ntnu.idatt2001.goal;
 import java.util.List;
 
 import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.base.PlayerBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +29,9 @@ public class InventoryGoalTest {
     public void setUp() {
         mandatoryItems = List.of("item1");
         inventoryGoal = new InventoryGoal(mandatoryItems);
-        player = new Player("Malin", 4,4,4);
+        player = new PlayerBuilder("Player 1")
+                .inventory(List.of("item1"))
+                .build();
         player.addToInventory("item1");
     }
 
