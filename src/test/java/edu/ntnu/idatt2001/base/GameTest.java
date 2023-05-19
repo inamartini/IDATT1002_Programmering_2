@@ -31,7 +31,11 @@ public class GameTest {
 
   @BeforeEach
   void setUp() {
-    player = new Player("Name", 1, 2, 3);
+    player = new PlayerBuilder("Player")
+            .score(2)
+            .health(1)
+            .gold(3)
+            .build();
     openingPassage = new Passage("PassageTitle", "Content");
     story = new Story("Title", openingPassage);
     goals = new ArrayList<>();
@@ -77,7 +81,7 @@ public class GameTest {
     @DisplayName("Correct players are returned")
     void getPlayerTest() {
       assertAll("Player",
-              () -> assertEquals("Name", game.getPlayer().getName()),
+              () -> assertEquals("Player", game.getPlayer().getName()),
               () -> assertEquals(1, game.getPlayer().getHealth()),
               () -> assertEquals(2, game.getPlayer().getScore()),
               () -> assertEquals(3, game.getPlayer().getGold()));

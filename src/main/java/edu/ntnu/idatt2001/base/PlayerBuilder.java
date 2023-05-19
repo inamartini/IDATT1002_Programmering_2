@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2001.base;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**

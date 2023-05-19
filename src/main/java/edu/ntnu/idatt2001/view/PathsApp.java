@@ -15,6 +15,7 @@ public class PathsApp extends Application {
   private ScreenController screenController = new ScreenController(frontPageScene);
   private HelpView helpView = new HelpView(screenController);
   private HomeView homeView = new HomeView(screenController);
+  private LoadGameView loadGameView = new LoadGameView(screenController);
   private PlayerView playerView = new PlayerView(screenController);
   private GameView gameView = new GameView(screenController);
   //private GoalsAndStoryView goalsAndStoryView = new GoalsAndStoryView(screenController);
@@ -26,6 +27,7 @@ public class PathsApp extends Application {
 
     screenController.addScreen("helpView", helpView);
     screenController.addScreen("homeView", homeView);
+    screenController.addScreen("loadGameView", loadGameView);
     screenController.addScreen("playerView", playerView);
     screenController.addScreen("gameView", gameView);
     //screenController.addScreen("goalsAndStoryView", goalsAndStoryView);

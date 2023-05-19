@@ -161,7 +161,7 @@ public class StoryReader {
       throw new IllegalArgumentException("File is not a .paths file. This file is not supported.");
     }
     if (!file.exists()) {
-      throw new IllegalArgumentException("File does not exist.");
+      throw new IllegalArgumentException("File does not exist. : " + file.getAbsolutePath());
     }
     if (!file.canRead()) {
       throw new IllegalArgumentException("File is not readable.");
