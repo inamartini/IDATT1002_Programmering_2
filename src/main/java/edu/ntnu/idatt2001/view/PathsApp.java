@@ -1,7 +1,6 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.view.PlayerView;
-import edu.ntnu.idatt2001.view.ScreenController;
+import edu.ntnu.idatt2001.controller.ScreenController;
 import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
@@ -18,7 +17,6 @@ public class PathsApp extends Application {
   private LoadGameView loadGameView = new LoadGameView(screenController);
   private PlayerView playerView = new PlayerView(screenController);
   private GameView gameView = new GameView(screenController);
-  //private GoalsAndStoryView goalsAndStoryView = new GoalsAndStoryView(screenController);
   public static Stage primaryStage;
 
   @Override
@@ -30,7 +28,6 @@ public class PathsApp extends Application {
     screenController.addScreen("loadGameView", loadGameView);
     screenController.addScreen("playerView", playerView);
     screenController.addScreen("gameView", gameView);
-    //screenController.addScreen("goalsAndStoryView", goalsAndStoryView);
 
     primaryStage.setWidth(800);
     primaryStage.setHeight(500);
