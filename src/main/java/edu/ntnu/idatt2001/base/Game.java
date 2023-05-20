@@ -18,6 +18,7 @@ public class Game {
   private Player player;
   private Story story;
   private List<Goal> goals;
+  private Passage currentPassage;
 
   /**
    * Constructor for the Game class.
@@ -39,6 +40,7 @@ public class Game {
     this.player = player;
     this.story = story;
     this.goals = new ArrayList<>(goals);
+    this.currentPassage = story.getOpeningPassage();
   }
 
   /**
@@ -66,6 +68,24 @@ public class Game {
    */
   public List<Goal> getGoals() {
     return goals;
+  }
+
+  /**
+   * Method that returns the current passage of the game.
+   *
+   * @return The current passage of the game as Passage.
+   */
+  public Passage getCurrentPassage() {
+    return currentPassage;
+  }
+
+  /**
+   * Method that sets the current passage of the game.
+   *
+   * @param currentPassage The current passage of the game.
+   */
+  public Passage setCurrentPassage(Passage currentPassage) {
+    return this.currentPassage = currentPassage;
   }
 
   /**

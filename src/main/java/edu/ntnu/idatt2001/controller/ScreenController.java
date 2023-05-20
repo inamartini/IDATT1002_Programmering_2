@@ -1,5 +1,7 @@
-package edu.ntnu.idatt2001.view;
+package edu.ntnu.idatt2001.controller;
 
+import edu.ntnu.idatt2001.view.PathsApp;
+import edu.ntnu.idatt2001.view.View;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -23,8 +25,6 @@ public class ScreenController {
   public void activate(String name) {
     viewMap.get(name).setUp();
     currentScene.setRoot(screenMap.get(name));
-
-    //TODO keep fullscreen?
 
     if (name.equals("gameView")) {
       PathsApp.primaryStage.setFullScreen(true);

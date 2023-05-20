@@ -181,7 +181,7 @@
 
 .gameView-player-info {
     -fx-font-size: 16px;
-    -fx-fill: #EF709D;
+    -fx-text-fill: #EF709D;
     -fx-font-family: Arial;
     -fx-padding: 15px;
 }
@@ -204,4 +204,33 @@
 
 .playerView-slider .track {
     -fx-background-color: #AF7595;
+}
+
+.loadGameView-scrollPane {
+    -fx-background-color: #FCD29F;
+}
+
+.loadGameView-scrollPane .loadGameView-text {
+    -fx-fill: #F28482;
+}
+
+.loadGameView-scrollPane .thumb {
+    -fx-background-color: #F28482;
+    -fx-background-radius: 10;
+    -fx-min-width: 20;
+}
+
+.loadGameView-scrollPane .scroll-bar:vertical .track {
+    -fx-background-color: #F28482;
+    -fx-border-color: #AF7595;
+}
+
+.loadGameView-loadGameButton {
+    -fx-background-color: #FCD29F;
+    -fx-text-fill: #0B3954;
+}
+
+.loadGameView-loadGameButton:hover {
+    -fx-background-color: #0B3954;
+    -fx-text-fill: #BFD7EA;
 }
