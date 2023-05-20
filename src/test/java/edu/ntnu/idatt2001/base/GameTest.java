@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Malin Haugland Høli
  * @author Ina Martini
  *
- * @version 2023.MM.DD
+ * @version 2023.05.20
  */
 
 public class GameTest {
@@ -116,6 +116,24 @@ public class GameTest {
       story.addPassage(end);
       story.getOpeningPassage().addLink(link);
       assertEquals(end, game.go(link));
+    }
+
+    @Test
+    @DisplayName("Current passage is returned")
+    void correctValuesForTheCurrentPassageIsReturned() {
+      assertEquals(openingPassage, game.getCurrentPassage());
+    }
+
+    @Test
+    @DisplayName("Current passage is set as current passage")
+    void correctValuesForTheCurrentPassageIsSet() {
+      Link link = new Link("Text", "PassageTitle end");
+      Passage newCurrentPassage = new Passage("PassageTitle end", "Content end");
+      story.addPassage(newCurrentPassage);
+      story.getOpeningPassage().addLink(link);
+      game.go(link);
+      game.setCurrentPassage(newCurrentPassage);
+      assertEquals(newCurrentPassage, game.getCurrentPassage());
     }
   }
 }
