@@ -2,21 +2,23 @@ Scary Story
 
 ::Haunted house
 You are in a haunted house, there are two doors, one leads to a room full of flesh eating zombies, the other leads to a room full of fire breathing dragons. Which door do you choose?
-[Door 1](Door 1)
+[Door 1](Door 1)[{Inventory}(Sword){Health}(200)]
 [Door 2](Door 2)
 
 ::Door 1
 You open the door and a zombie eats your brains. Do you grab a knife and stab the zombie or do you run away?
-[Stab](Stab the zombie)
+[Stab](Stab the zombie)[{Inventory}(Shield){Score}(20)]
 [Run](Run from the zombie)
+[Stay here](broken link)
 
 ::Door 2
 You open the door and a dragon burns you to a crisp. You die.
 
 ::Stab the zombie
 You stab the zombie and it dies. There are two more zombies, do you run or do you stab them?
-[Stab](Stab the zombies)
+[Stab](Stab the zombies)[{Inventory}(Potion){Gold}(100)]
 [Run](Run from the zombies)
+[Freeze](broken link 2)
 
 ::Run from the zombie
 You run away and the zombies chase you. You trip and fall and the zombies eat you. You die.
