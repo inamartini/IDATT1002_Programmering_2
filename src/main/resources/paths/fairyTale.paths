@@ -2,7 +2,7 @@ FairyTale
 
 ::Haunted Forest
 You find yourself in a haunted forest, surrounded by ancient trees and eerie silence. There are two paths ahead of you, one covered in mist, leading to a mysterious castle, and the other filled with thorns, leading to a hidden cottage. Which path do you choose?
-[Misty Path](Misty Path)
+[Misty Path](Misty Path)[{Inventory}(Mordi){Inventory}(Potion)]
 [Thorny Path](Thorny Path)
 
 ::Misty Path
