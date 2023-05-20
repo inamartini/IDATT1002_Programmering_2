@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.view;
 
+import edu.ntnu.idatt2001.controller.ScreenController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
