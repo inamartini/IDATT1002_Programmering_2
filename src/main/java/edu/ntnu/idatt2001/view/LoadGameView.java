@@ -1,28 +1,19 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.base.Link;
 import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.LoadGameViewController;
-import edu.ntnu.idatt2001.util.StoryReader;
+import edu.ntnu.idatt2001.controller.ScreenController;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 
 public class LoadGameView extends View {
@@ -30,12 +21,15 @@ public class LoadGameView extends View {
     private TableView<File> fileInfoTableView;
     private ScreenController screenController;
     private LoadGameViewController loadGameViewController = LoadGameViewController.getInstance();
+    private BorderPane borderPane;
     protected StackPane root;
+    private GameViewController gameViewController = GameViewController.getInstance();
 
     public LoadGameView(ScreenController screenController) {
         this.screenController = screenController;
         this.root = new StackPane();
-        this.setUp();
+        this.borderPane = new BorderPane();
+        borderPane.setCenter(root);
     }
     public Pane getPane() {
         return this.root;
@@ -84,17 +78,48 @@ public class LoadGameView extends View {
 
     public void createTable() throws IOException {
         fileInfoTableView = new TableView<>();
-        fileInfoTableView.setMaxWidth(600);
+        fileInfoTableView.setMaxWidth(610);
         fileInfoTableView.setMaxHeight(300);
+
 
         TableColumn<File, String> fileNameColumn = new TableColumn<>("File name");
         fileNameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getName()));
-        fileNameColumn.setMinWidth(133);
+        fileNameColumn.setMinWidth(140);
         fileNameColumn.getStyleClass().add("table-view");
 
         TableColumn<File, String> fileLocationColumn = new TableColumn<>("File location");
         fileLocationColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getAbsolutePath()));
-        fileLocationColumn.setMinWidth(133);
+        fileLocationColumn.setMinWidth(200);
+
+        fileLocationColumn.setCellFactory(column -> {
+            return new TableCell<File, String>() {
+                private ScrollPane scrollPane;
+                private Text text;
+
+                {
+                    text = new Text();
+                    scrollPane = new ScrollPane(text);
+                    scrollPane.getStyleClass().add("loadGameView-scrollPane");
+                    text.getStyleClass().add("loadGameView-text");
+                    scrollPane.setFitToWidth(true);
+                    scrollPane.setFitToHeight(true);
+                    scrollPane.setPannable(true);
+                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        text.setText(item);
+                        setGraphic(scrollPane);
+                    }
+                }
+            };
+        });
+
         fileLocationColumn.getStyleClass().add("table-view");
 
         TableColumn<File, String> brokenLinks = new TableColumn<>("Broken links");
@@ -103,6 +128,7 @@ public class LoadGameView extends View {
         brokenLinks.getStyleClass().add("table-view");
 
         TableColumn<File, String> loadGame = new TableColumn<>("Load game");
+        loadGame.getStyleClass().add("table-view");
 
         loadGame.setCellFactory(tableCell -> new TableCell<>() {
 
@@ -111,9 +137,33 @@ public class LoadGameView extends View {
             {
                 loadGameButton.setOnAction(event -> {
                     File file = getTableView().getItems().get(getIndex());
-                    loadGameViewController.loadGame(file);
-                    screenController.activate("gameView");
+                    Story story = loadGameViewController.loadGame(file);
+                    gameViewController.setStory(story);
+                    gameViewController.setGamePath(file.getPath());
+
+                    if (story.getBrokenLinks().size() > 0) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Warning");
+                        alert.setHeaderText("Broken links");
+                        alert.setContentText("The story you are trying to load has broken links. You can still play the game, but the story will not be complete."
+                            + "\nDo you still want to play this story?");
+
+                        ButtonType yesButton = new ButtonType("Load game");
+                        ButtonType noButton = new ButtonType("Cancel");
+
+                        alert.getButtonTypes().setAll(yesButton, noButton);
+                        Optional<ButtonType> result = alert.showAndWait();
+
+                        if (result.isPresent() && result.get() == yesButton) {
+                            screenController.activate("playerView");
+                        } else {
+                            screenController.activate("loadGameView");
+                        }
+                    } else {
+                        screenController.activate("playerView");
+                    }
                 });
+                loadGameButton.getStyleClass().add("loadGameView-loadGameButton");
             }
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -121,7 +171,6 @@ public class LoadGameView extends View {
                 setGraphic(empty ? null : loadGameButton);
             }
         });
-
 
         fileInfoTableView.getColumns().add(fileNameColumn);
         fileInfoTableView.getColumns().add(fileLocationColumn);
