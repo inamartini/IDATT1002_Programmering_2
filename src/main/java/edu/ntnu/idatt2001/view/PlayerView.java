@@ -1,13 +1,21 @@
 package edu.ntnu.idatt2001.view;
 
+import edu.ntnu.idatt2001.base.Game;
+import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.PlayerViewController;
-import javafx.geometry.Orientation;
+import edu.ntnu.idatt2001.controller.ScreenController;
+import edu.ntnu.idatt2001.goal.Goal;
+import edu.ntnu.idatt2001.goal.ScoreGoal;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlayerView extends View {
@@ -17,16 +25,17 @@ public class PlayerView extends View {
   private BorderPane borderPane;
   private ImageView playerImageView;
   private PlayerViewController playerViewController = PlayerViewController.getInstance();
+  private GameViewController gameViewController = GameViewController.getInstance();
 
   public PlayerView(ScreenController screenController) {
     this.root = new StackPane();
     this.borderPane = new BorderPane();
-    borderPane.setCenter(root);
+    //borderPane.setCenter(root);
     this.screenController = screenController;
   }
 
   public Pane getPane() {
-    return this.root;
+    return this.borderPane;
   }
 
   public void setUp() {
@@ -37,10 +46,10 @@ public class PlayerView extends View {
     title.getStyleClass().add("playerView-title");
 
     Image princessImage = new Image("images/princess.png");
-    ImageView princessImageView = new ImageView(princessImage);
+    //ImageView princessImageView = new ImageView(princessImage);
 
     Image princeImage = new Image("images/prince.png");
-    ImageView princeImageView = new ImageView(princeImage);
+    //ImageView princeImageView = new ImageView(princeImage);
 
     playerImageView = new ImageView();
 
@@ -150,33 +159,12 @@ public class PlayerView extends View {
         createAlert("Invalid input", "Name field is empty",
                 "Please enter a name to create a player");
       } else {
-        /*try {
-          //int health = Integer.parseInt(healthField.getText());
-          int gold = Integer.parseInt(goldField.getText());
-
-          if (healthField.getText().isEmpty()) {
-            createAlert("Invalid input", "Health field is empty",
-                    "Please enter a number for health");
-          } else if (goldField.getText().isEmpty()) {
-            createAlert("Invalid input", "Gold field is empty",
-                    "Please enter a number for gold");
-          } else if (health <0) {
-            createAlert("Invalid input", "Health is a negative number",
-                    "Please enter a positive number for health");
-          } else if (gold < 0) {
-            createAlert("Invalid input", "Gold is a negative number",
-                    "Please enter a positive number for gold");
-          } else {
-            playerViewController.createPlayer(nameField.getText(), health, gold);
-            screenController.activate("gameView");
-            playerViewController.setPlayerImage(playerImageView.getImage());
-          }
-        } catch (NumberFormatException exception) {
-          createAlert("Invalid input", "Health or gold is not a number",
-                  "Please enter a number for health and gold");
-        }*/
         playerViewController.setPlayerImage(playerImageView.getImage());
         playerViewController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
+        Story story = gameViewController.getStory();
+        List<Goal> goals = new ArrayList<>();
+        goals.add(new ScoreGoal(100));
+        gameViewController.setGame(new Game(playerViewController.getPlayer(), story, goals));
         screenController.activate("gameView");
       }
     });
@@ -192,11 +180,13 @@ public class PlayerView extends View {
     VBox content = new VBox(10, title, characterBox, playerDetails, createPlayerBox);
     content.setAlignment(Pos.CENTER);
 
-    borderPane.setTop(btnGoBack);
-    borderPane.setCenter(content);
+    root.getChildren().addAll(content);
 
-    root.getChildren().addAll(borderPane);
-    root.setAlignment(Pos.CENTER);
+    borderPane.setTop(btnGoBack);
+    borderPane.setCenter(root);
+
+    //root.getChildren().addAll(borderPane);
+    //root.setAlignment(Pos.CENTER);
   }
 
   public void createAlert(String title, String headerText, String contentText) {
