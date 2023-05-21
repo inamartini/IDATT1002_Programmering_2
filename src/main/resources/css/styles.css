@@ -1,17 +1,3 @@
-.help-title {
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
-    -fx-fill: #72A1E5;
-    -fx-font-family: Arial;
-}
-
-
-.help-text {
-    -fx-font-size: 18px;
-    -fx-fill: #F28482;
-    -fx-font-family: Cooper Blac;
-}
-
 .homeView-button {
     -fx-background-color: #F7EDE2;
     -fx-text-fill: #F28482;
@@ -30,11 +16,11 @@
 }
 
 .homeView-title {
-    -fx-font-size: 40px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
     -fx-font-family: Arial;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,1 );
+    -fx-effect: dropshadow( gaussian , rgb(100, 3, 244), 0,0,0,1 );
 }
 .loadGameView-title {
     -fx-font-size: 20px;
@@ -48,19 +34,6 @@
     -fx-font-size: 14px;
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
-}
-
-.help-button {
-    -fx-background-color: #72A1E5;
-    -fx-text-fill: #F7EDE2;
-    -fx-font-size: 14px;
-    -fx-padding: 5px 10px;
-    -fx-border-radius: 5px;
-}
-
-.help-button:hover {
-    -fx-background-color: #F7EDE2;
-    -fx-text-fill: #72A1E5;
 }
 
 .gameView-story-title {
@@ -91,31 +64,13 @@
     -fx-text-fill: #F7EDE2;
 }
 
-.playerView-title {
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
-    -fx-fill: #32746D;
-    -fx-font-family: Arial;
-}
-
 .playerView-player-button {
-    -fx-background-color: #F28482;
-    -fx-text-fill: #F7EDE2;
+    -fx-background-color: transparent;
 }
 
-.playerView-player-button:hover {
-    -fx-background-color: #F7EDE2;
-    -fx-text-fill: #F28482;
-}
-
-.playerView-goBack-button {
-    -fx-background-color: #F28482;
-    -fx-text-fill: #F7EDE2;
-}
-
-.playerView-goBack-button:hover {
-    -fx-background-color: #F7EDE2;
-    -fx-text-fill: #F28482;
+.goBack-button {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgb(12, 9, 9), 10, 0, 0, 0);
 }
 
 .playerView-create-button {
@@ -128,15 +83,14 @@
     -fx-text-fill: #F28482;
 }
 
-.playGameView-root {
-    -fx-background-color: #d9e7ff;
-}
-
-.goalsView-title {
+.goalsView-title, .playerView-title {
     -fx-font-size: 30px;
     -fx-font-weight: bold;
-    -fx-fill: #5460ff;
+    -fx-fill: #1596c0;
     -fx-font-family: Arial;
+}
+.view-background {
+    -fx-background-color: #d9e7ff;
 }
 
 .goldGoalButton, .healthGoalButton, .scoreGoalButton, .inventoryGoalButton {
@@ -150,7 +104,7 @@
 }
 
 .goldGoalButton:selected, .healthGoalButton:selected, .scoreGoalButton:selected, .inventoryGoalButton:selected {
-    -fx-background-color: #72A1E5;
+    -fx-background-color: #1596c0;
 }
 
 .goalsView-goalText {
@@ -167,21 +121,9 @@
     -fx-padding: 15px;
 }
 
-.gameView-player-info {
-    -fx-font-size: 16px;
-    -fx-text-fill: #F28482;
-    -fx-font-family: Arial;
-    -fx-padding: 15px;
-}
-
-.gameView-returnHome-button:hover, .goalsView-backButton:hover {
-    -fx-background-color: #F7EDE2;
-    -fx-text-fill: #72A1E5;
-}
-
-.gameView-returnHome-button, .goalsView-backButton {
-    -fx-background-color: #72A1E5;
-    -fx-text-fill: #F7EDE2;
+.goalsView-backButton {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgb(12, 11, 12), 10, 0, 0, 0);
 }
 
 .playerView-slider-text {
@@ -196,7 +138,7 @@
 }
 
 .playerView-slider .thumb {
-    -fx-pref-height: 30px;
+    -fx-pref-height: 20px;
     -fx-pref-width: 10px;
     -fx-background-color: #F28482;
 }
@@ -235,40 +177,45 @@
     -fx-text-fill: #703D57;
 }
 
-.difficultyButton-easy {
-    -fx-background-color: #d2abff;
-    -fx-text-fill: #FFF2F1;
-}
-
-.difficultyButton-normal {
-    -fx-background-color: #af6efa;
-    -fx-text-fill: #FFF2F1;
-}
-
-.difficultyButton-hard {
-    -fx-background-color: #8420f7;
-    -fx-text-fill: #FFF2F1;
-}
-
-.difficultyButton-easy:hover, .difficultyButton-normal:hover, .difficultyButton-hard:hover {
+.difficultyButton {
     -fx-background-color: #FFF2F1;
     -fx-text-fill: #F28482;
+    -fx-border-color: #F28482;
 }
 
-.difficultyButton-easy:selected, .difficultyButton-normal:selected, .difficultyButton-hard:selected {
-    -fx-background-color: #72A1E5;
+.difficultyButton:hover, .difficultyButton-normal:hover, .difficultyButton-hard:hover {
+    -fx-background-color: #eeb2b1;
+    -fx-text-fill: #f5f2f0;
+}
+
+.difficultyButton:selected, .difficultyButton-normal:selected, .difficultyButton-hard:selected {
+    -fx-background-color: #1596c0 ;
     -fx-text-fill: #FFF2F1;
+    -fx-border-color: #FFF2F1;
 }
 
 .goalsView-saveButton, .goalsView-customButton, .goalsView-playButton, .goalsView-customButton {
-    -fx-background-color: #fab255;
-    -fx-text-fill: #ffeeb3;
+    -fx-background-color: #f5f2f0;
+    -fx-text-fill: #F28482;
+    -fx-border-color: #F28482;
 }
 
 .goalsView-saveButton:hover, .goalsView-customButton:hover, .goalsView-playButton:hover,
 .goalsView-customButton:hover {
-    -fx-background-color: #ffeeb3;
-    -fx-text-fill: #faa73c;
+    -fx-background-color: #eeb2b1;
+    -fx-text-fill: #f5f2f0;
+}
+.gameView-returnHome-button, .gameView-help-button {
+    -fx-effect: dropshadow(three-pass-box, rgb(10, 7, 8), 10, 0, 0, 0);
+    -fx-background-color: transparent;
+}
+.gameView-restartGame-button {
+    -fx-background-color: #72A1E5;
+    -fx-text-fill: #FFF2F1;
+}
+.gameView-restartGame-button:hover {
+    -fx-background-color: #FFF2F1;
+    -fx-text-fill: #72A1E5;
 }
 
 .goalsView-goalValue {

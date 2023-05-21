@@ -12,7 +12,22 @@ You open the door and a zombie eats your brains. Do you grab a knife and stab th
 [Stay here](broken link)
 
 ::Door 2
-You open the door and a dragon burns you to a crisp. You die.
+You open the door and a dragon burns you. Do you grab a sword and stab the dragon or do you run away?
+[Stab](Stab the dragon)[{Inventory}(Sword){Score}(20)]
+[Run](Run from the dragon)
+
+::Run from the dragon
+You run away and the dragon chases you. You trip and fall and the dragon eats you. You die.
+
+::Stab the dragon
+You stab the dragon and it dies. There are two more dragons, do you run or do you stab them?
+[Stab](Stab the dragons)[{Inventory}(Sword){Gold}(100)]
+
+::Stab the dragons
+You stab the dragons and they die. Now there are two new doors, one leads to a room full of exams, and one leads to a peaceful meadow. Which door do you choose?
+[Mystery door 1](Mystery door 1)
+[Mystery door 2](Mystery door 2)
+[I want to stay here](Stay here)
 
 ::Stab the zombie
 You stab the zombie and it dies. There are two more zombies, do you run or do you stab them?
