@@ -29,7 +29,7 @@ public class PlayerView extends View {
   public PlayerView(ScreenController screenController) {
     this.root = new StackPane();
     this.borderPane = new BorderPane();
-    //borderPane.setCenter(root);
+    borderPane.setCenter(root);
     this.screenController = screenController;
   }
 
@@ -45,10 +45,8 @@ public class PlayerView extends View {
     title.getStyleClass().add("playerView-title");
 
     Image princessImage = new Image("images/princess.png");
-    //ImageView princessImageView = new ImageView(princessImage);
 
     Image princeImage = new Image("images/prince.png");
-    //ImageView princeImageView = new ImageView(princeImage);
 
     playerImageView = new ImageView();
 
@@ -107,12 +105,7 @@ public class PlayerView extends View {
     });
     healthSlider.getStyleClass().add("playerView-slider");
 
-    //playerHealth.textProperty().bind(healthSlider.valueProperty().asString());
     playerHealth.getStyleClass().add("playerView-slider-text");
-
-    //TextField healthField = new TextField();
-    //healthField.setPrefWidth(200);
-
 
     HBox healthBox = new HBox(10, health, healthSlider, playerHealth);
     healthBox.setAlignment(Pos.CENTER);
@@ -139,12 +132,7 @@ public class PlayerView extends View {
     });
     goldSlider.getStyleClass().add("playerView-slider");
 
-    //playerGold.textProperty().bind(goldSlider.valueProperty().asString());
     playerGold.getStyleClass().add("playerView-slider-text");
-
-
-    //TextField goldField = new TextField();
-    //goldField.setPrefWidth(200);
 
     HBox goldBox = new HBox(10, gold, goldSlider, playerGold);
     goldBox.setAlignment(Pos.CENTER);
@@ -160,10 +148,6 @@ public class PlayerView extends View {
       } else {
         playerViewController.setPlayerImage(playerImageView.getImage());
         playerViewController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
-        Story story = gameViewController.getStory();
-        List<Goal> goals = new ArrayList<>();
-        goals.add(new ScoreGoal(100));
-        //gameViewController.setGame(new Game(playerViewController.getPlayer(), story, goals));
         screenController.activate("goalView");
       }
     });
@@ -174,18 +158,13 @@ public class PlayerView extends View {
 
     Button btnGoBack = new Button("GO BACK");
     btnGoBack.getStyleClass().add("playerView-goBack-button");
-    btnGoBack.setOnAction(e -> screenController.activate("homeView"));
+    btnGoBack.setOnAction(e -> screenController.activate("loadGameView"));
 
     VBox content = new VBox(10, title, characterBox, playerDetails, createPlayerBox);
     content.setAlignment(Pos.CENTER);
 
-    root.getChildren().addAll(content);
-
     borderPane.setTop(btnGoBack);
-    borderPane.setCenter(root);
-
-    //root.getChildren().addAll(borderPane);
-    //root.setAlignment(Pos.CENTER);
+    root.getChildren().addAll(content);
   }
 
   public void createAlert(String title, String headerText, String contentText) {
