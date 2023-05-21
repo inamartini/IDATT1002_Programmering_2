@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.view;
 
 import edu.ntnu.idatt2001.controller.ScreenController;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 public class PathsApp extends Application {
 
   private StackPane firstPage = new StackPane();
-  private Scene frontPageScene = new Scene(firstPage, 300, 300);
+  private Scene frontPageScene = new Scene(firstPage, 400, 400);
   private ScreenController screenController = new ScreenController(frontPageScene);
   private HelpView helpView = new HelpView(screenController);
   private HomeView homeView = new HomeView(screenController);
@@ -36,6 +37,7 @@ public class PathsApp extends Application {
 
     primaryStage.setTitle("Paths");
     primaryStage.setScene(frontPageScene);
+    primaryStage.getIcons().add(new Image("images/princess.png"));
     primaryStage.show();
 
     frontPageScene.getStylesheets().add("css/styles.css");

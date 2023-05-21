@@ -1,22 +1,24 @@
 package edu.ntnu.idatt2001.view;
 
 import edu.ntnu.idatt2001.model.Game;
-import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.GoalsViewController;
 import edu.ntnu.idatt2001.controller.PlayerViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+
+import java.util.Objects;
 
 public class GoalsView extends View {
 
@@ -27,7 +29,6 @@ public class GoalsView extends View {
   private GameViewController gameViewController = GameViewController.getInstance();
   private PlayerViewController playerViewController = PlayerViewController.getInstance();
   private String goalValueString = null;
-  //private String goalName;
   private ToggleGroup difficultyToggleGroup;
   private ToggleButton[] goldGoalButtons;
   private ToggleButton[] healthGoalButtons;
@@ -54,7 +55,12 @@ public class GoalsView extends View {
     HBox titleBox = new HBox(title);
     titleBox.setAlignment(Pos.CENTER);
 
-    Button btnBack = new Button("Back");
+    Image backIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backbutton.png")));
+    ImageView backView = new ImageView(backIcon);
+    backView.setFitHeight(50);
+    backView.setFitWidth(50);
+    Button btnBack = new Button();
+    btnBack.setGraphic(backView);
     btnBack.getStyleClass().add("goalsView-backButton");
     btnBack.setAlignment(Pos.TOP_LEFT);
     btnBack.setOnAction(e -> {
@@ -66,6 +72,7 @@ public class GoalsView extends View {
     backBox.getChildren().add(btnBack);
 
     borderPane.setTop(backBox);
+    borderPane.getStyleClass().add("view-background");
 
     HBox goldGoalBox = setupGoal("Gold Goal:      ", "goldGoalButton", "25", "50", "100");
     HBox healthGoalBox = setupGoal("Health Goal:    ", "healthGoalButton", "1", "3", "5");
@@ -74,13 +81,13 @@ public class GoalsView extends View {
 
     // Add difficulty toggle buttons and assign them to the difficultyToggleGroup
     ToggleButton btnEasy = new ToggleButton("Easy");
-    btnEasy.getStyleClass().add("difficultyButton-easy");
+    btnEasy.getStyleClass().add("difficultyButton");
 
     ToggleButton btnNormal = new ToggleButton("Normal");
-    btnNormal.getStyleClass().add("difficultyButton-normal");
+    btnNormal.getStyleClass().add("difficultyButton");
 
     ToggleButton btnHard = new ToggleButton("Hard");
-    btnHard.getStyleClass().add("difficultyButton-hard");
+    btnHard.getStyleClass().add("difficultyButton");
 
     difficultyToggleGroup = new ToggleGroup();
     btnEasy.setToggleGroup(difficultyToggleGroup);
@@ -88,9 +95,9 @@ public class GoalsView extends View {
     btnHard.setToggleGroup(difficultyToggleGroup);
 
     // Add event handlers for difficulty buttons
-    btnEasy.setOnAction(e -> selectFirstGoalToggle(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
-    btnNormal.setOnAction(e -> selectFirstGoalToggle(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
-    btnHard.setOnAction(e -> selectFirstGoalToggle(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
+    btnEasy.setOnAction(e -> setSelectedGoalTogglesByDifficulty(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
+    btnNormal.setOnAction(e -> setSelectedGoalTogglesByDifficulty(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
+    btnHard.setOnAction(e -> setSelectedGoalTogglesByDifficulty(goldGoalButtons, healthGoalButtons, scoreGoalButtons, inventoryGoalButtons));
 
     HBox difficultyBox = new HBox(10, btnEasy, btnNormal, btnHard);
     difficultyBox.setAlignment(Pos.CENTER);
@@ -208,9 +215,10 @@ public class GoalsView extends View {
     centerBox.setAlignment(Pos.CENTER);
 
     root.getChildren().addAll(centerBox);
+    borderPane.getStyleClass().add("view-background");
   }
 
-  private void selectFirstGoalToggle(ToggleButton[]... goalButtons) {
+  private void setSelectedGoalTogglesByDifficulty(ToggleButton[]... goalButtons) {
     int difficultyIndex = -1;
 
     ToggleButton selectedDifficultyButton = (ToggleButton) difficultyToggleGroup.getSelectedToggle();
@@ -223,21 +231,9 @@ public class GoalsView extends View {
         ToggleButton toggleButton = buttons[difficultyIndex];
         if (toggleButton != null) {
           toggleButton.setSelected(true);
-          //String goalValue = toggleButton.getText();
-          //goalsViewController.updateGoalValue(goalValue, goalName);
         }
       }
     }
-  }
-
-  private ToggleGroup getGoalsToggleGroup(HBox goalBox) {
-    for (Node node : goalBox.getChildren()) {
-      if (node instanceof ToggleButton) {
-        ToggleButton toggleButton = (ToggleButton) node;
-        return toggleButton.getToggleGroup();
-      }
-    }
-    return null;
   }
 
   private HBox setupGoal(String goalName, String buttonStyle, String... options) {
@@ -249,11 +245,7 @@ public class GoalsView extends View {
 
     ToggleGroup goalGroup = new ToggleGroup();
 
-    //Player player = playerViewController.getPlayer();
-
     HBox buttonBox = new HBox(10);
-
-    //final String trimmedGoalName = goalName.trim();
 
     ToggleButton[] buttons = new ToggleButton[options.length];
 
@@ -264,7 +256,6 @@ public class GoalsView extends View {
       button.setOnAction(e -> {
         if (button.isSelected()) {
           goalValueString = button.getText();
-          //goalsViewController.updateGoalValue(goalValueString, trimmedGoalName);
           button.getStyleClass().add("selectedButton");
           goalGroup.getToggles().forEach(toggle -> {
             ToggleButton toggleButton = (ToggleButton) toggle;
@@ -289,14 +280,11 @@ public class GoalsView extends View {
     goalBox.setAlignment(Pos.CENTER);
 
     // Store the toggle buttons for each difficulty level
-    if (buttonStyle.equals("goldGoalButton")) {
-      goldGoalButtons = buttons;
-    } else if (buttonStyle.equals("healthGoalButton")) {
-      healthGoalButtons = buttons;
-    } else if (buttonStyle.equals("scoreGoalButton")) {
-      scoreGoalButtons = buttons;
-    } else if (buttonStyle.equals("inventoryGoalButton")) {
-      inventoryGoalButtons = buttons;
+    switch (buttonStyle) {
+      case "goldGoalButton" -> goldGoalButtons = buttons;
+      case "healthGoalButton" -> healthGoalButtons = buttons;
+      case "scoreGoalButton" -> scoreGoalButtons = buttons;
+      case "inventoryGoalButton" -> inventoryGoalButtons = buttons;
     }
 
     return goalBox;

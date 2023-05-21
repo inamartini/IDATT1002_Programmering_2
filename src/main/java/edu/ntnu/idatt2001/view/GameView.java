@@ -19,6 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
+import java.util.Objects;
+
 
 /** Class of the game view
  *
@@ -38,13 +40,13 @@ public class GameView extends View {
   private TextArea textArea;
   private Button btnHome;
   private Button btnRestartGame;
-  private Button btnReturnHome;
   private GameViewController gameViewController = GameViewController.getInstance();
   private Label playerText;
   private ImageView inventoryImage;
   private HBox inventoryBox;
   private VBox goalsBox;
   private Pane imageWrapper;
+  private SoundPlayer soundPlayer = new SoundPlayer();
   private PlayerViewController playerViewController = PlayerViewController.getInstance();
   private Button didIWinButton;
 
@@ -63,7 +65,11 @@ public class GameView extends View {
 
     borderPane.setCenter(root);
     gameViewController.initializeGame();
-
+    try {
+      soundPlayer.playOnLoop("/sound/fairytale.wav");
+    } catch (Exception e) {
+      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Failed to play sound");
+    }
     storyTitleText = new Text(gameViewController.getGame().getStory().getTitle());
     storyTitleText.getStyleClass().add("gameView-story-title");
 
@@ -85,22 +91,27 @@ public class GameView extends View {
     HBox contentWithCharacter = new HBox(10, playerImage, content, trollImage);
     contentWithCharacter.setAlignment(Pos.CENTER);
 
-    btnHome = new Button("Home");
-    btnHome.setVisible(true);
+    Image homeIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/homebutton.png")));
+    ImageView home = new ImageView(homeIcon);
+    home.setFitHeight(50);
+    home.setFitWidth(50);
+    btnHome = new Button();
+    btnHome.setGraphic(home);
+    btnHome.getStyleClass().add("gameView-returnHome-button");
+    btnHome.setAlignment(Pos.TOP_LEFT);
     btnHome.setOnAction(e ->  {
       try {
+        soundPlayer.stopPlaying();
         screenController.activate("homeView");
       } catch (IllegalArgumentException ex) {
         AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
       }
       this.resetPane();
     });
-    btnHome.getStyleClass().add("gameView-returnHome-button");
 
-    VBox homeButtonBox = new VBox();
-    homeButtonBox.getChildren().add(btnHome);
-    btnHome.setAlignment(Pos.TOP_LEFT);
-    homeButtonBox.setAlignment(Pos.TOP_LEFT);
+    VBox menuBar = new VBox();
+    menuBar.getChildren().addAll(btnHome, showHelpAlert());
+    menuBar.setAlignment(Pos.TOP_LEFT);
 
     inventoryImage = new ImageView();
 
@@ -108,7 +119,6 @@ public class GameView extends View {
     inventoryBox.setAlignment(Pos.TOP_CENTER);
 
     playerText = new Label();
-    playerText.getStyleClass().add("gameView-player-info");
     refreshLabel();
 
     imageWrapper = new Pane();
@@ -119,17 +129,18 @@ public class GameView extends View {
     goalsBox = gameViewController.goalStatus();
 
     HBox rightBox = new HBox(10, goalsBox, playerText, imageWrapper);
+    rightBox.setSpacing(25);
     rightBox.setAlignment(Pos.TOP_CENTER);
 
     VBox topInfo = new VBox();
-    topInfo.getChildren().addAll(homeButtonBox, rightBox);
+    topInfo.getChildren().addAll(menuBar, rightBox);
     topInfo.setAlignment(Pos.TOP_CENTER);
 
     borderPane.setTop(topInfo);
 
     generatePassagesAndButtons(gameViewController.getGame().getCurrentPassage());
 
-    borderPane.getStyleClass().add("playGameView-root");
+    borderPane.getStyleClass().add("view-background");
     root.getChildren().addAll(contentWithCharacter);
 
   }
@@ -148,9 +159,9 @@ public class GameView extends View {
       Player player = playerViewController.getPlayer();
 
       if (gameViewController.getGame().getCurrentPassage().getListOfLinks().isEmpty()) {
-        btnHome.setVisible(false);
+        soundPlayer.stopPlaying();
         createEndGameButtons();
-        content.getChildren().addAll(btnReturnHome, btnRestartGame);
+        content.getChildren().addAll(btnRestartGame);
       } else {
         gameViewController.getGame().getCurrentPassage().getListOfLinks().forEach(link -> {
           Button btnLink = new Button(link.getText());
@@ -160,8 +171,11 @@ public class GameView extends View {
             btnLink.setText(link.getText() + " (BROKEN)");
           } else {
             btnLink.setOnAction(e -> {
-              SoundPlayer soundPlayer = new SoundPlayer("/sound/armstrekkeren.wav");
-              soundPlayer.play();
+              try {
+                soundPlayer.playOnce("/sound/click.wav");
+              } catch (Exception ex) {
+                throw new RuntimeException(ex);
+              }
 
               for (Action action : link.getActions()) {
                 action.execute(player);
@@ -183,14 +197,6 @@ public class GameView extends View {
 
   public void createEndGameButtons() {
     try {
-      GameViewController gameViewController = GameViewController.getInstance();
-      btnReturnHome = new Button("Return to home");
-      btnReturnHome.setOnAction(e -> {
-        screenController.activate("homeView");
-        playerViewController.resetPlayer();
-        this.resetPane();
-      });
-
       btnRestartGame = new Button("Restart game");
       btnRestartGame.setOnAction(e -> {
         gameViewController.resetGame();
@@ -205,10 +211,9 @@ public class GameView extends View {
             gameViewController.checkIfInventoryGoalsAreFulfilled();
       });
 
-      btnRestartGame.getStyleClass().add("gameView-returnHome-button");
-      btnReturnHome.getStyleClass().add("gameView-returnHome-button");
+      btnRestartGame.getStyleClass().add("gameView-restartGame-button");
 
-      HBox endGameButtons = new HBox(10, btnReturnHome, btnRestartGame, didIWinButton);
+      HBox endGameButtons = new HBox(10, btnRestartGame, didIWinButton);
       endGameButtons.setAlignment(Pos.CENTER);
       content.getChildren().add(endGameButtons);
     }
@@ -266,7 +271,38 @@ public class GameView extends View {
 
     if (btnRestartGame != null) {
       content.getChildren().remove(btnRestartGame);
-      content.getChildren().remove(btnReturnHome);
     }
+  }
+  public VBox showHelpAlert() {
+    Image helpIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/helpbutton.png")));
+    ImageView helpView = new ImageView(helpIcon);
+    helpView.setFitHeight(50);
+    helpView.setFitWidth(50);
+    Button helpButton = new Button();
+    helpButton.setGraphic(helpView);
+    helpButton.getStyleClass().add("gameView-help-button");
+    helpButton.setOnAction(e -> {
+      soundPlayer.stopPlaying();
+      AlertUtil.showAlert(Alert.AlertType.INFORMATION, "How to play",
+              """
+                      - Start by choosing your character and set your desired health and gold.
+                      
+                      - The next page will take you to the page where you can decide whether you want\s
+                        to use the predefined goals of easy, normal and hard difficulty or if you want\s
+                        to play without goals our customize your own.
+                      
+                      - During the game your player information will be displayed at the top,\s
+                        with a progress bar that keeps track of how far you are from reaching your goals.\s
+                        
+                      - You will have several buttons to choose from, each button will take you further in the game.\s
+                        The buttons will be displayed in the middle of the screen.\s
+                        
+                      - If you want to return to the home screen, click on the home button.\s
+                        When the game is over you can choose to restart the game or click the\s
+                        home button to return to the home screen and choose another story.""");
+    });
+    VBox helpBox = new VBox(helpButton);
+    helpBox.setAlignment(Pos.TOP_LEFT);
+    return helpBox;
   }
 }

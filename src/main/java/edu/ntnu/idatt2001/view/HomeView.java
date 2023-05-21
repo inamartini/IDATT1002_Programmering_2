@@ -38,7 +38,7 @@ public class HomeView extends View {
 
     root.setBackground(new Background(background));
 
-    Text title = new Text("Welcome to the Troll Game!");
+    Text title = new Text("Paths");
     title.getStyleClass().add("title");
     title.getStyleClass().add("homeView-title");
 

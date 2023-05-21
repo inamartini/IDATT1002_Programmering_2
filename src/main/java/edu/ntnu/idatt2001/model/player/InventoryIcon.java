@@ -29,6 +29,7 @@ public class InventoryIcon {
         case SWORD -> inventoryIcons.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/sword.png"))));
         case SHIELD -> inventoryIcons.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/shield.png"))));
         case POTION -> inventoryIcons.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/potion.png"))));
+        case COMPUTER -> inventoryIcons.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/computer.png"))));
       }
     } catch (Exception e) {
         throw new IllegalArgumentException("Failed to set inventory icon");

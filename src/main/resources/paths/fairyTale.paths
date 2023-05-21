@@ -2,8 +2,8 @@ FairyTale
 
 ::Haunted Forest
 You find yourself in a haunted forest, surrounded by ancient trees and eerie silence. There are two paths ahead of you, one covered in mist, leading to a mysterious castle, and the other filled with thorns, leading to a hidden cottage. Which path do you choose?
-[Misty Path](Misty Path)[{Inventory}(bucket){Inventory}(Potion)]
-[Thorny Path](Thorny Path)
+[Misty Path](Misty Path)[{Inventory}(bucket){Inventory}(Shield)]
+[Thorny Path](Thorny Path){Inventory}(Potion)
 
 ::Misty Path
 You bravely follow the misty path that leads you to a mysterious castle. As you enter, you encounter a ghostly figure. Do you greet the ghost or try to avoid it?
@@ -12,31 +12,45 @@ You bravely follow the misty path that leads you to a mysterious castle. As you 
 
 ::Thorny Path
 You carefully navigate through the thorny path, eventually reaching a hidden cottage. Inside, you discover a friendly witch. She offers you a magical potion. Will you drink it or politely decline?
-[Drink](Drink the potion)[{Health}(-1)]
-[Decline](Decline the potion)
+[Drink](Drink the potion)[{Health}(10)]
+[Decline](Decline the potion){Inventory}(Sword)
 
 ::Greet the ghost
 You greet the ghost with a warm smile. Surprisingly, the ghost turns out to be a kind spirit who offers you valuable guidance. Together, you embark on a quest to break the curse that haunts the forest.
+[Continue](Continue the adventure){Score}(100)
 
 ::Avoid the ghost
 You decide to avoid the ghost and continue exploring the castle. As you wander deeper, you stumble upon a hidden treasure chest. Do you open it or leave it untouched?
-[Open](Open the chest)[{Gold}(200)]
+[Open](Open the chest)[{Gold}(200){Health}(3)]
 [Leave](Leave the chest)
 
 ::Drink the potion
 You trust the friendly witch and drink the magical potion. Instantly, you feel a surge of power and transform into a mythical creature. With your newfound abilities, you embark on an extraordinary adventure.
+[Continue](Continue the adventure){Gold}(4)
+
+::Continue the adventure
+The adventure takes you to a magical realm where you encounter a ferocious troll. Do you fight the troll or try to reason with it?
+[Fight](Fight the troll){Score}(30)
+[Run away](Run away from the troll)
+
+::Fight the troll
+You bravely fight the troll, but it is too powerful. You are defeated. You failed your quest.
+
+::Run away from the troll
+You run away from the troll and find a hidden passage that leads you closer to breaking the curse.
+[Continue](Congratulations!){Score}(50)
 
 ::Decline the potion
-You politely decline the witch's offer, thanking her for her kindness. She understands your decision and offers you a magical amulet for protection. Grateful, you continue your journey.
+You politely decline the witch's offer, thanking her for her kindness. She understands your decision and offers you a sword for protection. You are still alive.
+[Continue](Continue the adventure){Inventory}(Shield)
 
 ::Open the chest
 You open the treasure chest and discover a magical amulet. As you wear it, you feel a surge of positive energy and protection. This amulet will aid you on your quest to bring harmony to the haunted forest.
+[Go back outside](Congratulations!)
 
 ::Leave the chest
 You resist the temptation to open the treasure chest and proceed with caution. Wise choices guide you through the castle's challenges, and you find a hidden passage that leads you closer to breaking the curse.
+[Continue](Congratulations!)
 
 ::Congratulations!
 Through courage, compassion, and wise decisions, you successfully break the curse that haunted the forest. The land transforms into a realm of enchantment and beauty, and you are hailed as a hero, living happily ever after.
-
-::The End
-Your fairytale adventure concludes, but the memories of your journey and the lessons you learned will forever resonate in your heart.
