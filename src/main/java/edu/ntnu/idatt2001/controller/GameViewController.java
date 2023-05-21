@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -131,6 +133,8 @@ public class GameViewController {
         inventoryIcon.setInventoryIcon(InventoryType.SWORD);
       } else if (inventory.equalsIgnoreCase(InventoryType.POTION.toString())) {
         inventoryIcon.setInventoryIcon(InventoryType.POTION);
+      } else if (inventory.equalsIgnoreCase(InventoryType.COMPUTER.toString())) {
+        inventoryIcon.setInventoryIcon(InventoryType.COMPUTER);
       } else {
         inventoryList.add(inventory);
       }
@@ -185,19 +189,22 @@ public class GameViewController {
 
     Label goalLabel = new Label("Goals");
     goalStatus.getChildren().add(goalLabel);
-    goalLabel.setAlignment(Pos.CENTER);
+    goalLabel.setAlignment(Pos.CENTER_LEFT);
 
     for (Goal goal : game.getGoals()) {
       HBox goalBox = new HBox();
-        goalBox.setSpacing(10);
-        goalBox.setAlignment(Pos.CENTER_RIGHT);
+      goalBox.setSpacing(10);
+      goalBox.setAlignment(Pos.CENTER_RIGHT);  // Align the goalBox to the right
+
       Label goalName = new Label(goal.toString());
+      goalName.setAlignment(Pos.CENTER_LEFT);  // Align the goalName label to the left
+
       ProgressBar goalProgress = new ProgressBar();
       goalProgress.setProgress(0.0);
       goalProgress.getStyleClass().add("progress-bar");
       double progress = 0.0;
 
-      if(goal.getClass() == InventoryGoal.class) {
+      if (goal.getClass() == InventoryGoal.class) {
         progress = checkIfInventoryGoalsAreFulfilled();
       } else if (goal.getClass() == GoldGoal.class) {
         progress = (double) player.getGold() / ((GoldGoal) goal).getMinimumGold();
@@ -206,16 +213,25 @@ public class GameViewController {
       } else if (goal.getClass() == HealthGoal.class) {
         progress = (double) player.getHealth() / ((HealthGoal) goal).getMinimumHealth();
       }
-      if(progress != 0.0) {
+
+      if (progress != 0.0) {
         goalProgress.setProgress(progress);
       } else {
         goalProgress.setProgress(0.0);
       }
-      goalBox.getChildren().addAll(goalName, goalProgress);
+
+      // Use a spacer to align the goalProgress to the right
+      Region spacer = new Region();
+      HBox.setHgrow(spacer, Priority.ALWAYS);
+
+      goalBox.getChildren().addAll(goalName, spacer, goalProgress);
       goalStatus.getChildren().add(goalBox);
     }
+
     return goalStatus;
   }
+
+
 
   public void checkIfAllGoalsAreFulfilled() {
     if (game.getGoals().stream().allMatch(goal -> goal.isFulfilled(player))) {
@@ -226,13 +242,9 @@ public class GameViewController {
   }
 
   public double checkIfInventoryGoalsAreFulfilled() {
-    double total = game.getGoals().stream()
+    return game.getGoals().stream()
             .filter(goal -> goal instanceof InventoryGoal)
             .mapToDouble(goal -> goal.isFulfilled(player) ? 1.0 : 0.0)
             .sum();
-
-    return total;
   }
-
-
 }

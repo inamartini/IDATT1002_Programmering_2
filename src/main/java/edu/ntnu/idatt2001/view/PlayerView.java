@@ -1,11 +1,10 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.model.Story;
+
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.PlayerViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
-import edu.ntnu.idatt2001.model.goal.Goal;
-import edu.ntnu.idatt2001.model.goal.ScoreGoal;
+import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,8 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 
 public class PlayerView extends View {
@@ -49,10 +47,19 @@ public class PlayerView extends View {
     Image princeImage = new Image("images/prince.png");
 
     playerImageView = new ImageView();
+    playerImageView.setFitHeight(120);
+    playerImageView.setFitWidth(150);
 
     playerImageView.setImage(princessImage);
 
-    Button btnLastPlayer = new Button("back");
+
+    Image leftArrowIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/left.png")));
+    ImageView leftArrow = new ImageView(leftArrowIcon);
+    leftArrow.setFitHeight(30);
+    leftArrow.setFitWidth(30);
+    Button btnLastPlayer = new Button();
+    btnLastPlayer.setGraphic(leftArrow);
+    btnLastPlayer.getStyleClass().add("playerView-player-button");
     btnLastPlayer.setOnAction(e -> {
       if (playerImageView.getImage() == princessImage) {
         playerImageView.setImage(princeImage);
@@ -61,9 +68,13 @@ public class PlayerView extends View {
       }
     });
 
-    btnLastPlayer.getStyleClass().add("playerView-player-button");
-
-    Button btnNextPlayer = new Button("next");
+    Image rightArrowIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/right.png")));
+    ImageView rightArrow = new ImageView(rightArrowIcon);
+    rightArrow.setFitHeight(30);
+    rightArrow.setFitWidth(30);
+    Button btnNextPlayer = new Button();
+    btnNextPlayer.setGraphic(rightArrow);
+    btnNextPlayer.getStyleClass().add("playerView-player-button");
     btnNextPlayer.setOnAction(e -> {
       if (playerImageView.getImage() == princessImage) {
         playerImageView.setImage(princeImage);
@@ -71,8 +82,6 @@ public class PlayerView extends View {
         playerImageView.setImage(princessImage);
       }
     });
-
-    btnNextPlayer.getStyleClass().add("playerView-player-button");
 
     HBox characterBox = new HBox(10, btnLastPlayer, playerImageView, btnNextPlayer);
     characterBox.setAlignment(Pos.CENTER);
@@ -86,14 +95,13 @@ public class PlayerView extends View {
 
     Text health = new Text("Health: ");
     health.getStyleClass().add("playerView-slider-text");
-    Text playerHealth = new Text("0");
+    Text playerHealth = new Text("1");
 
     Slider healthSlider = new Slider();
-    healthSlider.setMin(0);
+    healthSlider.setMin(1);
     healthSlider.setMax(10);
     healthSlider.setShowTickLabels(true);
     healthSlider.setShowTickMarks(true);
-    healthSlider.setMajorTickUnit(5);
     healthSlider.setBlockIncrement(1);
     healthSlider.setPrefWidth(150);
     healthSlider.setValue(0);
@@ -143,8 +151,8 @@ public class PlayerView extends View {
     Button btnCreatePlayer = new Button("Create player");
     btnCreatePlayer.setOnAction(e -> {
       if (nameField.getText().isEmpty()) {
-        createAlert("Invalid input", "Name field is empty",
-                "Please enter a name to create a player");
+        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Information",
+                "Name field is empty. Please enter a name to create a player.");
       } else {
         playerViewController.setPlayerImage(playerImageView.getImage());
         playerViewController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
@@ -156,23 +164,22 @@ public class PlayerView extends View {
     VBox createPlayerBox = new VBox(10, btnCreatePlayer);
     createPlayerBox.setAlignment(Pos.CENTER);
 
-    Button btnGoBack = new Button("GO BACK");
-    btnGoBack.getStyleClass().add("playerView-goBack-button");
+
+    Image goBackIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backbutton.png")));
+    ImageView back = new ImageView(goBackIcon);
+    back.setFitHeight(50);
+    back.setFitWidth(50);
+    Button btnGoBack = new Button();
+    btnGoBack.setGraphic(back);
+    btnGoBack.getStyleClass().add("goBack-button");
     btnGoBack.setOnAction(e -> screenController.activate("loadGameView"));
 
     VBox content = new VBox(10, title, characterBox, playerDetails, createPlayerBox);
     content.setAlignment(Pos.CENTER);
 
     borderPane.setTop(btnGoBack);
+    borderPane.getStyleClass().add("view-background");
     root.getChildren().addAll(content);
-  }
-
-  public void createAlert(String title, String headerText, String contentText) {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle(title);
-    alert.setHeaderText(headerText);
-    alert.setContentText(contentText);
-    alert.showAndWait();
   }
 
   protected void resetPane() {

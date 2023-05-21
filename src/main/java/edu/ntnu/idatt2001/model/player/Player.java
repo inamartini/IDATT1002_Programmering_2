@@ -47,8 +47,8 @@ public class Player {
    * @param health The health to add to the player.
    */
   public void addHealth(int health) {
-    if (health < 0) {
-      throw new IllegalArgumentException("Health can't be negative");
+    if (health <= 0) {
+      throw new IllegalArgumentException("Health can't be negative or zero");
     }
     this.health += health;
   }
