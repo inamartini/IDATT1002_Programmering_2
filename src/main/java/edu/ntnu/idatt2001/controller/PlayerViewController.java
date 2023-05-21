@@ -1,14 +1,24 @@
 package edu.ntnu.idatt2001.controller;
 
-import edu.ntnu.idatt2001.base.Player;
-import edu.ntnu.idatt2001.base.PlayerBuilder;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.model.player.PlayerBuilder;
 import javafx.scene.image.Image;
 
+/**
+ * Class that handles the player view
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.MM.DD
+ *
+ */
 public class PlayerViewController {
 
   private static PlayerViewController playerViewController = new PlayerViewController();
   private Image playerImage;
   private Player player;
+  private String initialPlayerName;
+  private int initialPlayerHealth;
+  private int initialPlayerGold;
 
 
   /**
@@ -71,6 +81,10 @@ public class PlayerViewController {
    * @return the player
    */
   public Player createPlayer(String playerName,int playerHealth, int playerGold) {
+    this.initialPlayerName = playerName;
+    this.initialPlayerHealth = playerHealth;
+    this.initialPlayerGold = playerGold;
+
     this.player= new PlayerBuilder(playerName)
             .health(playerHealth)
             .gold(playerGold)
@@ -82,7 +96,10 @@ public class PlayerViewController {
    * Resets the player
    */
   public void resetPlayer() {
-    this.player = null;
+    this.player = new PlayerBuilder(initialPlayerName)
+            .health(initialPlayerHealth)
+            .gold(initialPlayerGold)
+            .build();
   }
 
 }

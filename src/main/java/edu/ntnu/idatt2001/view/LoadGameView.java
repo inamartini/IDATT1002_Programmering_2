@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.Story;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.LoadGameViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
@@ -32,7 +32,7 @@ public class LoadGameView extends View {
         borderPane.setCenter(root);
     }
     public Pane getPane() {
-        return this.root;
+        return this.borderPane;
     }
 
     public void setUp() {
@@ -46,7 +46,7 @@ public class LoadGameView extends View {
         title.getStyleClass().add("title");
         title.getStyleClass().add("loadGameView-title");
         Button uploadFileButton = new Button("Upload file");
-        uploadFileButton.getStyleClass().add("homeView-button");
+        uploadFileButton.getStyleClass().add("loadGameView-loadGameButton");
         uploadFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
@@ -123,7 +123,13 @@ public class LoadGameView extends View {
         fileLocationColumn.getStyleClass().add("table-view");
 
         TableColumn<File, String> brokenLinks = new TableColumn<>("Broken links");
-        brokenLinks.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(loadGameViewController.getBrokenLinksAsString(cellData.getValue())));
+        brokenLinks.setCellValueFactory(cellData -> {
+            try {
+                return new ReadOnlyStringWrapper(loadGameViewController.getBrokenLinksAsString(cellData.getValue()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         brokenLinks.setMinWidth(133);
         brokenLinks.getStyleClass().add("table-view");
 
