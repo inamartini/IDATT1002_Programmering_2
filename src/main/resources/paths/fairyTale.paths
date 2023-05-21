@@ -2,7 +2,7 @@ FairyTale
 
 ::Haunted Forest
 You find yourself in a haunted forest, surrounded by ancient trees and eerie silence. There are two paths ahead of you, one covered in mist, leading to a mysterious castle, and the other filled with thorns, leading to a hidden cottage. Which path do you choose?
-[Misty Path](Misty Path)[{Inventory}(Mordi){Inventory}(Potion)]
+[Misty Path](Misty Path)[{Inventory}(bucket){Inventory}(Potion)]
 [Thorny Path](Thorny Path)
 
 ::Misty Path
@@ -12,7 +12,7 @@ You bravely follow the misty path that leads you to a mysterious castle. As you 
 
 ::Thorny Path
 You carefully navigate through the thorny path, eventually reaching a hidden cottage. Inside, you discover a friendly witch. She offers you a magical potion. Will you drink it or politely decline?
-[Drink](Drink the potion)
+[Drink](Drink the potion)[{Health}(-1)]
 [Decline](Decline the potion)
 
 ::Greet the ghost
@@ -20,7 +20,7 @@ You greet the ghost with a warm smile. Surprisingly, the ghost turns out to be a
 
 ::Avoid the ghost
 You decide to avoid the ghost and continue exploring the castle. As you wander deeper, you stumble upon a hidden treasure chest. Do you open it or leave it untouched?
-[Open](Open the chest)
+[Open](Open the chest)[{Gold}(200)]
 [Leave](Leave the chest)
 
 ::Drink the potion
