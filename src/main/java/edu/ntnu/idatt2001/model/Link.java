@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
-import edu.ntnu.idatt2001.action.Action;
+import edu.ntnu.idatt2001.model.action.Action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,11 @@ public class Link {
    */
   public void addAction(Action action) {
     if (actionIsValid(action)) {
+      try {
       this.actions.add(action);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("The action cannot be blank.");
+        }
     }
   }
 
@@ -75,7 +79,7 @@ public class Link {
    */
   public boolean actionIsValid(Action action) {
     if (action == null) {
-      throw new IllegalArgumentException("The action cannot be blank. Enter action.");
+      throw new IllegalArgumentException("The action cannot be blank.");
     } else {
       return true;
     }

@@ -17,6 +17,7 @@ public class PathsApp extends Application {
   private LoadGameView loadGameView = new LoadGameView(screenController);
   private PlayerView playerView = new PlayerView(screenController);
   private GameView gameView = new GameView(screenController);
+  private GoalsView goalsView = new GoalsView(screenController);
   public static Stage primaryStage;
 
   @Override
@@ -28,6 +29,7 @@ public class PathsApp extends Application {
     screenController.addScreen("loadGameView", loadGameView);
     screenController.addScreen("playerView", playerView);
     screenController.addScreen("gameView", gameView);
+    screenController.addScreen("goalView", goalsView);
 
     primaryStage.setWidth(800);
     primaryStage.setHeight(500);

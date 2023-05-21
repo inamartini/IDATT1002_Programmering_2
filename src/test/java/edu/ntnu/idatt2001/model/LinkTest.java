@@ -1,7 +1,7 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
-import edu.ntnu.idatt2001.action.GoldAction;
-import edu.ntnu.idatt2001.action.HealthAction;
+import edu.ntnu.idatt2001.model.action.GoldAction;
+import edu.ntnu.idatt2001.model.action.HealthAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

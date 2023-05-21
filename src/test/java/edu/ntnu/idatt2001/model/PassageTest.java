@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
