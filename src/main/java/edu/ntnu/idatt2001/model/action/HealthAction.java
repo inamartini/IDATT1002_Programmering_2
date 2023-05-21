@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.action;
+package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * HealthAction is a class that represents an action that adds health to a player.
@@ -36,7 +38,11 @@ public class HealthAction implements Action {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
-        player.addHealth(points);
+        try {
+            player.addHealth(points);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to execute health action with given parameters");
+        }
     }
 
     @Override

@@ -3,8 +3,9 @@ package edu.ntnu.idatt2001.action;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import edu.ntnu.idatt2001.base.Player;
-import edu.ntnu.idatt2001.base.PlayerBuilder;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.model.player.PlayerBuilder;
+import edu.ntnu.idatt2001.model.action.HealthAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

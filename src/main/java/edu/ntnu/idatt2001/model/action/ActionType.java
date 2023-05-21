@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.action;
+package edu.ntnu.idatt2001.model.action;
 
 /**
  * Enum that represents the different types of actions that can be done by a player.

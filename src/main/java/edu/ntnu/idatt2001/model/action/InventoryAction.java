@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.action;
+package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * InventoryAction is a class that adds an item to the player's inventory.
@@ -42,7 +44,11 @@ public class InventoryAction implements Action {
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null");
         } else {
-            player.addToInventory(item);
+            try {
+                player.addToInventory(item);
+            } catch (IllegalArgumentException e) {
+               throw new IllegalArgumentException("Failed to execute inventory action with given parameters");
+            }
         }
     }
     @Override

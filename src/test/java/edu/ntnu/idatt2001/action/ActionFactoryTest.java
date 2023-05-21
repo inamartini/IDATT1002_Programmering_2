@@ -1,7 +1,10 @@
 package edu.ntnu.idatt2001.action;
 
-import edu.ntnu.idatt2001.base.Player;
-import edu.ntnu.idatt2001.base.PlayerBuilder;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
+import edu.ntnu.idatt2001.model.action.GoldAction;
+import edu.ntnu.idatt2001.model.action.HealthAction;
+import edu.ntnu.idatt2001.model.action.ScoreAction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

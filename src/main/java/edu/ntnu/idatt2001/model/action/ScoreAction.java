@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.action;
+package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * ScoreAction is an action that adds a certain amount of points to the player's score.
@@ -39,7 +41,11 @@ public class ScoreAction implements Action {
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null");
         }
-        player.addScore(points);
+        try {
+            player.addScore(points);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to execute score action with given parameters");
+        }
     }
     @Override
     public String toString() {
