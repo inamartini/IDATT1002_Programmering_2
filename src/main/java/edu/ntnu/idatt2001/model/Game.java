@@ -1,6 +1,7 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
-import edu.ntnu.idatt2001.goal.Goal;
+import edu.ntnu.idatt2001.model.goal.Goal;
+import edu.ntnu.idatt2001.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,9 @@ public class Game {
    * @param currentPassage The current passage of the game.
    */
   public Passage setCurrentPassage(Passage currentPassage) {
+    if (currentPassage == null) {
+      throw new IllegalArgumentException("Current passage can't be null");
+    }
     return this.currentPassage = currentPassage;
   }
 
@@ -107,6 +111,10 @@ public class Game {
     if (link == null) {
       throw new IllegalArgumentException("Link can't be null");
     }
-    return story.getPassage(link);
+    try {
+      return story.getPassage(link);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Link is not valid");
+    }
   }
 }

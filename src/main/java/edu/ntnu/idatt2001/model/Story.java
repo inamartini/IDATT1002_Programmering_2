@@ -1,7 +1,4 @@
-package edu.ntnu.idatt2001.base;
-
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
+package edu.ntnu.idatt2001.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,7 +37,11 @@ public class Story {
     this.title = title;
     this.openingPassage = openingPassage;
     this.passages = new HashMap<>();
-    this.addPassage(openingPassage);
+    try {
+      this.addPassage(openingPassage);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Failed to add opening passage to story");
+    }
   }
 
   /**

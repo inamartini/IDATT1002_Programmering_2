@@ -1,12 +1,11 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.model.player.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

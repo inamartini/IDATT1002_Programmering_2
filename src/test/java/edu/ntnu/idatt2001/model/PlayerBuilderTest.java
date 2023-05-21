@@ -1,7 +1,8 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model;
 
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.model.player.PlayerBuilder;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

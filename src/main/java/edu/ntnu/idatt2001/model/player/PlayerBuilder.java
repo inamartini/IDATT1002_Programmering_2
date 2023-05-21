@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model.player;
 
 import java.util.List;
 

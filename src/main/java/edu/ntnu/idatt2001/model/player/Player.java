@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.base;
+package edu.ntnu.idatt2001.model.player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +86,9 @@ public class Player {
    * @param gold The gold to add to the player.
    */
   public void addGold(int gold) {
+    if (gold < 0) {
+      throw new IllegalArgumentException("Gold can't be negative");
+    }
     this.gold += gold;
   }
 
