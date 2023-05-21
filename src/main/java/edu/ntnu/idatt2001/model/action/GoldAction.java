@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.action;
+package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * GoldAction is a class that represents an action that adds gold to a player.
@@ -44,7 +46,11 @@ C     * @throws IllegalArgumentException if the player parameter is null
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null");
         }
-        player.addGold(gold);
+        try {
+            player.addGold(gold);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to execute gold action with given parameters");
+        }
     }
 
     @Override
