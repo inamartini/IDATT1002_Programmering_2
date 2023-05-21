@@ -271,6 +271,22 @@
     -fx-text-fill: #faa73c;
 }
 
+.goalsView-goalValue {
+    -fx-font-size: 16px;
+    -fx-fill: #F28482;
+    -fx-font-family: Arial;
+    -fx-padding: 15px;
+}
+
+.progress-bar .track {
+    -fx-background-color: #FFF2F1;
+    -fx-padding: 10px;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #F28482;
+}
+
 
 
 
