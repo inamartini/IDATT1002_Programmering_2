@@ -46,6 +46,7 @@ public class GameView extends View {
   private VBox goalsBox;
   private Pane imageWrapper;
   private PlayerViewController playerViewController = PlayerViewController.getInstance();
+  private Button didIWinButton;
 
   public GameView(ScreenController screenController) {
     this.root = new StackPane();
@@ -198,10 +199,16 @@ public class GameView extends View {
         screenController.activate("gameView");
       });
 
+      didIWinButton = new Button("Did I win?");
+        didIWinButton.setOnAction(e -> {
+            gameViewController.checkIfAllGoalsAreFulfilled();
+            gameViewController.checkIfInventoryGoalsAreFulfilled();
+      });
+
       btnRestartGame.getStyleClass().add("gameView-returnHome-button");
       btnReturnHome.getStyleClass().add("gameView-returnHome-button");
 
-      HBox endGameButtons = new HBox(10, btnReturnHome, btnRestartGame);
+      HBox endGameButtons = new HBox(10, btnReturnHome, btnRestartGame, didIWinButton);
       endGameButtons.setAlignment(Pos.CENTER);
       content.getChildren().add(endGameButtons);
     }
