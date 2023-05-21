@@ -11,6 +11,7 @@ import edu.ntnu.idatt2001.model.goal.ScoreGoal;
 import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import edu.ntnu.idatt2001.util.StoryReader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -161,6 +162,10 @@ public class GameViewController {
     inventoryIcon.getInventoryIcons().clear();
   }
 
+  public void resetInventoryList() {
+    inventoryList.clear();
+  }
+
   /**
    * Method that resets game
    */
@@ -173,7 +178,6 @@ public class GameViewController {
    * Method that returns a VBox with the goal status of the player
    * @return a VBox with the goal status of the player
    */
-
   public VBox goalStatus() {
     player = playerViewController.getPlayer();
     VBox goalStatus = new VBox();

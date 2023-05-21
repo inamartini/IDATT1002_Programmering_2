@@ -8,6 +8,7 @@ import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
+import edu.ntnu.idatt2001.util.SoundPlayer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -110,7 +111,7 @@ public class GameView extends View {
     refreshLabel();
 
     imageWrapper = new Pane();
-    imageWrapper.getChildren().add(inventoryImage);
+    imageWrapper.getChildren().add(inventoryBox);
     imageWrapper.setPrefWidth(150);
     imageWrapper.setPrefHeight(150);
 
@@ -158,8 +159,8 @@ public class GameView extends View {
             btnLink.setText(link.getText() + " (BROKEN)");
           } else {
             btnLink.setOnAction(e -> {
-              /*SoundPlayer soundPlayer = new SoundPlayer("/sound/armstrekkeren.wav");
-              soundPlayer.play();*/
+              SoundPlayer soundPlayer = new SoundPlayer("/sound/armstrekkeren.wav");
+              soundPlayer.play();
 
               for (Action action : link.getActions()) {
                 action.execute(player);
@@ -214,9 +215,11 @@ public class GameView extends View {
 
     playerText.setText("Name: " + playerViewController.getPlayer().getName()
             + "\nHealth: " + playerViewController.getPlayer().getHealth()
+            + "\nScore: " + playerViewController.getPlayer().getScore()
             + "\nGold: " + playerViewController.getPlayer().getGold());
 
     gameViewController.resetInventoryImages();
+    gameViewController.resetInventoryList();
 
 
     for (String item : playerViewController.getPlayer().getInventory()) {
