@@ -6,16 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.List;
 
-import edu.ntnu.idatt2001.action.Action;
-import edu.ntnu.idatt2001.action.ActionFactory;
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
-import edu.ntnu.idatt2001.base.Player;
-import edu.ntnu.idatt2001.base.PlayerBuilder;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Passage;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.model.player.PlayerBuilder;
+import edu.ntnu.idatt2001.model.Story;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -100,7 +98,7 @@ public class StoryWriterTest {
         }
 
         @Test
-        @DisplayName("IllegalArgumentException is thrown if file is not a test1.paths file")
+        @DisplayName("IllegalArgumentException is thrown if file is not a .paths file")
         void shouldThrowIllegalArgumentExceptionIfFileIsNotAPathsFile() {
             assertThrows(IllegalArgumentException.class,
                     () -> StoryWriter.writeStoryToFile(story, "src/test/resources/test.txt"));

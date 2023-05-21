@@ -1,8 +1,7 @@
 package edu.ntnu.idatt2001.util;
 
-import edu.ntnu.idatt2001.action.ActionType;
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Story;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

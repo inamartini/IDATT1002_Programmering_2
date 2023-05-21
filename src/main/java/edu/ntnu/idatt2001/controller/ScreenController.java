@@ -18,11 +18,17 @@ public class ScreenController {
   }
 
   public void addScreen(String name, View view) {
+    if(name == null || view == null) {
+      throw new IllegalArgumentException("Name or view cannot be null");
+    }
     screenMap.put(name, view.getPane());
     viewMap.put(name, view);
   }
 
   public void activate(String name) {
+    if(name == null) {
+      throw new IllegalArgumentException("Name cannot be null");
+    }
     viewMap.get(name).setUp();
     currentScene.setRoot(screenMap.get(name));
 
