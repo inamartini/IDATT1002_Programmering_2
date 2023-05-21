@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
 
 /**
  * The Goal interface represents a goal that can be fulfilled by a player.
@@ -19,4 +19,10 @@ public interface Goal {
      * @return true if the goal is fulfilled, false otherwise
      */
     boolean isFulfilled(Player player);
+
+    /**
+     * ToString method for the goal.
+     */
+    @Override
+    String toString();
 }

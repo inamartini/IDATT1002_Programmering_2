@@ -1,12 +1,12 @@
 package edu.ntnu.idatt2001.goal;
 
 
-import edu.ntnu.idatt2001.action.Action;
-import edu.ntnu.idatt2001.action.ActionFactory;
-import edu.ntnu.idatt2001.action.GoldAction;
-import edu.ntnu.idatt2001.action.HealthAction;
-import edu.ntnu.idatt2001.action.InventoryAction;
-import edu.ntnu.idatt2001.action.ScoreAction;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
+import edu.ntnu.idatt2001.model.action.GoldAction;
+import edu.ntnu.idatt2001.model.action.HealthAction;
+import edu.ntnu.idatt2001.model.action.InventoryAction;
+import edu.ntnu.idatt2001.model.action.ScoreAction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

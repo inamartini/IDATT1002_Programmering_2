@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 import java.util.List;
 
@@ -31,6 +33,14 @@ public class InventoryGoal implements Goal {
         }
         this.mandatoryItems = mandatoryItems;
     }
+
+    /**
+     * Returns the list of mandatory items required to fulfill the goal.
+     * @return the list of mandatory items required to fulfill the goal
+     */
+    public List<String> getMandatoryItems() {
+        return mandatoryItems;
+    }
     /**
      * Determines if the inventory goal is fulfilled by the given player.
      * The goal is considered fulfilled if the player has all the mandatory items in their inventory.
@@ -44,6 +54,18 @@ public class InventoryGoal implements Goal {
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null");
         }
-        return player.getInventory().equals(mandatoryItems);
+        try {
+            return player.getInventory().equals(mandatoryItems);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to retrieve inventory from player");
+        }
+    }
+
+    /**
+     * ToString method for the goal.
+     */
+    @Override
+    public String toString() {
+        return "Inventory goal: " + mandatoryItems;
     }
 }
