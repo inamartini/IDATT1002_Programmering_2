@@ -181,12 +181,16 @@ public class GameViewController {
   public VBox goalStatus() {
     player = playerViewController.getPlayer();
     VBox goalStatus = new VBox();
+    goalStatus.setSpacing(5);
 
     Label goalLabel = new Label("Goals");
     goalStatus.getChildren().add(goalLabel);
+    goalLabel.setAlignment(Pos.CENTER);
 
     for (Goal goal : game.getGoals()) {
       HBox goalBox = new HBox();
+        goalBox.setSpacing(10);
+        goalBox.setAlignment(Pos.CENTER_RIGHT);
       Label goalName = new Label(goal.toString());
       ProgressBar goalProgress = new ProgressBar();
       goalProgress.setProgress(0.0);
@@ -194,7 +198,7 @@ public class GameViewController {
       double progress = 0.0;
 
       if(goal.getClass() == InventoryGoal.class) {
-        progress = (double) player.getInventory().size() / ((InventoryGoal) goal).getMandatoryItems().size();
+        progress = checkIfInventoryGoalsAreFulfilled();
       } else if (goal.getClass() == GoldGoal.class) {
         progress = (double) player.getGold() / ((GoldGoal) goal).getMinimumGold();
       } else if (goal.getClass() == ScoreGoal.class) {
@@ -212,4 +216,23 @@ public class GameViewController {
     }
     return goalStatus;
   }
+
+  public void checkIfAllGoalsAreFulfilled() {
+    if (game.getGoals().stream().allMatch(goal -> goal.isFulfilled(player))) {
+      System.out.println("You won!");
+    } else {
+      System.out.println("You lost!");
+    }
+  }
+
+  public double checkIfInventoryGoalsAreFulfilled() {
+    double total = game.getGoals().stream()
+            .filter(goal -> goal instanceof InventoryGoal)
+            .mapToDouble(goal -> goal.isFulfilled(player) ? 1.0 : 0.0)
+            .sum();
+
+    return total;
+  }
+
+
 }

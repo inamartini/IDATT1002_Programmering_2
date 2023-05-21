@@ -55,7 +55,7 @@ public class InventoryGoal implements Goal {
             throw new IllegalArgumentException("Player can't be null");
         }
         try {
-            return player.getInventory().equals(mandatoryItems);
+            return player.getInventory().containsAll(mandatoryItems);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to retrieve inventory from player");
         }
