@@ -1,8 +1,7 @@
 package edu.ntnu.idatt2001.controller;
 
-import edu.ntnu.idatt2001.base.Game;
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Story;
 import edu.ntnu.idatt2001.util.StoryReader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -98,18 +96,26 @@ public class LoadGameViewController {
         files.addAll(fileNames);
         return files;
     }
-    public String getBrokenLinksAsString(File file) {
-        Story story = loadGame(file);
-
-        List<Link> brokenLinks = null;
-
-        if(story != null) {
-            brokenLinks = story.getBrokenLinks();
+    public String getBrokenLinksAsString(File file) throws Exception {
+        if(file == null) {
+            throw new IllegalArgumentException("File cannot be null.");
         }
-        if(brokenLinks != null && brokenLinks.size() > 0) {
-            return brokenLinks.stream().map(Link::getText).collect(Collectors.joining(", "));
-        } else {
-            return "No broken links.";
+
+        try {
+            Story story = loadGame(file);
+
+            List<Link> brokenLinks = null;
+
+            if (story != null) {
+                brokenLinks = story.getBrokenLinks();
+            }
+            if (brokenLinks != null && brokenLinks.size() > 0) {
+                return brokenLinks.stream().map(Link::getText).collect(Collectors.joining(", "));
+            } else {
+                return "No broken links.";
+            }
+        } catch (Exception e) {
+            throw new Exception("File is not valid.");
         }
     }
 }

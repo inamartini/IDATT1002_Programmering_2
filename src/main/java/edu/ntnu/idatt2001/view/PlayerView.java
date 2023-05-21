@@ -1,12 +1,11 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.base.Game;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.Story;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.PlayerViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
-import edu.ntnu.idatt2001.goal.Goal;
-import edu.ntnu.idatt2001.goal.ScoreGoal;
+import edu.ntnu.idatt2001.model.goal.Goal;
+import edu.ntnu.idatt2001.model.goal.ScoreGoal;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -164,8 +163,8 @@ public class PlayerView extends View {
         Story story = gameViewController.getStory();
         List<Goal> goals = new ArrayList<>();
         goals.add(new ScoreGoal(100));
-        gameViewController.setGame(new Game(playerViewController.getPlayer(), story, goals));
-        screenController.activate("gameView");
+        //gameViewController.setGame(new Game(playerViewController.getPlayer(), story, goals));
+        screenController.activate("goalView");
       }
     });
     btnCreatePlayer.getStyleClass().add("playerView-create-button");

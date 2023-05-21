@@ -1,12 +1,15 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.action.Action;
-import edu.ntnu.idatt2001.base.Game;
-import edu.ntnu.idatt2001.base.Passage;
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.controller.PlayerViewController;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.Game;
+import edu.ntnu.idatt2001.model.Passage;
+import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
+import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -16,6 +19,13 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 
+/** Class of the game view
+ *
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.MM.DD
+ *
+ */
 public class GameView extends View {
 
   private StackPane root;
@@ -31,7 +41,10 @@ public class GameView extends View {
   private GameViewController gameViewController = GameViewController.getInstance();
   private Label playerText;
   private ImageView inventoryImage;
-  private VBox inventoryBox;
+  private HBox inventoryBox;
+  private VBox goalsBox;
+  private Pane imageWrapper;
+  private PlayerViewController playerViewController = PlayerViewController.getInstance();
 
   public GameView(ScreenController screenController) {
     this.root = new StackPane();
@@ -63,7 +76,7 @@ public class GameView extends View {
     content = new VBox(10, storyTitleText, passageTitleText, textArea);
     content.setAlignment(Pos.CENTER);
 
-    ImageView trollImage = new ImageView(new Image("images/troll.jpeg"));
+    ImageView trollImage = new ImageView(new Image("images/troll.png"));
 
     ImageView playerImage = new ImageView(gameViewController.getPlayerImage());
 
@@ -73,30 +86,44 @@ public class GameView extends View {
     btnHome = new Button("Home");
     btnHome.setVisible(true);
     btnHome.setOnAction(e ->  {
-      screenController.activate("homeView");
+      try {
+        screenController.activate("homeView");
+      } catch (IllegalArgumentException ex) {
+        AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
+      }
       this.resetPane();
     });
     btnHome.getStyleClass().add("gameView-returnHome-button");
 
-    HBox leftBox = new HBox(10, btnHome);
-    leftBox.setAlignment(Pos.CENTER_LEFT);
+    VBox homeButtonBox = new VBox();
+    homeButtonBox.getChildren().add(btnHome);
+    btnHome.setAlignment(Pos.TOP_LEFT);
+    homeButtonBox.setAlignment(Pos.TOP_LEFT);
 
     inventoryImage = new ImageView();
 
-    inventoryBox = new VBox(10, inventoryImage);
-    inventoryBox.setAlignment(Pos.CENTER_RIGHT);
+    inventoryBox = new HBox(10, inventoryImage);
+    inventoryBox.setAlignment(Pos.TOP_CENTER);
 
     playerText = new Label();
     playerText.getStyleClass().add("gameView-player-info");
     refreshLabel();
 
-    HBox rightBox = new HBox(10, playerText, inventoryBox);
-    rightBox.setAlignment(Pos.CENTER_RIGHT);
+    imageWrapper = new Pane();
+    imageWrapper.getChildren().add(inventoryImage);
+    imageWrapper.setPrefWidth(150);
+    imageWrapper.setPrefHeight(150);
 
-    HBox hBoxes = new HBox(10, leftBox, rightBox);
-    hBoxes.setHgrow(leftBox, Priority.ALWAYS);
+    goalsBox = gameViewController.goalStatus();
 
-    borderPane.setTop(hBoxes);
+    HBox rightBox = new HBox(10, goalsBox, playerText, imageWrapper);
+    rightBox.setAlignment(Pos.TOP_CENTER);
+
+    VBox topInfo = new VBox();
+    topInfo.getChildren().addAll(homeButtonBox, rightBox);
+    topInfo.setAlignment(Pos.TOP_CENTER);
+
+    borderPane.setTop(topInfo);
 
     generatePassagesAndButtons(gameViewController.getGame().getCurrentPassage());
 
@@ -107,80 +134,97 @@ public class GameView extends View {
 
   public void generatePassagesAndButtons(Passage passage) {
 
-    storyTitleText.setText(gameViewController.getGame().getStory().getTitle());
-    gameViewController.getGame().setCurrentPassage(passage);
+    try {
+      storyTitleText.setText(gameViewController.getGame().getStory().getTitle());
+      gameViewController.getGame().setCurrentPassage(passage);
 
-    passageTitleText.setText(gameViewController.getGame().getCurrentPassage().getTitle());
-    textArea.setText(gameViewController.getGame().getCurrentPassage().getContent());
+      passageTitleText.setText(gameViewController.getGame().getCurrentPassage().getTitle());
+      textArea.setText(gameViewController.getGame().getCurrentPassage().getContent());
 
-    content.getChildren().removeIf(node -> node instanceof Button);
+      content.getChildren().removeIf(node -> node instanceof Button);
 
-    Player player = gameViewController.getGame().getPlayer();
+      Player player = playerViewController.getPlayer();
 
-    if(gameViewController.getGame().getCurrentPassage().getListOfLinks().isEmpty()) {
-      createEndGameButtons();
-      content.getChildren().addAll(btnReturnHome, btnRestartGame);
-    } else {
-      gameViewController.getGame().getCurrentPassage().getListOfLinks().forEach(link -> {
-        Button btnLink = new Button(link.getText());
-        Game game = gameViewController.getGame();
-        if (gameViewController.getGame().getStory().getBrokenLinks().contains(link)) {
-          btnLink.setDisable(true);
-          btnLink.setText(link.getText() + " (BROKEN)");
-        } else {
-          btnLink.setOnAction(e -> {
-            for (Action action : link.getActions()) {
-              action.execute(player);
-            }
-            refreshLabel();
-            Passage newPassage = game.go(link);
-            generatePassagesAndButtons(gameViewController.getGame().setCurrentPassage(newPassage));
-          });
-        }
-        content.getChildren().add(btnLink);
-        btnLink.getStyleClass().add("gameView-link-button");
-      });
+      if (gameViewController.getGame().getCurrentPassage().getListOfLinks().isEmpty()) {
+        btnHome.setVisible(false);
+        createEndGameButtons();
+        content.getChildren().addAll(btnReturnHome, btnRestartGame);
+      } else {
+        gameViewController.getGame().getCurrentPassage().getListOfLinks().forEach(link -> {
+          Button btnLink = new Button(link.getText());
+          Game game = gameViewController.getGame();
+          if (gameViewController.getGame().getStory().getBrokenLinks().contains(link)) {
+            btnLink.setDisable(true);
+            btnLink.setText(link.getText() + " (BROKEN)");
+          } else {
+            btnLink.setOnAction(e -> {
+              /*SoundPlayer soundPlayer = new SoundPlayer("/sound/armstrekkeren.wav");
+              soundPlayer.play();*/
+
+              for (Action action : link.getActions()) {
+                action.execute(player);
+              }
+              refreshLabel();
+              Passage newPassage = game.go(link);
+              generatePassagesAndButtons(gameViewController.getGame().setCurrentPassage(newPassage));
+              goalsBox.getChildren().setAll(gameViewController.goalStatus().getChildren());
+            });
+          }
+          content.getChildren().add(btnLink);
+          btnLink.getStyleClass().add("gameView-link-button");
+        });
+      }
+    } catch (Exception e) {
+      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
     }
   }
 
   public void createEndGameButtons() {
-    GameViewController gameViewController = GameViewController.getInstance();
-    btnReturnHome = new Button("Return to home");
-    btnReturnHome.setOnAction(e ->  {
-      screenController.activate("homeView");
-      gameViewController.resetPlayer();
-      this.resetPane();
-    });
+    try {
+      GameViewController gameViewController = GameViewController.getInstance();
+      btnReturnHome = new Button("Return to home");
+      btnReturnHome.setOnAction(e -> {
+        screenController.activate("homeView");
+        playerViewController.resetPlayer();
+        this.resetPane();
+      });
 
-    btnRestartGame = new Button("Restart game");
-    btnRestartGame.setOnAction(e ->  {
-      this.resetPane();
-      //player = gameViewController.getPlayer();
-      screenController.activate("gameView");
-      //screenController.activate("gameView");
-      //gameViewController.resetGame();
-    });
+      btnRestartGame = new Button("Restart game");
+      btnRestartGame.setOnAction(e -> {
+        gameViewController.resetGame();
+        playerViewController.resetPlayer();
+        this.resetPane();
+        screenController.activate("gameView");
+      });
 
-    btnRestartGame.getStyleClass().add("gameView-returnHome-button");
-    btnReturnHome.getStyleClass().add("gameView-returnHome-button");
+      btnRestartGame.getStyleClass().add("gameView-returnHome-button");
+      btnReturnHome.getStyleClass().add("gameView-returnHome-button");
 
-    HBox endGameButtons = new HBox(10, btnReturnHome, btnRestartGame);
-    endGameButtons.setAlignment(Pos.CENTER);
-    content.getChildren().add(endGameButtons);
+      HBox endGameButtons = new HBox(10, btnReturnHome, btnRestartGame);
+      endGameButtons.setAlignment(Pos.CENTER);
+      content.getChildren().add(endGameButtons);
+    }
+    catch (Exception e) {
+      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+    }
   }
 
   public void refreshLabel() {
     gameViewController = GameViewController.getInstance();
 
-    playerText.setText("Name: " + gameViewController.getGame().getPlayer().getName()
-            + "\nHealth: " + gameViewController.getGame().getPlayer().getHealth()
-            + "\nGold: " + gameViewController.getGame().getPlayer().getGold());
+    playerText.setText("Name: " + playerViewController.getPlayer().getName()
+            + "\nHealth: " + playerViewController.getPlayer().getHealth()
+            + "\nGold: " + playerViewController.getPlayer().getGold());
 
     gameViewController.resetInventoryImages();
 
 
-    for (String item : gameViewController.getGame().getPlayer().getInventory()) {
+    for (String item : playerViewController.getPlayer().getInventory()) {
+      try {
       gameViewController.updateInventoryIcon(item);
+        } catch (Exception e) {
+            AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
     if (gameViewController.getInventoryImages() != null) {
         inventoryBox.getChildren().clear();
@@ -190,6 +234,7 @@ public class GameView extends View {
         inventoryImage.setImage(image);
         inventoryImage.setFitHeight(50);
         inventoryImage.setFitWidth(50);
+
         inventoryBox.getChildren().add(inventoryImage);
       }
     }
@@ -204,12 +249,10 @@ public class GameView extends View {
 
 
   protected void resetPane() {
-    GameViewController gameViewController = GameViewController.getInstance();
     root.getChildren().clear();
     borderPane.setTop(null);
     borderPane.setCenter(null);
-    //gameViewController.resetGame();
-    gameViewController.resetPlayer();
+    playerViewController.resetPlayer();
 
     if (btnRestartGame != null) {
       content.getChildren().remove(btnRestartGame);
