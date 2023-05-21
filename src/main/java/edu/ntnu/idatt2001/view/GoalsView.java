@@ -27,7 +27,7 @@ public class GoalsView extends View {
   private GameViewController gameViewController = GameViewController.getInstance();
   private PlayerViewController playerViewController = PlayerViewController.getInstance();
   private String goalValueString = null;
-  private String goalName;
+  //private String goalName;
   private ToggleGroup difficultyToggleGroup;
   private ToggleButton[] goldGoalButtons;
   private ToggleButton[] healthGoalButtons;
@@ -49,10 +49,23 @@ public class GoalsView extends View {
     this.resetPane();
 
     Text title = new Text("Choose Goals");
-    title.getStyleClass().add("goalsAndStoryView-title");
+    title.getStyleClass().add("goalsView-title");
 
     HBox titleBox = new HBox(title);
     titleBox.setAlignment(Pos.CENTER);
+
+    Button btnBack = new Button("Back");
+    btnBack.getStyleClass().add("goalsView-backButton");
+    btnBack.setAlignment(Pos.TOP_LEFT);
+    btnBack.setOnAction(e -> {
+      screenController.activate("playerView");
+    });
+
+    VBox backBox = new VBox();
+    backBox.setAlignment(Pos.TOP_LEFT);
+    backBox.getChildren().add(btnBack);
+
+    borderPane.setTop(backBox);
 
     HBox goldGoalBox = setupGoal("Gold Goal:      ", "goldGoalButton", "25", "50", "100");
     HBox healthGoalBox = setupGoal("Health Goal:    ", "healthGoalButton", "1", "3", "5");
@@ -61,8 +74,13 @@ public class GoalsView extends View {
 
     // Add difficulty toggle buttons and assign them to the difficultyToggleGroup
     ToggleButton btnEasy = new ToggleButton("Easy");
+    btnEasy.getStyleClass().add("difficultyButton-easy");
+
     ToggleButton btnNormal = new ToggleButton("Normal");
+    btnNormal.getStyleClass().add("difficultyButton-normal");
+
     ToggleButton btnHard = new ToggleButton("Hard");
+    btnHard.getStyleClass().add("difficultyButton-hard");
 
     difficultyToggleGroup = new ToggleGroup();
     btnEasy.setToggleGroup(difficultyToggleGroup);
@@ -80,7 +98,17 @@ public class GoalsView extends View {
     VBox goalsBox = new VBox(10, titleBox, difficultyBox, goldGoalBox, healthGoalBox, scoreGoalBox, inventoryGoalBox);
     goalsBox.setAlignment(Pos.CENTER);
 
+    Button btnPlayWithoutGoals = new Button("Play Without Goals");
+    btnPlayWithoutGoals.getStyleClass().add("goalsView-playButton");
+
+    btnPlayWithoutGoals.setOnAction(e -> {
+      gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
+      screenController.activate("gameView");
+    });
+
     Button btnSaveGoals = new Button("Save Goals");
+    btnSaveGoals.getStyleClass().add("goalsView-saveButton");
+
     btnSaveGoals.setOnAction(e -> {
       Toggle goldToggle = goldGoalButtons[0].getToggleGroup().getSelectedToggle();
       Toggle healthToggle = healthGoalButtons[0].getToggleGroup().getSelectedToggle();
@@ -97,44 +125,83 @@ public class GoalsView extends View {
     });
 
     Button btnCreateCustomGoals = new Button("Create Custom Goals");
+    btnCreateCustomGoals.getStyleClass().add("goalsView-customButton");
+
     btnCreateCustomGoals.setOnAction(e -> {
         Text customTitle = new Text("Customize your goals");
-        customTitle.getStyleClass().add("goalsAndStoryView-title");
+        customTitle.getStyleClass().add("goalsView-title");
+
+        Text customInventoryText = new Text("Inventory Goal:");
+        customInventoryText.getStyleClass().add("goalsView-customText");
 
         TextField customInventoryGoal = new TextField();
         customInventoryGoal.setPromptText("Enter custom inventory goal");
         customInventoryGoal.setPrefSize(50, 20);
 
+        Text customScoreText = new Text("Score Goal:");
+        customScoreText.getStyleClass().add("goalsView-customText");
+
         TextField customScoreGoal = new TextField();
         customScoreGoal.setPromptText("Enter custom score goal");
         customScoreGoal.setPrefSize(50, 20);
 
+        Text customHealthText = new Text("Health Goal:");
+        customHealthText.getStyleClass().add("goalsView-customText");
+
         TextField customHealthGoal = new TextField();
         customHealthGoal.setPromptText("Enter custom health goal");
         customHealthGoal.setPrefSize(50, 20);
+
+        Text customGoldText = new Text("Gold Goal:");
+        customGoldText.getStyleClass().add("goalsView-customText");
 
         TextField customGoldGoal = new TextField();
         customGoldGoal.setPromptText("Enter custom gold goal");
         customGoldGoal.setPrefSize(50, 20);
 
         Button btnCreateCustomGoals2 = new Button("Create Custom Goals");
-        btnCreateCustomGoals2.setOnAction(e2 -> {
-            goalsViewController.saveCustomGoals(customGoldGoal.getText(), customScoreGoal.getText(),
-                    customHealthGoal.getText(), customInventoryGoal.getText());
-            gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
-            screenController.activate("gameView");
-        });
+        btnCreateCustomGoals2.getStyleClass().add("goalsView-customButton");
 
-        VBox customGoalsBox = new VBox(10, customTitle, customInventoryGoal,
-                customScoreGoal, customHealthGoal, customGoldGoal, btnCreateCustomGoals2);
+      btnCreateCustomGoals2.setOnAction(e2 -> {
+        String scoreGoal = customScoreGoal.getText();
+        String healthGoal = customHealthGoal.getText();
+        String goldGoal = customGoldGoal.getText();
+
+        try {
+          if (!scoreGoal.isEmpty() && !isInteger(scoreGoal)) throw new NumberFormatException("Score goal must be an integer");
+          if (!healthGoal.isEmpty() && !isInteger(healthGoal)) throw new NumberFormatException("Health goal must be an integer");
+          if (!goldGoal.isEmpty() && !isInteger(goldGoal)) throw new NumberFormatException("Gold goal must be an integer");
+
+          goalsViewController.saveCustomGoals(
+                  goldGoal.isEmpty() ? null : goldGoal,
+                  scoreGoal.isEmpty() ? null : scoreGoal,
+                  healthGoal.isEmpty() ? null : healthGoal,
+                  customInventoryGoal.getText().isEmpty() ? null : customInventoryGoal.getText()
+          );
+          gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
+          screenController.activate("gameView");
+        } catch (NumberFormatException ex) {
+          AlertUtil.showAlert(Alert.AlertType.ERROR, "Invalid Input", ex.getMessage());
+        } catch (Exception ex) {
+          AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
+        }
+      });
+
+      VBox customGoalsBox = new VBox(10, customTitle, customInventoryText, customInventoryGoal, customScoreText,
+                customScoreGoal, customHealthText, customHealthGoal, customGoldText,customGoldGoal, btnCreateCustomGoals2);
         customGoalsBox.setMaxSize(100, 100);
         customGoalsBox.setAlignment(Pos.CENTER);
         root.getChildren().addAll(customGoalsBox);
         goalsBox.setVisible(false);
         btnCreateCustomGoals.setVisible(false);
+        btnPlayWithoutGoals.setVisible(false);
+        btnSaveGoals.setVisible(false);
+        btnBack.setOnAction(e3 -> {
+          this.setUp();
+        });
     });
 
-    VBox buttonBox = new VBox(10, btnSaveGoals, btnCreateCustomGoals);
+    VBox buttonBox = new VBox(10, btnSaveGoals, btnCreateCustomGoals, btnPlayWithoutGoals);
     buttonBox.setAlignment(Pos.CENTER);
 
     VBox centerBox = new VBox(10, goalsBox, buttonBox);
@@ -156,7 +223,7 @@ public class GoalsView extends View {
         ToggleButton toggleButton = buttons[difficultyIndex];
         if (toggleButton != null) {
           toggleButton.setSelected(true);
-          String goalValue = toggleButton.getText();
+          //String goalValue = toggleButton.getText();
           //goalsViewController.updateGoalValue(goalValue, goalName);
         }
       }
@@ -175,18 +242,18 @@ public class GoalsView extends View {
 
   private HBox setupGoal(String goalName, String buttonStyle, String... options) {
     Text goalText = new Text(goalName);
-    goalText.getStyleClass().add("goalsAndStoryView-goalText");
+    goalText.getStyleClass().add("goalsView-goalText");
 
     Text goalValue = new Text(goalValueString);
-    goalValue.getStyleClass().add("goalsAndStoryView-goalValue");
+    goalValue.getStyleClass().add("goalsView-goalValue");
 
     ToggleGroup goalGroup = new ToggleGroup();
 
-    Player player = playerViewController.getPlayer();
+    //Player player = playerViewController.getPlayer();
 
     HBox buttonBox = new HBox(10);
 
-    final String trimmedGoalName = goalName.trim();
+    //final String trimmedGoalName = goalName.trim();
 
     ToggleButton[] buttons = new ToggleButton[options.length];
 
@@ -233,6 +300,18 @@ public class GoalsView extends View {
     }
 
     return goalBox;
+  }
+
+  private boolean isInteger(String str) {
+    if (str == null || str.isEmpty()) {
+      return true;
+    }
+    try {
+      Integer.parseInt(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
   }
 
   public void resetPane() {

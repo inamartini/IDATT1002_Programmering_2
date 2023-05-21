@@ -34,10 +34,11 @@ public class GoalsViewController {
   }
 
   public void saveGoals(Toggle gold, Toggle score, Toggle health, Toggle inventory) {
+    this.goals = new ArrayList<>();
     try {
       Map<Toggle, String> toggleMap = new HashMap<>();
-      toggleMap.put(gold, "Gold_Goal");
-      toggleMap.put(score, "Score_GOAL");
+      toggleMap.put(gold, "Gold_goal");
+      toggleMap.put(score, "Score_goal");
       toggleMap.put(health, "Health_goal");
       toggleMap.put(inventory, "Inventory_goal");
 
@@ -61,17 +62,17 @@ public class GoalsViewController {
   }
 
   public void saveCustomGoals(String goldGoal, String scoreGoal, String healthGoal, String inventoryGoal) {
-    if (goldGoal == null || scoreGoal == null || healthGoal == null || inventoryGoal == null) {
-      throw new IllegalArgumentException("Please fill in all the fields");
+    if (goldGoal != null && !goldGoal.isEmpty()) {
+      goals.add(GoalFactory.createGoal("Gold_goal", Integer.parseInt(goldGoal)));
     }
-
-    try {
-      goals.add(GoalFactory.createGoal("Gold_Goal", Integer.parseInt(goldGoal)));
-      goals.add(GoalFactory.createGoal("Score_GOAL", Integer.parseInt(scoreGoal)));
+    if (scoreGoal != null && !scoreGoal.isEmpty()) {
+      goals.add(GoalFactory.createGoal("Score_goal", Integer.parseInt(scoreGoal)));
+    }
+    if (healthGoal != null && !healthGoal.isEmpty()) {
       goals.add(GoalFactory.createGoal("Health_goal", Integer.parseInt(healthGoal)));
-      goals.add(GoalFactory.createInventoryGoal("Inventory_goaL", inventoryGoal));
-    } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Failed to create goal with given parameters");
+    }
+    if (inventoryGoal != null && !inventoryGoal.isEmpty()) {
+      goals.add(GoalFactory.createInventoryGoal("Inventory_goal", inventoryGoal));
     }
   }
 }
