@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * The GoldGoal class represents a goal that requires a player to have a certain amount of gold.
@@ -31,6 +33,14 @@ public class GoldGoal implements Goal {
     }
 
     /**
+     * Returns the minimum amount of gold required to fulfill the goal.
+     * @return the minimum amount of gold required to fulfill the goal
+     */
+    public int getMinimumGold() {
+        return minimumGold;
+    }
+
+    /**
      * Checks whether the player has the required amount of gold to fulfill the goal.
      *
      * @param player the player to check
@@ -42,6 +52,18 @@ public class GoldGoal implements Goal {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
-        return player.getGold() >= minimumGold;
+        try {
+            return player.getGold() >= minimumGold;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to retrieve gold from player");
+        }
+    }
+
+    /**
+     * ToString method for the goal.
+     */
+    @Override
+    public String toString() {
+        return "Gold goal: " + minimumGold + " gold";
     }
 }

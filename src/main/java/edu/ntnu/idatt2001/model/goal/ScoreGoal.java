@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * ScoreGoal is a class that checks if the player has reached a certain score.
@@ -31,6 +33,14 @@ public class ScoreGoal implements Goal {
         }
         this.minimumPoints = minimumPoints;
     }
+
+    /**
+     * Returns the minimumPoints required to fulfill the goal.
+     * @return the minimumPoints required to fulfill the goal.
+     */
+    public int getMinimumPoints() {
+        return minimumPoints;
+    }
     /**
      * Checks if the player's score is greater than or equal to the minimumPoints required to fulfill the goal.
      *
@@ -43,6 +53,18 @@ public class ScoreGoal implements Goal {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
-        return player.getScore() >= minimumPoints;
+        try {
+            return player.getScore() >= minimumPoints;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to retrieve player score");
+        }
+    }
+
+    /**
+     * ToString method for the goal.
+     */
+    @Override
+    public String toString() {
+        return "Score goal: " + minimumPoints + " points";
     }
 }

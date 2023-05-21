@@ -1,6 +1,8 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.base.Player;
+import edu.ntnu.idatt2001.model.player.Player;
+import edu.ntnu.idatt2001.util.AlertUtil;
+import javafx.scene.control.Alert;
 
 /**
  * HealthGoal is a class that checks if the player has a certain amount of health.
@@ -35,6 +37,14 @@ public class HealthGoal implements Goal {
     }
 
     /**
+     * Returns the minimum health required to fulfill the goal.
+     * @return the minimum health required to fulfill the goal.
+     */
+    public int getMinimumHealth() {
+        return minimumHealth;
+    }
+
+    /**
      * Checks whether the given player has the required minimum health to fulfill the goal.
      *
      * @param player the player to check the health of.
@@ -47,6 +57,18 @@ public class HealthGoal implements Goal {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
-        return player.getHealth() >= minimumHealth;
+        try {
+            return player.getHealth() >= minimumHealth;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to retrieve health from player");
+        }
+    }
+
+    /**
+     * ToString method for the goal.
+     */
+    @Override
+    public String toString() {
+        return "Health goal: " + minimumHealth + " health";
     }
 }

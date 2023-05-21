@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.goal;
+package edu.ntnu.idatt2001.model.goal;
 
 /**
  * The GoalType enum represents the different types of goals that can be fulfilled by a player.
