@@ -234,7 +234,3 @@
     -fx-background-color: #0B3954;
     -fx-text-fill: #BFD7EA;
 }
-.progress-bar .track {
-    -fx-accent: #F28482;
-    -fx-alignment: center;
-}
