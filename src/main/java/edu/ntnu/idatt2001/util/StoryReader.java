@@ -1,22 +1,13 @@
 package edu.ntnu.idatt2001.util;
 
-import edu.ntnu.idatt2001.action.Action;
-import edu.ntnu.idatt2001.action.ActionFactory;
-import edu.ntnu.idatt2001.action.ActionType;
-import edu.ntnu.idatt2001.action.GoldAction;
-import edu.ntnu.idatt2001.action.HealthAction;
-import edu.ntnu.idatt2001.action.InventoryAction;
-import edu.ntnu.idatt2001.action.ScoreAction;
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Passage;
+import edu.ntnu.idatt2001.model.Story;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -139,7 +130,7 @@ public class StoryReader {
         }
       }
     } catch(FileNotFoundException e){
-      e.printStackTrace();
+       throw new FileNotFoundException("There is a problem with the file: " + file.getAbsolutePath());
     }
     return story;
   }

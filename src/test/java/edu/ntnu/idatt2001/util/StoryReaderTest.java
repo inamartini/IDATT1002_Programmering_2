@@ -4,13 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.ntnu.idatt2001.action.Action;
-import edu.ntnu.idatt2001.action.ActionFactory;
-import edu.ntnu.idatt2001.action.GoldAction;
-import edu.ntnu.idatt2001.base.Link;
-import edu.ntnu.idatt2001.base.Passage;
-import edu.ntnu.idatt2001.base.Player;
-import edu.ntnu.idatt2001.base.Story;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Passage;
+import edu.ntnu.idatt2001.model.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
