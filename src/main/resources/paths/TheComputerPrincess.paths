@@ -1,0 +1,127 @@
+The computer princess
+
+::A princess
+Once upon a time there was this beautiful princess, who was very smart and kind. She loved computers, but one time her computer was gone and she went on a scary mission.
+[Go on a scary mission](Go on a scary mission)
+
+::Go on a scary mission
+She found a cord in her room, maybe it was the cord to her computer. She didnt know if she should follow it.
+[Follow the cord](Follow the cord)[{Score}(400)]
+[Go to the kitchen](Go to the kitchen)
+
+::Go to the kitchen
+She went to the kitchen, but she didnt find her computer. But she found a potion.
+[Drink the potion](Drink the potion)[{Health}(-1)]
+[Take the potion with her](Take the potion with her)[{Inventory}(Potion)]
+
+::Drink the potion
+She drank the potion, but it was poison and she died.
+
+::Take the potion with her
+She took the potion with her, but she didnt know if she should follow the cord or go outside.
+[Follow the cord](Follow the cord)[{Score}(400)]
+[Go outside](Go outside)
+
+::Go outside
+She went outside, but she didnt find her computer. But she found a sword.
+[Take the sword](Take the sword)[{Inventory}(Sword)]
+[Leave the sword](Leave the sword)
+
+::Take the sword
+She took the sword with her, but she didnt know if she should follow the cord or go back inside.
+[Follow the cord](Follow the cord)[{Score}(400)]
+[Go back inside](Go back inside)
+
+::Leave the sword
+She left the sword, but she didnt know if she should follow the cord or go back inside.
+[Follow the cord](Follow the cord)[{Score}(400)]
+[Go back inside](Go back inside)
+
+::Go back inside
+She went inside and fell asleep.
+
+::Follow the cord
+She followed the cord, and it led her out into the woods. She was scared, but she kept following it. She came to a big house.
+[Go inside](Go inside)[{Score}(200)]
+[Sneak around](Sneak around)[{Inventory}(Sword)]
+
+::Go inside
+Inside the house she found a computer, she opened it and it had a virus.
+[Fix the virus](Fix the virus)[{Health}(-1)]
+[Go back outside](Go back outside)
+
+::Fix the virus
+She tried to fix the virus, but she got electrocuted.
+[Go back outside](Go back outside)
+
+::Go back outside
+She went back outside, but wasnt sure if she should go back home or sneak around.
+[Go back home](Go back home)[{Score}(-100)]
+[Sneak around](Sneak around)[{Inventory}(Sword)]
+
+::Go back home
+She went back home.
+
+::Sneak around
+She snuck around the house, and found a sword.
+[Keep going](Keep going)
+
+::Keep going
+She kept going, but the path split into two.
+[Go left](Go left)[{Gold}(20)]
+[Go right](Go right)
+
+::Go right
+She went right and found a wizard, he said he would help her if she knew the answer to his question.
+[Answer the question](Answer the question)[{Score}(100)]
+[Attack the wizard](Attack the wizard)[{Health}(-1)]
+
+::Attack the wizard
+She attacked the wizard, but he had a shield and she died.
+
+::Answer the question
+The wizard asked her: "What is the answer to life, the universe and everything?"
+[42](42)[{Score}(100)]
+[What?](What?)[{Score}(-100)]
+
+::42
+The wizard said she was right, and he told her the troll had the computer.
+[Thank the wizard](Thank the wizard)[{Score}(100)]
+
+::What?
+The wizard said she was wrong, and she died.
+
+::Thank the wizard
+She thanked the wizard and went back to where the path split.
+[Go left](Go left)[{Gold}(20)]
+
+::Go left
+She went left, and found a treasure chest. She opened it and found gold. But it wasnt her computer. Suddenly she heard a noise.
+[Go back](Go back)[{Score}(-100)]
+[Go towards the noise](Go towards the noise)[{Score}(100)]
+
+::Go back
+She went back home.
+
+::Go towards the noise
+She went towards the noise, it was a troll.
+[Attack the troll](Attack the troll)[{Health}(-1)]
+[Run away](Run away)
+[Ask the troll if he has seen her computer](Ask the troll if he has seen her computer)[{Score}(-100)]
+
+::Attack the troll
+She attacked the troll, but he was too strong and she died.
+
+::Run away
+She ran away, but the troll caught her and she died.
+
+::Ask the troll if he has seen her computer
+She asked the troll if he had seen her computer, and he said yes. He said he would give it to her if she gave him gold.
+[Give him gold](Give him gold)[{Inventory}(Computer)]
+[Attack him](Attack him)[{Score}(200)]
+
+::Give him gold
+She gave him gold, and he gave her the computer.
+
+::Attack him
+She attacked him, and he died. She found the computer in his pocket.

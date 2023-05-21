@@ -4,6 +4,7 @@ import edu.ntnu.idatt2001.model.Story;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.LoadGameViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
+import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -39,7 +40,7 @@ public class LoadGameView extends View {
     try {
     createTable();
     } catch (IOException e) {
-        e.printStackTrace();
+        AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
     }
 
         Text title = new Text("Choose the file you want to load your game with or upload your own file!");
