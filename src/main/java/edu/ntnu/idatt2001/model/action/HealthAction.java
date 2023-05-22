@@ -17,6 +17,7 @@ public class HealthAction implements Action {
      * The number of health points to add to the player.
      */
     private final int points;
+
     /**
      * Constructs a new HealthAction with the specified number of health points to add.
      *
@@ -25,6 +26,7 @@ public class HealthAction implements Action {
     public HealthAction(int points) {
         this.points = points;
     }
+
     /**
      * Executes the HealthAction by adding the specified number of health points to the player.
      *
@@ -43,6 +45,10 @@ public class HealthAction implements Action {
         }
     }
 
+    /**
+     * Returns a string representation of the HealthAction.
+     * @return health action as a string
+     */
     @Override
     public String toString() {
         return "{" +

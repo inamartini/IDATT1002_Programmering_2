@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.view;
 
-
-import edu.ntnu.idatt2001.controller.GameViewController;
-import edu.ntnu.idatt2001.controller.PlayerViewController;
+import edu.ntnu.idatt2001.controller.PlayerController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.geometry.Pos;
@@ -14,16 +12,45 @@ import javafx.scene.text.Text;
 
 import java.util.Objects;
 
-
+/**
+ * This class extends the View class and is responsible for the player view of the application.
+ * The player view is the page where the user can choose a character.
+ *
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.05.22
+ */
 public class PlayerView extends View {
 
+  /**
+   * The screen controller is used to switch between screens.
+   */
   private ScreenController screenController;
-  private StackPane root;
-  private BorderPane borderPane;
-  private ImageView playerImageView;
-  private PlayerViewController playerViewController = PlayerViewController.getInstance();
-  private GameViewController gameViewController = GameViewController.getInstance();
 
+  /***
+   * The root is the main layout of the player view.
+   */
+  private StackPane root;
+  /**
+   * The border pane is the layout of the player view.
+   */
+  private BorderPane borderPane;
+
+  /**
+   * The player image view is the image of the player.
+   */
+  private ImageView playerImageView;
+
+  /**
+   * The player controller is used to create a player.
+   */
+  private PlayerController playerController = PlayerController.getInstance();
+
+  /**
+   * The PlayerView constructor. It takes in a screen controller as a parameter.
+   *
+   * @param screenController the screen controller
+   */
   public PlayerView(ScreenController screenController) {
     this.root = new StackPane();
     this.borderPane = new BorderPane();
@@ -31,10 +58,29 @@ public class PlayerView extends View {
     this.screenController = screenController;
   }
 
+  /**
+   * Resets the pane.
+   *
+   * @return the pane
+   */
   public Pane getPane() {
     return this.borderPane;
   }
 
+  /**
+   *  This method configures the layout and components of the player view.
+   *  It allows the player to choose their character, enter their name, set health and gold values using sliders,
+   *  and create a player profile.
+   * <p>
+   *  This method performs the following steps:
+   *  1. Reset the pane to its initial state.
+   *  2. Create and configure the title text.
+   *  3. Set up the character selection area with previous and next player buttons.
+   *  4. Set up the name input field.
+   *  5. Set up the health and gold slider and corresponding text.
+   *  6. Set up the create player button, go back button
+   *  7. Set up the main content layout and add all the components to it.
+   */
   public void setUp() {
     this.resetPane();
 
@@ -49,9 +95,7 @@ public class PlayerView extends View {
     playerImageView = new ImageView();
     playerImageView.setFitHeight(120);
     playerImageView.setFitWidth(150);
-
     playerImageView.setImage(princessImage);
-
 
     Image leftArrowIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/left.png")));
     ImageView leftArrow = new ImageView(leftArrowIcon);
@@ -154,8 +198,8 @@ public class PlayerView extends View {
         AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Information",
                 "Name field is empty. Please enter a name to create a player.");
       } else {
-        playerViewController.setPlayerImage(playerImageView.getImage());
-        playerViewController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
+        playerController.setPlayerImage(playerImageView.getImage());
+        playerController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
         screenController.activate("goalView");
       }
     });
@@ -182,6 +226,9 @@ public class PlayerView extends View {
     root.getChildren().addAll(content);
   }
 
+  /**
+   * Resets the pane. Clears the pane of all elements.
+   */
   protected void resetPane() {
     root.getChildren().clear();
   }

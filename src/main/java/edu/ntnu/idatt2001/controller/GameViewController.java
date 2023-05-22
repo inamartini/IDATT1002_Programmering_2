@@ -9,10 +9,8 @@ import edu.ntnu.idatt2001.model.goal.HealthGoal;
 import edu.ntnu.idatt2001.model.goal.InventoryGoal;
 import edu.ntnu.idatt2001.model.goal.ScoreGoal;
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
 import edu.ntnu.idatt2001.util.StoryReader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -22,26 +20,60 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * Class that handles the game view
+ * Singleton class that handles the game view. The class includes several methods
+ * that are used to display the game view, and to update the game view.
+ *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class GameViewController {
 
+  /**
+   * The singleton instance of this class
+   */
   private static GameViewController gameViewController= new GameViewController();
-  private PlayerViewController playerViewController = PlayerViewController.getInstance();
 
+  /**
+   * The singleton instance of the player controller used to update the player
+   */
+  private PlayerController playerController = PlayerController.getInstance();
+
+  /**
+   * The story of the game to be played
+   */
   private Story story;
+
+  /**
+   * The game object
+   */
   private Game game;
+
+
+  /**
+   * The player of the game
+   */
   private Player player;
+
+  /**
+   * The path to the story file
+   */
   private String storyPath ;
+
+  /**
+   * Inventory icon to update the inventory
+   */
   private InventoryIcon inventoryIcon = new InventoryIcon();
+
+  /**
+   * The list of inventory items
+   */
   private List<String> inventoryList = new ArrayList<>();
 
   /**
@@ -75,14 +107,15 @@ public class GameViewController {
   }
 
   /**
-   * Method that initializes the game with the filepath to the story
+   * Method that initializes the game with the filepath to the story.
+   * If the story is not readable, and exception is thrown.
    */
   public void initializeGame() {
     File storyFile = new File(storyPath);
     try {
       this.story = StoryReader.readStoryFromFile(storyFile);
-    } catch (Exception e) {
-      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("Failed to read story from file");
     }
   }
 
@@ -115,11 +148,15 @@ public class GameViewController {
    * @return the player image
    */
   public Image getPlayerImage() {
-    return PlayerViewController.getInstance().getPlayerImage();
+    return PlayerController.getInstance().getPlayerImage();
   }
 
   /**
-   * Method that updates the players inventory images
+   * Method that updates the players inventory images. The method takes in inventory as a string,
+   * and checks if the String is not null. If the inventory string matches the inventory type,
+   * the inventory icon is set to the inventory type. If the inventory string does not match
+   * the String is added to the inventory list and will be displayed as text instead.
+   *
    * @param inventory the inventory
    */
   public void updateInventoryIcon(String inventory) {
@@ -144,7 +181,7 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the inventory image
+   * Method that returns the inventory image of the inventory
    * @return the inventory image
    */
   public List<Image> getInventoryImages() {
@@ -152,7 +189,9 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the inventory without images
+   * Method that returns the inventory without images if the inventory does not match
+   * the enum types set in the InventoryType class
+   *
    * @return the inventory without images
    */
   public List<String> getInventoryList() {
@@ -166,24 +205,32 @@ public class GameViewController {
     inventoryIcon.getInventoryIcons().clear();
   }
 
+  /**
+   * Method that resets the inventory list
+   */
   public void resetInventoryList() {
     inventoryList.clear();
   }
 
   /**
-   * Method that resets game
+   * Method that resets game. The method resets the current passage to the opening passage, and resets the player.
    */
   public void resetGame() {
     game.setCurrentPassage(story.getOpeningPassage());
-    playerViewController.resetPlayer();
+    playerController.resetPlayer();
   }
 
   /**
-   * Method that returns a VBox with the goal status of the player
+   * Method that returns a VBox with the goal status of the player.
+   * The goal status is displayed as progress bar, and will be updated continuously
+   * as the player progresses in the game based on what goals the player is achieving.
+   * To make the player info more readable, a region spacer aligns
+   * the goalProgress to the right and the goalName to the left.
+   *
    * @return a VBox with the goal status of the player
    */
   public VBox goalStatus() {
-    player = playerViewController.getPlayer();
+    player = playerController.getPlayer();
     VBox goalStatus = new VBox();
     goalStatus.setSpacing(5);
 
@@ -220,14 +267,12 @@ public class GameViewController {
         goalProgress.setProgress(0.0);
       }
 
-      // Use a spacer to align the goalProgress to the right
       Region spacer = new Region();
       HBox.setHgrow(spacer, Priority.ALWAYS);
 
       goalBox.getChildren().addAll(goalName, spacer, goalProgress);
       goalStatus.getChildren().add(goalBox);
     }
-
     return goalStatus;
   }
 

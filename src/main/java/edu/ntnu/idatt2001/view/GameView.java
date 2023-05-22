@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.controller.PlayerViewController;
+import edu.ntnu.idatt2001.controller.PlayerController;
 import edu.ntnu.idatt2001.model.action.Action;
 import edu.ntnu.idatt2001.model.Game;
 import edu.ntnu.idatt2001.model.Passage;
@@ -22,34 +22,115 @@ import javafx.scene.text.Text;
 import java.util.Objects;
 
 
-/** Class of the game view
+/**
+ * This class extends the View class and is responsible for the game view of the application.
+ * The game view is the page where the game is played.
+ * It displays the story title, passage title, passage content,
+ * player image, troll image, inventory, goals, and buttons.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  *
  */
 public class GameView extends View {
 
+  /**
+   * The root of the application.
+   */
   private StackPane root;
+
+  /**
+   * The border pane of the application.
+   */
   private BorderPane borderPane;
+
+  /**
+   * The screen controller of the application.
+   */
   private ScreenController screenController;
+
+  /**
+   * The story Title of the application.
+   */
   private Text storyTitleText;
+
+  /**
+   * The content of the story.
+   */
   private VBox content;
+
+  /**
+   * The passage title of the application.
+   */
   private Text passageTitleText;
+
+  /**
+   * The text area where the passages will be displayed.
+   */
   private TextArea textArea;
+
+  /**
+   * The home button.
+   */
   private Button btnHome;
+
+  /**
+   * The restart game button.
+   */
   private Button btnRestartGame;
+
+  /**
+   * The game view controller of the application.
+   */
   private GameViewController gameViewController = GameViewController.getInstance();
+
+  /**
+   * The player text to hold the information about the player.
+   */
   private Label playerText;
+
+  /**
+   * The inventory image.
+   */
   private ImageView inventoryImage;
+
+  /**
+   * The inventory box to display the inventory.
+   */
   private HBox inventoryBox;
+
+  /**
+   * The goals box to display the goals.
+   */
   private VBox goalsBox;
+
+  /**
+   * The pane to display the player image.
+   */
   private Pane imageWrapper;
+
+  /**
+   * The sound player of the application.
+   */
   private SoundPlayer soundPlayer = new SoundPlayer();
-  private PlayerViewController playerViewController = PlayerViewController.getInstance();
+
+  /**
+   * The player controller of the application.
+   */
+  private PlayerController playerController = PlayerController.getInstance();
+
+  /**
+   * The did I win button.
+   */
   private Button didIWinButton;
 
+  /**
+   * The GameView constructor. It takes in the screen controller as a parameter.
+   * Sets up the game view.
+   *
+   * @param screenController the screen controller
+   */
   public GameView(ScreenController screenController) {
     this.root = new StackPane();
     this.borderPane = new BorderPane();
@@ -57,18 +138,32 @@ public class GameView extends View {
     this.screenController = screenController;
   }
 
+  /**
+   * This method gets the pane.
+   *
+   * @return the pane
+   */
   public Pane getPane() {
     return this.borderPane;
   }
 
+  /**
+   * Sets up the game view by initializing the game, playing background music, and configuring various UI elements.
+   * The center of the border pane is set to the root node.
+   * It initializes the game, plays the background music, and handles any exceptions that occur during the initialization process.
+   * Creates and configures UI elements such as story title text, passage title text, text area, content pane, character images,
+   * home button, menu bar, inventory box, player text, goals box, and the border pane.
+   * Passages and buttons are generated based on the current passage of the game.
+   * The pane structure and styling are set up accordingly.
+   */
   public void setUp() {
-
     borderPane.setCenter(root);
-    gameViewController.initializeGame();
+
     try {
+      gameViewController.initializeGame();
       soundPlayer.playOnLoop("/sound/fairytale.wav");
     } catch (Exception e) {
-      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Failed to play sound");
+      AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
     }
     storyTitleText = new Text(gameViewController.getGame().getStory().getTitle());
     storyTitleText.getStyleClass().add("gameView-story-title");
@@ -142,9 +237,21 @@ public class GameView extends View {
 
     borderPane.getStyleClass().add("view-background");
     root.getChildren().addAll(contentWithCharacter);
-
   }
 
+  /**
+   *  Generates passages and buttons based on the given Passage object.
+   *  It sets the story title, current passage, passage title, and content in the respective UI elements.
+   *  It removes any existing buttons from the content pane.
+   *  If the current passage has no links, it stops the sound player, creates end game buttons, and adds them to the content pane.
+   *  Otherwise, it generates buttons for each link in the current passage's list of links.
+   *  If a link is marked as broken, the button is disabled and labeled as "(BROKEN)".
+   *  Otherwise, the button is configured with an action to execute the link's actions, update the label, and generate new passages and buttons.
+   *  The goal status is updated in the goalsBox.
+   *  If an exception occurs during the generation process, an error alert will be displayed.
+   *
+   * @param passage the passage to generate passages and buttons for
+   */
   public void generatePassagesAndButtons(Passage passage) {
 
     try {
@@ -156,7 +263,7 @@ public class GameView extends View {
 
       content.getChildren().removeIf(node -> node instanceof Button);
 
-      Player player = playerViewController.getPlayer();
+      Player player = playerController.getPlayer();
 
       if (gameViewController.getGame().getCurrentPassage().getListOfLinks().isEmpty()) {
         soundPlayer.stopPlaying();
@@ -195,12 +302,20 @@ public class GameView extends View {
     }
   }
 
+  /**
+   * Creates the end game buttons for restarting the game and checking if all goals are fulfilled.
+   * It initializes the btnRestartGame and didIWinButton buttons with their respective actions.
+   * The btnRestartGame button resets the game, player, and pane, then activates the gameView.
+   * The didIWinButton button checks if all goals and inventory goals are fulfilled in the game.
+   * If an exception occurs during initialization, an error alert is displayed.
+   * The end game buttons are added to the content pane.
+   */
   public void createEndGameButtons() {
     try {
       btnRestartGame = new Button("Restart game");
       btnRestartGame.setOnAction(e -> {
         gameViewController.resetGame();
-        playerViewController.resetPlayer();
+        playerController.resetPlayer();
         this.resetPane();
         screenController.activate("gameView");
       });
@@ -217,27 +332,35 @@ public class GameView extends View {
       endGameButtons.setAlignment(Pos.CENTER);
       content.getChildren().add(endGameButtons);
     }
-    catch (Exception e) {
+    catch (IllegalArgumentException e) {
       AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
     }
   }
 
+  /**
+   * Refreshes the player information label and inventory display.
+   * Updates the player's name, health, score, and gold in the playerText label.
+   * Resets the inventory images and inventory list in the gameViewController.
+   * Updates the inventory icons and adds them to the inventoryBox.
+   * If an exception occurs during the inventory icon update, an error alert is displayed.
+   * If inventory images or inventory list are not null, the inventoryBox is cleared and updated accordingly.
+   */
   public void refreshLabel() {
     gameViewController = GameViewController.getInstance();
 
-    playerText.setText("Name: " + playerViewController.getPlayer().getName()
-            + "\nHealth: " + playerViewController.getPlayer().getHealth()
-            + "\nScore: " + playerViewController.getPlayer().getScore()
-            + "\nGold: " + playerViewController.getPlayer().getGold());
+    playerText.setText("Name: " + playerController.getPlayer().getName()
+            + "\nHealth: " + playerController.getPlayer().getHealth()
+            + "\nScore: " + playerController.getPlayer().getScore()
+            + "\nGold: " + playerController.getPlayer().getGold());
 
     gameViewController.resetInventoryImages();
     gameViewController.resetInventoryList();
 
 
-    for (String item : playerViewController.getPlayer().getInventory()) {
+    for (String item : playerController.getPlayer().getInventory()) {
       try {
       gameViewController.updateInventoryIcon(item);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
@@ -262,17 +385,26 @@ public class GameView extends View {
     }
   }
 
-
+  /**
+   * Resets the pane. Clears the root,
+   * resets the player, and removes the restart game button.
+   */
   protected void resetPane() {
     root.getChildren().clear();
     borderPane.setTop(null);
     borderPane.setCenter(null);
-    playerViewController.resetPlayer();
+    playerController.resetPlayer();
 
     if (btnRestartGame != null) {
       content.getChildren().remove(btnRestartGame);
     }
   }
+
+  /**
+   * Shows the help alert. Includes information on how to play the game.
+   *
+   * @return VBox displaying the help alert.
+   */
   public VBox showHelpAlert() {
     Image helpIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/helpbutton.png")));
     ImageView helpView = new ImageView(helpIcon);

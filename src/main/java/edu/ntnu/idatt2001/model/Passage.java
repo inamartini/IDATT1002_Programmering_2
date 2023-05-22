@@ -5,22 +5,36 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represents a passage in a story.
- *
+ * This class represents a passage in a story and contains the information about the passage.
+ * It is responsible for creating a passage with a title and content, and
+ * includes a method to add links to the passage as well as several getters to retrieve
+ * the passage content, title and link.
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class Passage {
 
+  /**
+   * The title of the passage.
+   */
   private String title ;
+
+  /**
+   * The content of the passage.
+   */
   private String content ;
+
+  /**
+   * The links of the passage.
+   */
   private List<Link> links ;
 
   /**
-   * Constructor for the Passage class.
+   * Constructor for the Passage class. Takes in the title and
+   * content and sets this if the parameters are valid.
+   * Creates a new list of links.
    *
    * @param title The title of the passage.
    * @param content The content of the passage.
@@ -38,7 +52,7 @@ public class Passage {
   }
 
   /**
-   * Method that returns the title of the passage.
+   * Returns the title of the passage.
    *
    * @return The title of the passage as String.
    */
@@ -47,7 +61,7 @@ public class Passage {
   }
 
   /**
-   * Method that returns the content of the passage.
+   * Returns the content of the passage.
    *
    * @return The content of the passage as String.
    */
@@ -64,7 +78,7 @@ public class Passage {
   }
 
   /**
-   * Method that returns the list of links.
+   * Returns the list of links.
    *
    * @return The list of links as List.
    */
@@ -73,7 +87,7 @@ public class Passage {
   }
 
   /**
-   * Method that checks if the passage has links.
+   * Checks if the passage has links.
    *
    * @return True if the passage has links, false if not as boolean.
    */
@@ -82,7 +96,7 @@ public class Passage {
   }
 
   /**
-   * Method that returns the passage as a String.
+   * Returns the passage as a String.
    *
    * @return The passage as a String.
    */
@@ -94,7 +108,7 @@ public class Passage {
   }
 
   /**
-   * Method that checks if the passage is equal to another object.
+   * Checks if the passage is equal to another object.
    *
    * @param o The object to be checked.
    * @return True if the passage is equal to the object, false if not as boolean.
@@ -109,7 +123,7 @@ public class Passage {
   }
 
   /**
-   * Method that returns the hashcode of the passage.
+   * Returns the hashcode of the passage.
    *
    * @return The hashcode of the passage as int.
    */

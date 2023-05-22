@@ -8,21 +8,36 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * Story class that represents a story.
+ * Story class that represents a story. A story has a title, passages and an opening passage.
+ * This class provides methods for getting and setting the title and opening passage of the story.
+ * It also provides methods for adding or removing passages to the story and getting all passages of the story.
+ * There is also a method for getting broken links from the story.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class Story {
 
+  /**
+   * The title of the story.
+   */
   private String title;
+  /**
+   * The passages of the story.
+   */
   private Map<Link, Passage> passages;
+
+  /**
+   *  The opening passage of the story.
+   */
   private Passage openingPassage;
 
   /**
-   * Constructor for the Story class.
+   * Constructor for the Story class. Takes in a title and an opening passage and checks if the
+   * parameters are valid. Sets the opening passage of the story to the opening passage.
+   * Tries to add the opening passage to the story, and if it is not able to, an exception is thrown.
    *
    * @param title The title of the story.
    * @param openingPassage The opening passage of the story.
@@ -45,7 +60,7 @@ public class Story {
   }
 
   /**
-   * Method that returns the title of the story.
+   * Returns the title of the story.
    *
    * @return The title of the story as String.
    */
@@ -54,7 +69,7 @@ public class Story {
   }
 
   /**
-   * Method that returns the opening passage of the story.
+   * Returns the opening passage of the story.
    *
    * @return The opening passage of the story as Passage.
    */
@@ -63,7 +78,9 @@ public class Story {
   }
 
   /**
-   * Method that adds a passage to the story.
+   * Adds a passage to the story. If the passage is null, an IllegalArgumentException is thrown.
+   * If the passage is not null, the passage is added to the story.
+   * The passage is added by adding the link of the passage to the story.
    *
    * @param passage The passage to be added to the story.
    */
@@ -77,7 +94,7 @@ public class Story {
   }
 
   /**
-   * Method that returns the passage of the story.
+   * Returns the passage of the story.
    *
    * @param link The link of the passage.
    * @return The passage of the story as Passage.
@@ -90,7 +107,7 @@ public class Story {
   }
 
   /**
-   * Method that returns the passages of the story.
+   * Returns the passages of the story.
    *
    * @return The passages of the story as Collection.
    */
@@ -99,7 +116,9 @@ public class Story {
   }
 
   /**
-   * Method that removes a passage from the story.
+   * Removes a passage from the story. If the link of the passage to be removed is equal to the
+   * reference of any link in the story, the passage is not removed. If not, the passage is removed.
+   * The passage is removed by removing the link of the passage from the story.
    *
    * @param link The link of the passage to be removed.
    */
@@ -119,7 +138,9 @@ public class Story {
   }
 
   /**
-   * Method that returns the broken links of the story.
+   * Returns the broken links of the story. This is done by checking if the reference of the link
+   * is equal to the title of any passage in the story. If not, the link is added to the list of broken links.
+   * The list of broken links is then returned.
    *
    * @return The broken links of the story as List.
    */

@@ -4,19 +4,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Utility class for showing alerts.
- *
- * @author Ina Martini
+ * Class for showing alerts. The class has one method for showing alerts with different alert types.
+ * Used in the views to display alerts to the user.
  * @author Malin Haugland Høli
- * @version 1.0 2023.05.22
+ * @author Ina Martini
+ * @version 2023.05.22
  */
 public class AlertUtil {
 
     /**
-     * Shows an alert with the given parameters.
-     * @param alertType The type of alert to show.
-     * @param title The title of the alert.
-     * @param message The message of the alert.
+     * Method for showing alerts with different alert types. The method takes in the alert type, title and message.
+     * The method shows the alert and waits for the user to close it.
+     * @param alertType the type of alert
+     * @param title the title of the alert
+     * @param message the message of the alert
      */
     public static void showAlert(AlertType alertType, String title, String message) {
         Alert alertUtil = new Alert(alertType);

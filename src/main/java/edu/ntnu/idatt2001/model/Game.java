@@ -7,22 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Game class that represents a game.
+ * Game class that represents a game. A game has a player, a story and goals.
+ * This class provides methods for getting and setting the player, story and goals.
+ * It also provides methods for getting and setting the current passage of the game.
+ * The game class is used in order to start a game and go between passages.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
-
 public class Game {
 
+  /**
+   * The player of the game.
+   */
   private Player player;
+
+  /**
+   * The story of the game.
+   */
   private Story story;
+
+  /**
+   * The goals of the game.
+   */
   private List<Goal> goals;
+
+  /**
+   * The current passage of the game.
+   */
   private Passage currentPassage;
 
   /**
-   * Constructor for the Game class.
+   * Constructor for the Game class. Takes in a player, a story and goals and checks
+   * if the parameters are valid. Sets the current passage to the opening passage of the story.
    *
    * @param player The player of the game.
    * @param story The story of the game.
@@ -45,7 +63,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the player of the game.
+   * Returns the player of the game.
    *
    * @return The player of the game as Player.
    */
@@ -54,7 +72,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the story of the game.
+   * Returns the story of the game.
    *
    * @return The story of the game as Story.
    */
@@ -63,7 +81,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the goals of the game.
+   * Returns the goals of the game.
    *
    * @return The goals of the game as List.
    */
@@ -72,7 +90,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the current passage of the game.
+   * Returns the current passage of the game.
    *
    * @return The current passage of the game as Passage.
    */
@@ -81,7 +99,7 @@ public class Game {
   }
 
   /**
-   * Method that sets the current passage of the game.
+   * Sets the current passage of the game.
    *
    * @param currentPassage The current passage of the game.
    */
@@ -94,7 +112,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the opening passage of the story.
+   * Returns the opening passage of the story.
    *
    * @return The opening passage of the story as Passage.
    */
@@ -103,7 +121,7 @@ public class Game {
   }
 
   /**
-   * Method that returns the passage that is linked to the given link.
+   * Returns the passage that is linked to the given link.
    *
    * @param link The link to the passage.
    * @return The passage that is linked to the given link as Passage.

@@ -3,7 +3,7 @@ package edu.ntnu.idatt2001.view;
 import edu.ntnu.idatt2001.model.Game;
 import edu.ntnu.idatt2001.controller.GameViewController;
 import edu.ntnu.idatt2001.controller.GoalsViewController;
-import edu.ntnu.idatt2001.controller.PlayerViewController;
+import edu.ntnu.idatt2001.controller.PlayerController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import javafx.geometry.Pos;
@@ -20,21 +20,82 @@ import javafx.scene.text.Text;
 
 import java.util.Objects;
 
+/**
+ * Class that represents the goals view. The user can choose goals for the game.
+ * The goals are saved in the goalsViewController. The user can also choose to play with a predefined
+ * difficulty or to custom their own or play without goals.
+ * Includes methods for setting up the view and handling button actions.
+ *
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.05.22
+ */
 public class GoalsView extends View {
 
+  /**
+   * The Screen controller.
+   */
   private ScreenController screenController;
+  /**
+   * The Root.
+   */
   private StackPane root;
+
+  /**
+   * The Border pane.
+   */
   private BorderPane borderPane;
-  private GoalsViewController goalsViewController = GoalsViewController.getInstance();
+
+  /**
+   * The Goals view controller.
+   */
+  private GoalsViewController goalsViewController = new GoalsViewController();
+
+  /**
+   * The Game view controller.
+   */
   private GameViewController gameViewController = GameViewController.getInstance();
-  private PlayerViewController playerViewController = PlayerViewController.getInstance();
+
+  /**
+   * The Player controller.
+   */
+  private PlayerController playerController = PlayerController.getInstance();
+
+  /**
+   * The Goal value string.
+   */
   private String goalValueString = null;
+
+  /**
+   * The difficultyToggleGroup.
+   */
   private ToggleGroup difficultyToggleGroup;
+
+  /**
+   * The goldGoalButtons.
+   */
   private ToggleButton[] goldGoalButtons;
+
+  /**
+   * The healthGoalButtons.
+   */
   private ToggleButton[] healthGoalButtons;
+
+  /**
+   * The scoreGoalButtons.
+   */
   private ToggleButton[] scoreGoalButtons;
+
+  /**
+   * The inventoryGoalButtons.
+   */
   private ToggleButton[] inventoryGoalButtons;
 
+  /**
+   * Instantiates a new Goals view. Sets up a border pane with a stack pane as root.
+   *
+   * @param screenController the screen controller
+   */
   public GoalsView(ScreenController screenController) {
     this.screenController = screenController;
     this.borderPane = new BorderPane();
@@ -42,9 +103,29 @@ public class GoalsView extends View {
     borderPane.setCenter(root);
   }
 
+  /**
+   * Returns the pane as a BorderPane.
+   * @return the pane
+   */
   public Pane getPane() {
     return this.borderPane;
   }
+
+  /**
+   * Set up the goals view.
+   *
+   * Configures the layout and components of the goals view.
+   * It initializes the UI elements such as titles, buttons, toggle buttons, and text fields.
+   * The goals view allows the player to choose and customize game goals before starting the game.
+   *
+   * This method performs the following steps:
+   * 1. Reset the pane to its initial state.
+   * 2. Create and configure the title text.
+   * 3. Create and configure the back button to return to the previous view.
+   * 4. Set up the layout of the goals view, including goal boxes, difficulty toggle buttons,
+   *    and buttons for playing, saving, and creating custom goals.
+   * 5. Handle button actions for selecting difficulty levels, playing with goals or playing without goals.
+   */
 
   public void setUp() {
     this.resetPane();
@@ -109,7 +190,7 @@ public class GoalsView extends View {
     btnPlayWithoutGoals.getStyleClass().add("goalsView-playButton");
 
     btnPlayWithoutGoals.setOnAction(e -> {
-      gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
+      gameViewController.setGame(new Game(playerController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
       screenController.activate("gameView");
     });
 
@@ -124,9 +205,9 @@ public class GoalsView extends View {
 
       goalsViewController.saveGoals(goldToggle, scoreToggle, healthToggle, inventoryToggle);
       try {
-        gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
+        gameViewController.setGame(new Game(playerController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
         screenController.activate("gameView");
-      } catch (Exception ex) {
+      } catch (IllegalArgumentException ex) {
         AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
       }
     });
@@ -185,11 +266,11 @@ public class GoalsView extends View {
                   healthGoal.isEmpty() ? null : healthGoal,
                   customInventoryGoal.getText().isEmpty() ? null : customInventoryGoal.getText()
           );
-          gameViewController.setGame(new Game(playerViewController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
+          gameViewController.setGame(new Game(playerController.getPlayer(), gameViewController.getStory(), goalsViewController.getGoals()));
           screenController.activate("gameView");
         } catch (NumberFormatException ex) {
           AlertUtil.showAlert(Alert.AlertType.ERROR, "Invalid Input", ex.getMessage());
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException ex) {
           AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
         }
       });
@@ -218,6 +299,16 @@ public class GoalsView extends View {
     borderPane.getStyleClass().add("view-background");
   }
 
+  /**
+   * Sets the selected goal toggles based on the difficulty selected.
+   * It takes an array of toggle button arrays, where each inner
+   * array represents the toggle buttons for a specific goal.
+   * The toggle buttons should be ordered according to the difficulty levels.
+   * The first toggle button in each inner array should be the easy difficulty,
+   * the second should be medium, and the third should be hard.
+   *
+   * @param goalButtons the toggle buttons for each goal
+   */
   private void setSelectedGoalTogglesByDifficulty(ToggleButton[]... goalButtons) {
     int difficultyIndex = -1;
 
@@ -236,6 +327,17 @@ public class GoalsView extends View {
     }
   }
 
+  /**
+   * Creates a HBox containing a goal name, value, and toggle buttons.
+   * The toggle buttons are added to a toggle group.
+   * The toggle group is used to determine which toggle button is selected.
+   * Checks if the toggle button is selected and updates the goal value accordingly.
+   *
+   * @param goalName the name of the goal
+   * @param buttonStyle the style of the toggle buttons
+   * @param options the options for the toggle buttons
+   * @return the HBox goal box
+   */
   private HBox setupGoal(String goalName, String buttonStyle, String... options) {
     Text goalText = new Text(goalName);
     goalText.getStyleClass().add("goalsView-goalText");
@@ -279,17 +381,21 @@ public class GoalsView extends View {
     HBox goalBox = new HBox(10, goalText, buttonBox, goalValue);
     goalBox.setAlignment(Pos.CENTER);
 
-    // Store the toggle buttons for each difficulty level
     switch (buttonStyle) {
       case "goldGoalButton" -> goldGoalButtons = buttons;
       case "healthGoalButton" -> healthGoalButtons = buttons;
       case "scoreGoalButton" -> scoreGoalButtons = buttons;
       case "inventoryGoalButton" -> inventoryGoalButtons = buttons;
     }
-
     return goalBox;
   }
 
+  /**
+   * Checks if the string is an integer. Returns true if the string is null or empty.
+   *
+   * @param str The string to check
+   * @return True if the string is an integer, false otherwise
+   */
   private boolean isInteger(String str) {
     if (str == null || str.isEmpty()) {
       return true;
@@ -302,6 +408,9 @@ public class GoalsView extends View {
     }
   }
 
+  /**
+   * Resets the pane and clears all the children
+   */
   public void resetPane() {
     this.root.getChildren().clear();
   }

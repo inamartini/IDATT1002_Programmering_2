@@ -11,13 +11,35 @@ import javafx.scene.control.Button;
 
 import java.util.Objects;
 
+/**
+ * This class extends the View class and is responsible for the home view of the application.
+ * The home view is the first page of the application.
+ *
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.05.22
+ */
 public class HomeView extends View {
 
+  /**
+   * The screen controller of the application.
+   */
   private ScreenController screenController;
+  /**
+   * The root of the application.
+   */
   private StackPane root;
+
+  /**
+   * The border pane of the application.
+   */
   private BorderPane borderPane;
 
 
+  /**
+   * Constructor of the class.
+   * @param screenController the screen controller of the application.
+   */
   public HomeView(ScreenController screenController) {
     this.root = new StackPane();
     this.borderPane = new BorderPane();
@@ -25,10 +47,20 @@ public class HomeView extends View {
     this.screenController = screenController;
   }
 
+  /**
+   * Returns the pane.
+   * @return pane
+   */
   public Pane getPane() {
     return this.borderPane;
   }
 
+  /**
+   * Sets up the initial view of the application.
+   * It resets the pane, sets a background image, and
+   * creates a title along with a "Start New Game" button.
+   * The button click event activates the "loadGameView" screen
+   */
   public void setUp() {
     this.resetPane();
 
@@ -52,6 +84,9 @@ public class HomeView extends View {
     root.getChildren().addAll(content);
   }
 
+  /**
+   * Resets the view.
+   */
   protected void resetPane() {
     root.getChildren().clear();
   }

@@ -45,6 +45,11 @@ public class ScoreAction implements Action {
             throw new IllegalArgumentException("Failed to execute score action with given parameters");
         }
     }
+
+    /**
+     * Returns a string representation of the ScoreAction.
+     * @return score action as a string
+     */
     @Override
     public String toString() {
         return "{" +

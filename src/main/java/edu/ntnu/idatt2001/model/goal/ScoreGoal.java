@@ -9,7 +9,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class ScoreGoal implements Goal {

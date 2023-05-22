@@ -9,18 +9,38 @@ import java.util.List;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class Player {
 
+  /**
+   * The name of the player.
+   */
   private String name;
+
+  /**
+   * The health of the player.
+   */
   private int health;
+
+  /**
+   * The score of the player.
+   */
   private int score;
+
+  /**
+   * The gold of the player.
+   */
   private int gold;
+
+  /**
+   * The inventory of the player.
+   */
   private List<String> inventory;
 
     /**
      * Constructor for the Player class.
+     * Takes in the playerBuilder class used to build a player.
      *
      * @param playerBuilder The playerBuilder class used to build a player.
      */
@@ -33,7 +53,7 @@ public class Player {
   }
 
   /**
-   * Method that returns the name of the player.
+   * Returns the name of the player.
    *
    * @return The name of the player as String.
    */
@@ -42,7 +62,7 @@ public class Player {
   }
 
   /**
-   * Method that adds health to the player.
+   * Adds health to the player.
    *
    * @param health The health to add to the player.
    */
@@ -54,7 +74,7 @@ public class Player {
   }
 
   /**
-   * Method that returns the health of the player.
+   * Returns the health of the player.
    *
    * @return The health of the player as int.
    */
@@ -72,7 +92,7 @@ public class Player {
   }
 
   /**
-   * Method that returns the score of the player.
+   * Returns the score of the player.
    *
    * @return The score of the player as int.
    */
@@ -90,7 +110,7 @@ public class Player {
   }
 
   /**
-   * Method that returns the gold of the player.
+   * Returns the gold of the player.
    *
    * @return The gold of the player as int.
    */
@@ -99,7 +119,7 @@ public class Player {
   }
 
   /**
-   * Method that adds an item to the inventory of the player.
+   * Adds an item to the inventory of the player.
    *
    * @param item The item to add to the inventory.
    */
@@ -112,7 +132,7 @@ public class Player {
   }
 
   /**
-   * Method that returns the inventory of the player.
+   * Returns the inventory of the player.
    *
    * @return The inventory of the player as List.
    */

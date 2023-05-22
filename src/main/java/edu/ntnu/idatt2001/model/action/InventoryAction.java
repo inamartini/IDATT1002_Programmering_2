@@ -49,6 +49,11 @@ public class InventoryAction implements Action {
             }
         }
     }
+
+    /**
+     * Returns a string representation of the InventoryAction.
+     * @return inventory action as a string
+     */
     @Override
     public String toString() {
         return "{" +
