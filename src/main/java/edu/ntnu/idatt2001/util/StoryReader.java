@@ -172,6 +172,12 @@ public class StoryReader {
       throw new IllegalArgumentException("File is empty.");
     }
   }
+
+  /**
+   * Private constructor to prevent instantiation.
+   */
+  private StoryReader() {
+  }
 }
 
 
