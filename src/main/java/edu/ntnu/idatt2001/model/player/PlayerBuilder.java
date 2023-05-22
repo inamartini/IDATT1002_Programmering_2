@@ -3,18 +3,38 @@ package edu.ntnu.idatt2001.model.player;
 import java.util.List;
 
 /**
- * This class represents a player in a game.
+ * This class is responsible for building the player and will be
+ * used to build the player in the game.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class PlayerBuilder {
 
+  /**
+   * The name of the player.
+   */
   public String name;
+
+  /**
+     * The health of the player.
+     */
   public int health;
+
+  /**
+     * The score of the player.
+     */
   public int score;
+
+  /**
+     * The gold of the player.
+     */
   public int gold;
+
+  /**
+     * The inventory of the player.
+     */
   public List<String> inventory;
 
   /**
@@ -29,7 +49,7 @@ public class PlayerBuilder {
       this.name = name;
   }
     /**
-     * Method that sets the health of the player.
+     * Sets the health of the player.
      *
      * @param health The health of the player.
      * @return The Builder object.
@@ -43,7 +63,7 @@ public class PlayerBuilder {
   }
 
   /**
-     * Method that sets the score of the player.
+     * Sets the score of the player.
      *
      * @param score The score of the player.
      * @return The Builder object.
@@ -57,7 +77,7 @@ public class PlayerBuilder {
   }
 
   /**
-     * Method that sets the gold of the player.
+     * Sets the gold of the player.
      *
      * @param gold The gold of the player.
      * @return The Builder object.
@@ -71,7 +91,7 @@ public class PlayerBuilder {
   }
 
     /**
-     * Method that sets the inventory of the player.
+     * Sets the inventory of the player.
      *
      * @param inventory The inventory of the player.
      * @return The Builder object.
@@ -85,7 +105,7 @@ public class PlayerBuilder {
     }
 
     /**
-     * Method that builds the player.
+     * Builds the player.
      * @return The player.
      */
     public Player build() {

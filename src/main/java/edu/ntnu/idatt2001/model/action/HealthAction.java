@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.action;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * HealthAction is a class that represents an action that adds health to a player.
@@ -11,7 +9,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class HealthAction implements Action {
 
@@ -19,6 +17,7 @@ public class HealthAction implements Action {
      * The number of health points to add to the player.
      */
     private final int points;
+
     /**
      * Constructs a new HealthAction with the specified number of health points to add.
      *
@@ -27,6 +26,7 @@ public class HealthAction implements Action {
     public HealthAction(int points) {
         this.points = points;
     }
+
     /**
      * Executes the HealthAction by adding the specified number of health points to the player.
      *
@@ -45,6 +45,10 @@ public class HealthAction implements Action {
         }
     }
 
+    /**
+     * Returns a string representation of the HealthAction.
+     * @return health action as a string
+     */
     @Override
     public String toString() {
         return "{" +

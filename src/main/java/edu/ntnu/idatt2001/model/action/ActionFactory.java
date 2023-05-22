@@ -1,19 +1,28 @@
 package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
+/**
+ * ActionFactory class responsible for creating actions.
+ * Includes two separate methods for creating inventory actions
+ * and the other types of actions. This class uses the ActionType
+ * class in order to decide what type of action to create.
+ *
+ * @author Malin Haugland Høli
+ * @author Ina Martini
+ * @version 2023.05.22
+ */
 
 public class ActionFactory {
 
     /**
-     * Creates an action based on the action type and the action.
+     * Creates a Health, Gold or Score action based on the action type and the action value.
+     * If the action type is not supported or if the method failed
+     * to create the action, an exception is thrown.
      * @param actionType the action type
      * @param actionValue the action
      * @return the action
      */
     public static Action createAction(String actionType, int actionValue) {
         ActionType type = ActionType.valueOf(actionType.toUpperCase());
-
         try {
             return switch (type) {
                 case HEALTH -> new HealthAction(actionValue);
@@ -28,14 +37,14 @@ public class ActionFactory {
     }
 
     /**
-     * Creates an action based on the action type and the action.
+     * Creates an inventory action from the given action type and action value as a String.
+     * Throws exception if the action type is not supported or if the method failed to create the action.
      * @param actionType the action type
      * @param actionValue the action
-     * @return the action
+     * @return the inventory action
      */
     public static Action createInventoryAction(String actionType, String actionValue) {
         ActionType type = ActionType.valueOf(actionType.toUpperCase());
-
         try {
             if (type == ActionType.INVENTORY) {
                 return new InventoryAction(actionValue);

@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class ScoreAction implements Action {
@@ -47,6 +47,11 @@ public class ScoreAction implements Action {
             throw new IllegalArgumentException("Failed to execute score action with given parameters");
         }
     }
+
+    /**
+     * Returns a string representation of the ScoreAction.
+     * @return score action as a string
+     */
     @Override
     public String toString() {
         return "{" +

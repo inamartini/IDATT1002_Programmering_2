@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.goal;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * The GoldGoal class represents a goal that requires a player to have a certain amount of gold.
@@ -10,7 +8,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class GoldGoal implements Goal {
 

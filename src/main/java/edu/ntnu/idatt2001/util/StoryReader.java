@@ -13,11 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class for reading a story from a file.
+ * Class for reading a story from a file. Includes one method for reading a story from a file and
+ * a method for validating the file. The file must be in the correct format, if not,
+ * an exception will be thrown from wrong formatted files.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2021.04.19
+ * @version 2021.05.22
  */
 public class StoryReader {
 
@@ -53,17 +55,20 @@ public class StoryReader {
 
   /**
    * Method that reads a story from a file and returns a story object. Before reading the file, the file is validated.
-   * The file must be in the correct format, if not, an exception will be thrown from wrong formatted files.
    * A scanner object is used to read in the lines from the given file. The first line is the title of the story.
    * The second line is blank. Each new passage starts with a new line and "::" followed by the title of the passage.
    * The second line in each passage should be the content of the passage. The third line should be blank.
    * Optional links follows the format: [link text](passage reference), and should be written on the next lines.
+   * Optional actions will be written in the format: {action type}(action value), on the same line as the link.
    * <p>
    * If the Matcher object finds a match, the passage title and content is added to a new Passage object. The first passage
    * added will be the opening passage, and the next passage will be the set as the current passage.
    * The passage is then added to the story object. If the Matcher object finds a match for links, the link text and
-   * passage reference is added to a new Link object. The link is then added to the current passage. The story object will
-   * be returned when the scanner object has no more lines to read.
+   * passage reference is added to a new Link object. The link is then added to the current passage. When link matches are found,
+   * it will also look for actions. If actions are found, the action type and value is added to a new Action object
+   * through the ActionFactory methods.
+   * <p>
+   * The story object will be returned when the scanner object has no more lines to read.
    *
    * @param file The file to read from.
    * @throws FileNotFoundException if the file is not found.
@@ -71,7 +76,13 @@ public class StoryReader {
    * @return Story object.
    */
   public static Story readStoryFromFile(File file) throws FileNotFoundException, IllegalArgumentException {
-    validateFile(file);
+    try {
+      validateFile(file);
+    } catch (FileNotFoundException e)  {
+      throw new FileNotFoundException("File not found");
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("File format is wrong");
+    }
 
     Passage openingPassage = null;
     Passage currentPassage = null;

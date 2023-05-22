@@ -8,46 +8,59 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * This class writes a story to a file.
- * The .paths format is used to represent a story with passages and links.
- * Each passage in the story are represented by a title, content and links.
- * The passages are stored in a story object, which represents a complete story.
- * <p>
- * The file should be structured as follows:
- * - The first line should be the title of the story.
- * - The second line should be blank.
- * - Each new passage starts with a new line and "::" followed by the title of the passage.
- * - The second line in each passage should be the content of the passage.
- * - The third line should be blank.
- * - Optional links follows the format: [link text](passage reference), and should be written on the next lines.
- * - The last line of each passage should be blank.
- * <p>
- * This class provides a static method for writing a Story object to a file.
- * The method takes a Story object and a path as parameters to create a file with the .paths format.
- * The method throws an IllegalArgumentException if the path is null,
- * the story is null or the file is not a .paths file.
- * <p>
- * Example usage:
- * Story story = new Story("Story title", new Passage("Passage title", "Passage content"));
- * StoryWriter.writeStoryToFile(story, "path/to/file.paths");
+ * This class writes a story to a file. Includes a method for writing.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2021.04.19
+ * @version 2021.05.22
  */
 public class StoryWriter {
 
+  /**
+   * The newline character.
+   */
   private static final String NEWLINE = "\n";
+
+  /**
+   * List of passages already written to the file.
+   */
   private static ArrayList<String> passagesAlreadyWritten = new ArrayList<>();
+
+  /**
+   * List of all links in the story.
+   */
   private static ArrayList<Link> allLinks = new ArrayList<>();
 
 
   /**
-   * Method that writes a story to a file on the format .paths.
+   * Writes a story to a file on the format .paths.
+   * The .paths format is used to represent a story with passages and links.
+   * Each passage in the story are represented by a title, content and links.
+   * The passages are stored in a story object, which represents a complete story.
+   * <p>
+   * The file should be structured as follows:
+   * - The first line should be the title of the story.
+   * - The second line should be blank.
+   * - Each new passage starts with a new line and "::" followed by the title of the passage.
+   * - The second line in each passage should be the content of the passage.
+   * - The third line should be blank.
+   * - Optional links follows the format: [link text](passage reference), and should be written on the next lines.
+   * - Optional actions follows the format: {actiontype}(actionvalue), and should be written on the same line as the link
+   * - The last line of each passage should be blank.
+   * <p>
+   * The method takes a Story object and a String path as parameters to create a file with the .paths format.
+   * The method throws several exceptions if the parameters are invalid. The fileWriter will write the story to a file
+   * with the given path based on the content of the story object. The method starts by writing the opening passage,
+   * and adds this to the list of passages already written. The following passages will then be written if they are not already written.
+   * The method will check for both link and actions in the passage. If the passage has any links, the links will be added
+   * to the list of all links. If it has actions, the actions will be written with use of a toString method.
+   * If the passage has no actions, the link will be written only with the text and reference.
+   * Exceptions are thrown if any issues occur during the writing of the file.
+   * <p>
    *
-   * @param story The story object to write to file.
-   * @param path The path to write the file to. Should be a .paths file.
-   */
+   * @param story the story to be written to the file
+   * @param path the path to the file
+  */
   public static void writeStoryToFile(Story story, String path) {
     if(path == null) {
       throw new IllegalArgumentException("Path can't be empty");

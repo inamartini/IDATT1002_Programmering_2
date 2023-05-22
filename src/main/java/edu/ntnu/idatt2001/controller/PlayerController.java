@@ -5,26 +5,50 @@ import edu.ntnu.idatt2001.model.player.PlayerBuilder;
 import javafx.scene.image.Image;
 
 /**
- * Class that handles the player view
+ * Class that handles the player view. This class is responsible for creating the player
+ * and resetting the player when a game is restarted.
+ *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  *
  */
-public class PlayerViewController {
+public class PlayerController {
 
-  private static PlayerViewController playerViewController = new PlayerViewController();
+  /**
+   * The singleton instance of this class
+   */
+  private static PlayerController playerController = new PlayerController();
+
+  /**
+   * The player image
+   */
   private Image playerImage;
-  private Player player;
-  private String initialPlayerName;
-  private int initialPlayerHealth;
-  private int initialPlayerGold;
 
+  /**
+   * The player
+   */
+  private Player player;
+
+  /**
+   * The initial player name
+   */
+  private String initialPlayerName;
+
+  /**
+   *
+   */
+  private int initialPlayerHealth;
+
+  /**
+   * The initial player gold
+   */
+  private int initialPlayerGold;
 
   /**
    * Private constructor to make this a singleton class
    */
-  private PlayerViewController() {
+  private PlayerController() {
   }
 
   /**
@@ -32,8 +56,8 @@ public class PlayerViewController {
    *
    * @return the instance of this class
    */
-  public static PlayerViewController getInstance() {
-    return playerViewController;
+  public static PlayerController getInstance() {
+    return playerController;
   }
 
   /**
@@ -73,14 +97,13 @@ public class PlayerViewController {
   }
 
   /**
-   * Creates a player
+   * Creates a player when the game is started by using the PlayerBuilder class.
    *
-   * @param playerName the player name
+   * @param playerName   the player name
    * @param playerHealth the player health
-   * @param playerGold the player gold
-   * @return the player
+   * @param playerGold   the player gold
    */
-  public Player createPlayer(String playerName,int playerHealth, int playerGold) {
+  public void createPlayer(String playerName, int playerHealth, int playerGold) {
     this.initialPlayerName = playerName;
     this.initialPlayerHealth = playerHealth;
     this.initialPlayerGold = playerGold;
@@ -89,11 +112,10 @@ public class PlayerViewController {
             .health(playerHealth)
             .gold(playerGold)
             .build();
-    return player;
   }
 
   /**
-   * Resets the player
+   * Resets the player to the initial player when the game is restarted.
    */
   public void resetPlayer() {
     this.player = new PlayerBuilder(initialPlayerName)
@@ -101,5 +123,4 @@ public class PlayerViewController {
             .gold(initialPlayerGold)
             .build();
   }
-
 }

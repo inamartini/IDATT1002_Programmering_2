@@ -14,7 +14,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class HealthGoal implements Goal {
 

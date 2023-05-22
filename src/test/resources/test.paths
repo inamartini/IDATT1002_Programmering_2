@@ -1,0 +1,12 @@
+Test Story
+
+::Title of the opening passage
+Content in the opening passage
+[Test Link 1](Title of the second passage)[{Health}(10){Inventory}(Sword)]
+
+::Title of the third passage
+Content in the third passage
+
+::Title of the second passage
+Content in the second passage
+[Test Link 2](Title of the third passage)

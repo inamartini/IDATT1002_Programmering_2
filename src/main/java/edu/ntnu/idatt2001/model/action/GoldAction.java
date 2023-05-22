@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.action;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * GoldAction is a class that represents an action that adds gold to a player.
@@ -10,7 +8,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class GoldAction implements Action {
@@ -26,7 +24,6 @@ public class GoldAction implements Action {
      * @param gold the amount of gold to add
      * @throws IllegalArgumentException if the gold amount is negative
      */
-
     public GoldAction(int gold) {
         if (gold < 0) {
             throw new IllegalArgumentException("Gold can't be negative");
@@ -40,7 +37,6 @@ public class GoldAction implements Action {
      * @param player the player to add the gold to
 C     * @throws IllegalArgumentException if the player parameter is null
      */
-
     @Override
     public void execute(Player player) {
         if (player == null) {
@@ -53,6 +49,10 @@ C     * @throws IllegalArgumentException if the player parameter is null
         }
     }
 
+    /**
+     * Returns a string representation of the GoldAction.
+     * @return gold action as a string
+     */
     @Override
     public String toString() {
         return "{" +

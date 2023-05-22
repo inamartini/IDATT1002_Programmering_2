@@ -7,21 +7,33 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represents a link in a story.
+ * This class represents a link in a story. It contains the text of the link,
+ * reference to the next and a list of actions connected to the link.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
-
 public class Link {
 
+  /**
+   * The text of the link.
+   */
   private String text;
+
+  /**
+   * The reference of the link.
+   */
   private String reference;
+
+  /**
+   * The actions of the link.
+   */
   private List<Action> actions;
 
   /**
-   * Constructor for the Link class.
+   * Constructor for the Link class.It takes in the text
+   * and reference and sets this if the parameters are valid.
    *
    * @param text The text of the link.
    * @param reference The reference of the link.
@@ -39,7 +51,7 @@ public class Link {
   }
 
   /**
-   * Method that returns the text of the link.
+   * Returns the text of the link.
    *
    * @return The text of the link as String.
    */
@@ -48,7 +60,7 @@ public class Link {
   }
 
   /**
-   * Method that returns the reference of the link.
+   * Returns the reference of the link.
    *
    * @return The reference of the link as String.
    */
@@ -57,7 +69,8 @@ public class Link {
   }
 
   /**
-   * Method that adds an action to the link.
+   * Adds an action to the link. The action must be valid in
+   * order to add it to the actions list.
    *
    * @param action The action to be added.
    */
@@ -72,7 +85,7 @@ public class Link {
   }
 
   /**
-   * Method that checks if the action is valid.
+   * Checks if the action is valid.
    *
    * @param action The action to be checked.
    * @return If the action is valid as boolean.
@@ -86,7 +99,7 @@ public class Link {
   }
 
   /**
-   * Method that returns the actions of the link.
+   * Returns the actions of the link.
    *
    * @return The actions of the link as List.
    */
@@ -95,13 +108,20 @@ public class Link {
   }
 
   /**
+   * Returns the link as String.
+   *
    * @return Representation of the object as String
    */
-  public String toString() {
+  public String toString()   {
     return "Link: " + this.text + this.reference;
   }
 
 
+  /**
+   * Returns a String of a link with its actions.
+   * Uses a string builder to properly format the string.
+   * @return The link with actions as String.
+   */
   public String toStringWithActions() {
     StringBuilder sb = new StringBuilder();
     sb.append("[")
@@ -122,7 +142,7 @@ public class Link {
 
 
   /**
-   * Method to identify if one object equals the other argument.
+   * Identifies if one object equals the other argument.
    *
    * @param object the reference object
    * @return If the object equals the other argument as boolean
@@ -140,6 +160,8 @@ public class Link {
   }
 
   /**
+   * Returns the hash code value for the object.
+   *
    * @return the hash code value for the object as int
    */
   @Override
