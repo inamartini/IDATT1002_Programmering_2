@@ -1,8 +1,5 @@
 package edu.ntnu.idatt2001.model.goal;
 
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
-
 import java.util.List;
 
 /**
@@ -10,7 +7,7 @@ import java.util.List;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class GoalFactory {
@@ -47,5 +44,11 @@ public class GoalFactory {
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to create inventory goal with given parameters");
         }
+    }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private GoalFactory() {
     }
 }
