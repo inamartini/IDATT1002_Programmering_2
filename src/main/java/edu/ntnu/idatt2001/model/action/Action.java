@@ -10,11 +10,11 @@ import edu.ntnu.idatt2001.model.player.Player;
  * @version 2023.05.22
  */
 public interface Action {
-    /**
-     * Executes the action on the player. This method will be implemented by the other action classes.
-     *
-     * @param player the player
-     */
-    void execute(Player player);
+  /**
+   * Executes the action on the player. This method will be implemented by the other action classes.
+   *
+   * @param player the player
+   */
+  void execute(Player player);
 }
 

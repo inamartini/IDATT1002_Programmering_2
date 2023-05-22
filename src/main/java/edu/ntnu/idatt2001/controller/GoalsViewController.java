@@ -2,13 +2,12 @@ package edu.ntnu.idatt2001.controller;
 
 import edu.ntnu.idatt2001.model.goal.Goal;
 import edu.ntnu.idatt2001.model.goal.GoalFactory;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 
 /**
  * Controller class for the GoalsView. Handles the logic for the GoalsView.
@@ -21,7 +20,7 @@ import java.util.Map;
 public class GoalsViewController {
 
   /**
-   * List of goals to be used in the game
+   * List of goals to be used in the game.
    */
   private List<Goal> goals;
   private static final String INVENTORY_GOAL = "inventory_goal";
@@ -34,7 +33,8 @@ public class GoalsViewController {
   }
 
   /**
-   * Method for getting the goals chosen by the user
+   * Method for getting the goals chosen by the user.
+   *
    * @return the goals
    */
   public List<Goal> getGoals() {
@@ -46,9 +46,9 @@ public class GoalsViewController {
    * to a toggleMap with the corresponding goalType. Based on the goal type the goal is created
    * and added to the goals list. An exception is thrown if the goal cannot be created.
    *
-   * @param gold the gold chosen by the user
-   * @param score the score chosen by the user
-   * @param health the health chosen by the user
+   * @param gold      the gold chosen by the user
+   * @param score     the score chosen by the user
+   * @param health    the health chosen by the user
    * @param inventory the inventory chosen by the user
    */
   public void saveGoals(Toggle gold, Toggle score, Toggle health, Toggle inventory) {
@@ -64,12 +64,12 @@ public class GoalsViewController {
         Toggle toggle = entry.getKey();
         String goalType = entry.getValue();
         if (toggle instanceof ToggleButton toggleButton && (toggleButton.isSelected())) {
-            String goalValue = toggleButton.getText();
-            if (goalType.equalsIgnoreCase(INVENTORY_GOAL)) {
-              goals.add(GoalFactory.createInventoryGoal(goalType, goalValue));
-            } else {
-              goals.add(GoalFactory.createGoal(goalType, Integer.parseInt(goalValue)));
-            }
+          String goalValue = toggleButton.getText();
+          if (goalType.equalsIgnoreCase(INVENTORY_GOAL)) {
+            goals.add(GoalFactory.createInventoryGoal(goalType, goalValue));
+          } else {
+            goals.add(GoalFactory.createGoal(goalType, Integer.parseInt(goalValue)));
+          }
 
         }
       }
@@ -79,16 +79,18 @@ public class GoalsViewController {
   }
 
   /**
-   * Method for saving the custom goals chosen by the user. The goals are taken in as Strings and added
-   * if the String is not null and not empty, the goal is created and added to the goals list. An exception
-   * is thrown if the goal cannot be created.
+   * Method for saving the custom goals chosen by the user.
+   * The goals are taken in as Strings and added if the String is not null
+   * and not empty, the goal is created and added to the goals list.
+   * An exception is thrown if the goal cannot be created.
    *
-   * @param goldGoal the gold goal chosen by the user
-   * @param scoreGoal the score goal chosen by the user
-   * @param healthGoal the health goal chosen by the user
+   * @param goldGoal      the gold goal chosen by the user
+   * @param scoreGoal     the score goal chosen by the user
+   * @param healthGoal    the health goal chosen by the user
    * @param inventoryGoal the inventory goal chosen by the user
    */
-  public void saveCustomGoals(String goldGoal, String scoreGoal, String healthGoal, String inventoryGoal) {
+  public void saveCustomGoals(String goldGoal, String scoreGoal, String healthGoal,
+                              String inventoryGoal) {
     this.goals.clear();
     try {
       if (goldGoal != null && !goldGoal.isEmpty()) {
@@ -103,7 +105,7 @@ public class GoalsViewController {
       if (inventoryGoal != null && !inventoryGoal.isEmpty()) {
         goals.add(GoalFactory.createInventoryGoal(INVENTORY_GOAL, inventoryGoal));
       }
-  } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Failed to create goal with given parameters");
     }
   }

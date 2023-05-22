@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -15,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.05.14
+ * @version 2023.05.22
  */
 
 public class StoryTest {

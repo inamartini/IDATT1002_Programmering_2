@@ -14,55 +14,59 @@ import edu.ntnu.idatt2001.model.player.Player;
 
 public class ScoreGoal implements Goal {
 
-    /**
-     * The minimum amount of points required to fulfill the goal.
-     */
+  /**
+   * The minimum amount of points required to fulfill the goal.
+   */
 
-    private int minimumPoints;
-    /**
-     * Constructs a new ScoreGoal object with the given minimumPoints.
-     *
-     * @param minimumPoints the minimum score required to fulfill the goal.
-     * @throws IllegalArgumentException if the minimumPoints is negative.
-     */
-    public ScoreGoal(int minimumPoints) {
-        if (minimumPoints < 0) {
-            throw new IllegalArgumentException("Minimum points must be positive");
-        }
-        this.minimumPoints = minimumPoints;
-    }
+  private int minimumPoints;
 
-    /**
-     * Returns the minimumPoints required to fulfill the goal.
-     * @return the minimumPoints required to fulfill the goal.
-     */
-    public int getMinimumPoints() {
-        return minimumPoints;
+  /**
+   * Constructs a new ScoreGoal object with the given minimumPoints.
+   *
+   * @param minimumPoints the minimum score required to fulfill the goal.
+   * @throws IllegalArgumentException if the minimumPoints is negative.
+   */
+  public ScoreGoal(int minimumPoints) {
+    if (minimumPoints < 0) {
+      throw new IllegalArgumentException("Minimum points must be positive");
     }
-    /**
-     * Checks if the player's score is greater than or equal to the minimumPoints required to fulfill the goal.
-     *
-     * @param player the Player object to check the score of.
-     * @return true if the player's score is greater than or equal to minimumPoints, false otherwise.
-     * @throws IllegalArgumentException if the player object is null.
-     */
-    @Override
-    public boolean isFulfilled(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-        try {
-            return player.getScore() >= minimumPoints;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Failed to retrieve player score");
-        }
-    }
+    this.minimumPoints = minimumPoints;
+  }
 
-    /**
-     * ToString method for the goal.
-     */
-    @Override
-    public String toString() {
-        return "Score goal: " + minimumPoints + " points";
+  /**
+   * Returns the minimumPoints required to fulfill the goal.
+   *
+   * @return the minimumPoints required to fulfill the goal.
+   */
+  public int getMinimumPoints() {
+    return minimumPoints;
+  }
+
+  /**
+   * Checks if the player's score is greater
+   * than or equal to the minimumPoints required to fulfill the goal.
+   *
+   * @param player the Player object to check the score of.
+   * @return true if the player's score is greater than or equal to minimumPoints, false otherwise.
+   * @throws IllegalArgumentException if the player object is null.
+   */
+  @Override
+  public boolean isFulfilled(Player player) {
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null");
     }
+    try {
+      return player.getScore() >= minimumPoints;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Failed to retrieve player score");
+    }
+  }
+
+  /**
+   * ToString method for the goal.
+   */
+  @Override
+  public String toString() {
+    return "Score goal: " + minimumPoints + " points";
+  }
 }

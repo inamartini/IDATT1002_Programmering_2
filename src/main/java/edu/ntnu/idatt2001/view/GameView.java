@@ -1,28 +1,33 @@
 package edu.ntnu.idatt2001.view;
 
-import edu.ntnu.idatt2001.model.Link;
-import edu.ntnu.idatt2001.controller.PlayerController;
-import edu.ntnu.idatt2001.model.action.Action;
-import edu.ntnu.idatt2001.model.Game;
-import edu.ntnu.idatt2001.model.Passage;
-import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.controller.GameViewController;
+import edu.ntnu.idatt2001.controller.PlayerController;
 import edu.ntnu.idatt2001.controller.ScreenController;
+import edu.ntnu.idatt2001.model.Game;
+import edu.ntnu.idatt2001.model.Link;
+import edu.ntnu.idatt2001.model.Passage;
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import edu.ntnu.idatt2001.util.SoundPlayer;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Objects;
-
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Pair;
 
 /**
  * This class extends the View class and is responsible for the game view of the application.
@@ -33,7 +38,6 @@ import java.util.Objects;
  * @author Malin Haugland Høli
  * @author Ina Martini
  * @version 2023.05.22
- *
  */
 public class GameView extends View {
 
@@ -156,19 +160,18 @@ public class GameView extends View {
   }
 
   /**
-   * Sets up the game view by initializing the game, playing background music, and configuring various UI elements.
+   * Sets up the game view by initializing the game,
+   * playing background music, and configuring various UI elements.
    * The center of the border pane is set to the root node.
-   * It initializes the game, plays the background music, and handles any exceptions that occur during the initialization process.
-   * Creates and configures UI elements such as story title text, passage title text, text area, content pane, character images,
+   * It initializes the game, plays the background music,
+   * and handles any exceptions that occur during the initialization process.
+   * Creates and configures UI elements such as story title text,
+   * passage title text, text area, content pane, character images,
    * home button, menu bar, inventory box, player text, goals box, and the border pane.
    * Passages and buttons are generated based on the current passage of the game.
    * The pane structure and styling are set up accordingly.
    */
   public void setUp() {
-    Pane imageWrapper;
-    ImageView inventoryImage;
-    Button btnHome;
-
     borderPane.setCenter(root);
 
     try {
@@ -198,15 +201,16 @@ public class GameView extends View {
     HBox contentWithCharacter = new HBox(10, playerImage, content, trollImage);
     contentWithCharacter.setAlignment(Pos.CENTER);
 
-    Image homeIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/homebutton.png")));
+    Image homeIcon =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/homebutton.png")));
     ImageView home = new ImageView(homeIcon);
     home.setFitHeight(50);
     home.setFitWidth(50);
-    btnHome = new Button();
+    Button btnHome = new Button();
     btnHome.setGraphic(home);
     btnHome.getStyleClass().add("gameView-returnHome-button");
     btnHome.setAlignment(Pos.TOP_LEFT);
-    btnHome.setOnAction(e ->  {
+    btnHome.setOnAction(e -> {
       try {
         soundPlayer.stopPlaying();
         this.resetPane();
@@ -221,6 +225,7 @@ public class GameView extends View {
     menuBar.getChildren().addAll(btnHome, showHelpAlert());
     menuBar.setAlignment(Pos.TOP_LEFT);
 
+    ImageView inventoryImage;
     inventoryImage = new ImageView();
 
     inventoryBox = new HBox(10, inventoryImage);
@@ -229,7 +234,8 @@ public class GameView extends View {
     playerText = new Label();
     refreshLabel();
 
-    imageWrapper = new Pane();
+
+    Pane imageWrapper = new Pane();
     imageWrapper.getChildren().add(inventoryBox);
     imageWrapper.setPrefWidth(150);
     imageWrapper.setPrefHeight(150);
@@ -253,15 +259,18 @@ public class GameView extends View {
   }
 
   /**
-   *  Generates passages and buttons based on the given Passage object.
-   *  It sets the story title, current passage, passage title, and content in the respective UI elements.
-   *  It removes any existing buttons from the content pane.
-   *  If the current passage has no links, it stops the sound player, creates end game buttons, and adds them to the content pane.
-   *  Otherwise, it generates buttons for each link in the current passage's list of links.
-   *  If a link is marked as broken, the button is disabled and labeled as "(BROKEN)".
-   *  Otherwise, the button is configured with an action to execute the link's actions, update the label, and generate new passages and buttons.
-   *  The goal status is updated in the goalsBox.
-   *  If an exception occurs during the generation process, an error alert will be displayed.
+   * Generates passages and buttons based on the given Passage object.
+   * It sets the story title, current passage, passage title,
+   * and content in the respective UI elements.
+   * It removes any existing buttons from the content pane.
+   * If the current passage has no links, it stops the sound player,
+   * creates end game buttons, and adds them to the content pane.
+   * Otherwise, it generates buttons for each link in the current passage's list of links.
+   * If a link is marked as broken, the button is disabled and labeled as "(BROKEN)".
+   * Otherwise, the button is configured with an action to
+   * execute the link's actions, update the label, and generate new passages and buttons.
+   * The goal status is updated in the goalsBox.
+   * If an exception occurs during the generation process, an error alert will be displayed.
    *
    * @param passage the passage to generate passages and buttons for
    */
@@ -283,7 +292,9 @@ public class GameView extends View {
   }
 
   /**
-   * Sets the story title, current passage, passage title, and content in the respective UI elements.
+   * Sets the story title, current passage,
+   * passage title, and content in the respective UI elements.
+   *
    * @param passage the passage to set up
    */
   private void setupPassageAndTitle(Passage passage) {
@@ -307,6 +318,7 @@ public class GameView extends View {
   /**
    * Creates a button for the given link.
    * Removes buttons if the player has a health of 0 or below.
+   *
    * @param player the player to execute the link's actions on
    */
   private void processLinks(Player player) {
@@ -329,9 +341,11 @@ public class GameView extends View {
   }
 
   /**
-   * Sets the action of the given button to execute the link's actions, update the label, and generate new passages and buttons.
-   * @param player the player to execute the link's actions on
-   * @param link the link to execute actions for
+   * Sets the action of the given button to execute
+   * the link's actions, update the label, and generate new passages and buttons.
+   *
+   * @param player  the player to execute the link's actions on
+   * @param link    the link to execute actions for
    * @param btnLink the button to set the action for
    */
   private void setLinkButtonAction(Player player, Link link, Button btnLink) {
@@ -354,6 +368,7 @@ public class GameView extends View {
 
   /**
    * Creates the buttons that links the player from one passage to another.
+   *
    * @param link the link to create a button for
    * @return the button that links the player from one passage to another
    */
@@ -362,9 +377,10 @@ public class GameView extends View {
   }
 
   /**
-   * Disables a button if it refers to a passage that doesn't exist
+   * Disables a button if it refers to a passage that doesn't exist.
+   *
    * @param btnLink the button to disable
-   * @param link the link that is broken
+   * @param link    the link that is broken
    */
   private void disableBrokenLink(Button btnLink, Link link) {
     btnLink.setDisable(true);
@@ -373,7 +389,8 @@ public class GameView extends View {
 
   /**
    * Executes the actions of the given list of actions on the given player.
-   * @param player the player to execute the actions on
+   *
+   * @param player  the player to execute the actions on
    * @param actions the list of actions to execute
    */
   private void executeLinkActions(Player player, List<Action> actions) {
@@ -429,8 +446,7 @@ public class GameView extends View {
       endGameButtons = new HBox(10, btnRestartGame, btnSeeResults);
       endGameButtons.setAlignment(Pos.CENTER);
       content.getChildren().add(endGameButtons);
-    }
-    catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       AlertUtil.showAlert(Alert.AlertType.ERROR, ERROR, e.getMessage());
     }
   }
@@ -440,16 +456,18 @@ public class GameView extends View {
    * Updates the player's name, health, score, and gold in the playerText label.
    * Resets the inventory images and inventory list in the gameViewController.
    * Updates the inventory icons and adds them to the inventoryBox.
-   * If an exception occurs during the inventory icon update, an error alert is displayed.
-   * If inventory images or inventory list are not null, the inventoryBox is cleared and updated accordingly.
+   * If an exception occurs during the inventory icon update,
+   * an error alert is displayed.
+   * If inventory images or inventory list are not null,
+   * the inventoryBox is cleared and updated accordingly.
    */
   public void refreshLabel() {
     gameViewController = GameViewController.getInstance();
 
     playerText.setText("Name: " + playerController.getPlayer().getName()
-            + "\nHealth: " + playerController.getPlayer().getHealth()
-            + "\nScore: " + playerController.getPlayer().getScore()
-            + "\nGold: " + playerController.getPlayer().getGold());
+        + "\nHealth: " + playerController.getPlayer().getHealth()
+        + "\nScore: " + playerController.getPlayer().getScore()
+        + "\nGold: " + playerController.getPlayer().getGold());
 
     gameViewController.resetInventoryImages();
     gameViewController.resetInventoryList();
@@ -457,15 +475,15 @@ public class GameView extends View {
 
     for (String item : playerController.getPlayer().getInventory()) {
       try {
-      gameViewController.updateInventoryIcon(item);
-        } catch (IllegalArgumentException e) {
-            AlertUtil.showAlert(Alert.AlertType.ERROR, ERROR, e.getMessage());
-        }
+        gameViewController.updateInventoryIcon(item);
+      } catch (IllegalArgumentException e) {
+        AlertUtil.showAlert(Alert.AlertType.ERROR, ERROR, e.getMessage());
+      }
     }
     if (gameViewController.getInventoryImages() != null) {
-        inventoryBox.getChildren().clear();
+      inventoryBox.getChildren().clear();
 
-      for(Image image: gameViewController.getInventoryImages()) {
+      for (Image image : gameViewController.getInventoryImages()) {
         inventoryImage = new ImageView();
         inventoryImage.setImage(image);
         inventoryImage.setFitHeight(50);
@@ -474,7 +492,7 @@ public class GameView extends View {
         inventoryBox.getChildren().add(inventoryImage);
       }
     }
-    if(gameViewController.getInventoryList() != null) {
+    if (gameViewController.getInventoryList() != null) {
       for (String item : gameViewController.getInventoryList()) {
         Label inventoryLabel = new Label(item);
         inventoryBox.getChildren().add(inventoryLabel);
@@ -490,7 +508,6 @@ public class GameView extends View {
    * The game summary displays the goals fulfilled and the goals not fulfilled.
    */
   public void gameResults() {
-    Button btnRestartGame2;
     content.getChildren().remove(endGameButtons);
 
     ScrollPane scrollPane = new ScrollPane();
@@ -528,7 +545,7 @@ public class GameView extends View {
       gameInfo.getChildren().add(goalSummaryBox);
     }
 
-    btnRestartGame2 = new Button("RESTART GAME");
+    Button btnRestartGame2 = new Button("RESTART GAME");
     btnRestartGame2.setOnAction(e -> {
       gameViewController.resetGame();
       this.resetPane();
@@ -587,7 +604,8 @@ public class GameView extends View {
    * @return VBox displaying the help alert.
    */
   public VBox showHelpAlert() {
-    Image helpIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/helpbutton.png")));
+    Image helpIcon =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/helpbutton.png")));
     ImageView helpView = new ImageView(helpIcon);
     helpView.setFitHeight(50);
     helpView.setFitWidth(50);
@@ -595,22 +613,23 @@ public class GameView extends View {
     helpButton.setGraphic(helpView);
     helpButton.getStyleClass().add("gameView-help-button");
     String howToPlayMessage = """
-              - Start by choosing your character and set your desired health and gold.
-                
-              - The next page will take you to the page where you can decide whether you want
-                to use the predefined goals of easy, normal and hard difficulty or if you want
-                to play without goals our customize your own.
-                
-              - During the game your player information will be displayed at the top,
-                with a progress bar that keeps track of how far you are from reaching your goals.
-                
-              - You will have several buttons to choose from, each button will take you further in the game.
-                The buttons will be displayed in the middle of the screen.
-                
-              - If you want to return to the home screen, click on the home button.
-                When the game is over you can choose to restart the game or click the
-                home button to return to the home screen and choose another story.
-              """;
+        - Start by choosing your character and set your desired health and gold.
+          
+        - The next page will take you to the page where you can decide whether you want
+          to use the predefined goals of easy, normal and hard difficulty or if you want
+          to play without goals our customize your own.
+          
+        - During the game your player information will be displayed at the top,
+          with a progress bar that keeps track of how far you are from reaching your goals.
+          
+        - You will have several buttons to choose from, each button will\s
+          take you further in the game. The buttons will be displayed\s
+          in the middle of the screen.
+          
+        - If you want to return to the home screen, click on the home button.
+          When the game is over you can choose to restart the game or click the
+          home button to return to the home screen and choose another story.
+        """;
     helpButton.setOnAction(e -> {
       soundPlayer.stopPlaying();
       AlertUtil.showAlert(Alert.AlertType.INFORMATION, "How to play", howToPlayMessage);

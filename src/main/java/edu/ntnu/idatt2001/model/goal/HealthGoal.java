@@ -16,57 +16,58 @@ import edu.ntnu.idatt2001.model.player.Player;
  */
 public class HealthGoal implements Goal {
 
-    /**
-     * The minimum health required to fulfill the goal.
-     */
-    private int minimumHealth;
+  /**
+   * The minimum health required to fulfill the goal.
+   */
+  private int minimumHealth;
 
-    /**
-     * Constructs a new HealthGoal object with the specified minimum health.
-     *
-     * @param minimumHealth the minimum health required to fulfill the goal.
-     * @throws IllegalArgumentException if the minimum health is not positive.
-     */
-    public HealthGoal(int minimumHealth) {
-        if (minimumHealth <= 0) {
-            throw new IllegalArgumentException("Minimum health must be positive");
-        }
-        this.minimumHealth = minimumHealth;
+  /**
+   * Constructs a new HealthGoal object with the specified minimum health.
+   *
+   * @param minimumHealth the minimum health required to fulfill the goal.
+   * @throws IllegalArgumentException if the minimum health is not positive.
+   */
+  public HealthGoal(int minimumHealth) {
+    if (minimumHealth <= 0) {
+      throw new IllegalArgumentException("Minimum health must be positive");
     }
+    this.minimumHealth = minimumHealth;
+  }
 
-    /**
-     * Returns the minimum health required to fulfill the goal.
-     * @return the minimum health required to fulfill the goal.
-     */
-    public int getMinimumHealth() {
-        return minimumHealth;
-    }
+  /**
+   * Returns the minimum health required to fulfill the goal.
+   *
+   * @return the minimum health required to fulfill the goal.
+   */
+  public int getMinimumHealth() {
+    return minimumHealth;
+  }
 
-    /**
-     * Checks whether the given player has the required minimum health to fulfill the goal.
-     *
-     * @param player the player to check the health of.
-     * @return true if the player's health is greater than or equal to the minimum health
-     *         required to fulfill the goal, false otherwise.
-     * @throws IllegalArgumentException if the player is null.
-     */
-    @Override
-    public boolean isFulfilled(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-        try {
-            return player.getHealth() >= minimumHealth;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Failed to retrieve health from player");
-        }
+  /**
+   * Checks whether the given player has the required minimum health to fulfill the goal.
+   *
+   * @param player the player to check the health of.
+   * @return true if the player's health is greater than or equal to the minimum health
+   *         required to fulfill the goal, false otherwise.
+   * @throws IllegalArgumentException if the player is null.
+   */
+  @Override
+  public boolean isFulfilled(Player player) {
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null");
     }
+    try {
+      return player.getHealth() >= minimumHealth;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Failed to retrieve health from player");
+    }
+  }
 
-    /**
-     * ToString method for the goal.
-     */
-    @Override
-    public String toString() {
-        return "Health goal: " + minimumHealth + " health";
-    }
+  /**
+   * ToString method for the goal.
+   */
+  @Override
+  public String toString() {
+    return "Health goal: " + minimumHealth + " health";
+  }
 }

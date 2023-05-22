@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 public class PlayerTest {
 
@@ -29,16 +27,16 @@ public class PlayerTest {
     @DisplayName("IllegalArgumentException is thrown if name is null")
     void constructorIllegalArgumentExceptionIfNameIsNull() {
       assertThrows(IllegalArgumentException.class, () ->
-              player = new PlayerBuilder(null).build());
+          player = new PlayerBuilder(null).build());
     }
 
     @Test
     @DisplayName("IllegalArgumentException is thrown if item is null")
     void throwsIllegalArgumentExceptionIfItemIsNull() {
       player = new PlayerBuilder("Player")
-              .score(100)
-              .health(100)
-              .build();
+          .score(100)
+          .health(100)
+          .build();
       assertThrows(IllegalArgumentException.class, () -> player.addToInventory(null));
     }
 
@@ -46,18 +44,19 @@ public class PlayerTest {
     @DisplayName("IllegalArgumentException is thrown if health is zero or negative")
     void throwsIllegalArgumentExceptionIfHealthIsZeroOrNegative() {
       player = new PlayerBuilder("Player")
-              .health(1)
-              .build();
+          .health(1)
+          .build();
       assertThrows(IllegalArgumentException.class, () -> player.addHealth(-1));
     }
   }
+
   @BeforeEach
   void setUp() {
     player = new PlayerBuilder("Player")
-            .gold(100)
-            .health(100)
-            .score(100)
-            .build();
+        .gold(100)
+        .health(100)
+        .score(100)
+        .build();
   }
 
   @Nested

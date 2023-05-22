@@ -14,33 +14,31 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.MM.DD
- *
+ * @version 2023.05.22
  */
 public class ScoreActionTest {
 
-    private Player player;
-    private ScoreAction scoreAction;
+  private Player player;
+  private ScoreAction scoreAction;
 
-    @BeforeEach
-    void setUp() {
-        player = new PlayerBuilder("Player 1")
-                .score(4)
-                .build();
-        scoreAction = new ScoreAction(5);
-    }
+  @BeforeEach
+  void setUp() {
+    player = new PlayerBuilder("Player 1")
+        .score(4)
+        .build();
+    scoreAction = new ScoreAction(5);
+  }
 
-    @Test
-    @DisplayName("Score is added to the player's score")
-    void executeAddsCorrectScoreToPlayer() {
-        scoreAction.execute(player);
-        assertEquals(9, player.getScore());
-    }
+  @Test
+  @DisplayName("Score is added to the player's score")
+  void executeAddsCorrectScoreToPlayer() {
+    scoreAction.execute(player);
+    assertEquals(9, player.getScore());
+  }
 
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if player is null")
-    void executeThrowsIllegalArgumentExceptionIfPlayerIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> scoreAction.execute(null));
-    }
+  @Test
+  @DisplayName("IllegalArgumentException is thrown if player is null")
+  void executeThrowsIllegalArgumentExceptionIfPlayerIsNull() {
+    assertThrows(IllegalArgumentException.class, () -> scoreAction.execute(null));
+  }
 }

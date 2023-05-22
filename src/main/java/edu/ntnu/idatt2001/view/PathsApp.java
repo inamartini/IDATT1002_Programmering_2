@@ -2,9 +2,9 @@ package edu.ntnu.idatt2001.view;
 
 import edu.ntnu.idatt2001.controller.ScreenController;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -66,6 +66,7 @@ public class PathsApp extends Application {
 
   /**
    * Starts the application.
+   *
    * @param primaryStage The primary stage of the application.
    */
   @Override
@@ -93,6 +94,7 @@ public class PathsApp extends Application {
 
   /**
    * The main method of the application.
+   *
    * @param args The arguments of the application.
    */
   public static void main(String[] args) {

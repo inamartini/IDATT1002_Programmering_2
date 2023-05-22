@@ -16,38 +16,39 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
- *
+ * @version 2023.05.22
  */
 public class ActionFactoryTest {
 
-    private Action action;
+  private Action action;
 
-    @Test
-    @DisplayName("The action created is of type HealthAction")
-    void testCreateAction() {
-        action = ActionFactory.createAction("HEALTH", 10);
-        assertTrue(action instanceof HealthAction);
-    }
-    @Test
-    @DisplayName("The action created is of type GoldAction")
-    void testCreateGoldAction() {
-        action = ActionFactory.createAction("GOLD", 10);
-        assertTrue(action instanceof GoldAction);
-    }
-    @Test
-    @DisplayName("The action created is of type ScoreAction")
-    void testCreateScoreAction() {
-        action = ActionFactory.createAction("SCORE", 10);
-        assertTrue(action instanceof ScoreAction);
-    }
+  @Test
+  @DisplayName("The action created is of type HealthAction")
+  void testCreateAction() {
+    action = ActionFactory.createAction("HEALTH", 10);
+    assertTrue(action instanceof HealthAction);
+  }
 
-    @Test
-    @DisplayName("The action created is of type InventoryAction and not a different type")
-    void testCreateInventoryAction() {
-        action = ActionFactory.createInventoryAction("inventory", "Sword");
-        assertFalse(action instanceof ScoreAction);
-        assertFalse(action instanceof GoldAction);
-        assertFalse(action instanceof HealthAction);
-    }
+  @Test
+  @DisplayName("The action created is of type GoldAction")
+  void testCreateGoldAction() {
+    action = ActionFactory.createAction("GOLD", 10);
+    assertTrue(action instanceof GoldAction);
+  }
+
+  @Test
+  @DisplayName("The action created is of type ScoreAction")
+  void testCreateScoreAction() {
+    action = ActionFactory.createAction("SCORE", 10);
+    assertTrue(action instanceof ScoreAction);
+  }
+
+  @Test
+  @DisplayName("The action created is of type InventoryAction and not a different type")
+  void testCreateInventoryAction() {
+    action = ActionFactory.createInventoryAction("inventory", "Sword");
+    assertFalse(action instanceof ScoreAction);
+    assertFalse(action instanceof GoldAction);
+    assertFalse(action instanceof HealthAction);
+  }
 }

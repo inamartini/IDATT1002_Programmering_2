@@ -1,15 +1,20 @@
 package edu.ntnu.idatt2001.controller;
 
-import edu.ntnu.idatt2001.model.player.InventoryIcon;
-import edu.ntnu.idatt2001.model.player.InventoryType;
-import edu.ntnu.idatt2001.model.*;
+import edu.ntnu.idatt2001.model.Game;
+import edu.ntnu.idatt2001.model.Story;
 import edu.ntnu.idatt2001.model.goal.Goal;
 import edu.ntnu.idatt2001.model.goal.GoldGoal;
 import edu.ntnu.idatt2001.model.goal.HealthGoal;
 import edu.ntnu.idatt2001.model.goal.InventoryGoal;
 import edu.ntnu.idatt2001.model.goal.ScoreGoal;
+import edu.ntnu.idatt2001.model.player.InventoryIcon;
+import edu.ntnu.idatt2001.model.player.InventoryType;
 import edu.ntnu.idatt2001.model.player.Player;
 import edu.ntnu.idatt2001.util.StoryReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -19,11 +24,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -37,54 +37,55 @@ import java.util.List;
 public class GameViewController {
 
   /**
-   * The singleton instance of this class
+   * The singleton instance of this class.
    */
-  private static GameViewController gameViewController= new GameViewController();
+  private static GameViewController gameViewController = new GameViewController();
 
   /**
-   * The singleton instance of the player controller used to update the player
+   * The singleton instance of the player controller used to update the player.
    */
   private PlayerController playerController = PlayerController.getInstance();
 
   /**
-   * The story of the game to be played
+   * The story of the game to be played.
    */
   private Story story;
 
   /**
-   * The game object
+   * The game object.
    */
   private Game game;
 
 
   /**
-   * The player of the game
+   * The player of the game.
    */
   private Player player;
 
   /**
-   * The path to the story file
+   * The path to the story file.
    */
-  private String storyPath ;
+  private String storyPath;
 
   /**
-   * Inventory icon to update the inventory
+   * Inventory icon to update the inventory.
    */
   private InventoryIcon inventoryIcon = new InventoryIcon();
 
   /**
-   * The list of inventory items
+   * The list of inventory items.
    */
   private List<String> inventoryList = new ArrayList<>();
 
   /**
-   * Private constructor to make this a singleton class
+   * Private constructor to make this a singleton class.
    */
   private GameViewController() {
   }
 
   /**
-   * Returns the singleton instance of this class
+   * Returns the singleton instance of this class.
+   *
    * @return the singleton instance of this class
    */
   public static GameViewController getInstance() {
@@ -92,7 +93,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the Story object
+   * Method that returns the Story object.
+   *
    * @return the Story object
    */
   public Story getStory() {
@@ -100,7 +102,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that sets the story object
+   * Method that sets the story object.
+   *
    * @param story the story object
    */
   public void setStory(Story story) {
@@ -121,7 +124,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that gets the game
+   * Method that gets the game.
+   *
    * @return the game
    */
   public Game getGame() {
@@ -129,7 +133,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that sets the current game
+   * Method that sets the current game.
+   *
    * @param game the current game
    */
   public void setGame(Game game) {
@@ -137,7 +142,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the game path
+   * Method that returns the game path.
+   *
    * @param path the game path
    */
   public void setGamePath(String path) {
@@ -145,7 +151,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the player image from the PlayerViewController
+   * Method that returns the player image from the PlayerViewController.
+   *
    * @return the player image
    */
   public Image getPlayerImage() {
@@ -161,7 +168,7 @@ public class GameViewController {
    * @param inventory the inventory
    */
   public void updateInventoryIcon(String inventory) {
-    if(inventory == null) {
+    if (inventory == null) {
       throw new IllegalArgumentException("Inventory can't be null");
     }
     try {
@@ -182,7 +189,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the inventory image of the inventory
+   * Method that returns the inventory image of the inventory.
+   *
    * @return the inventory image
    */
   public List<Image> getInventoryImages() {
@@ -190,7 +198,7 @@ public class GameViewController {
   }
 
   /**
-   * Method that returns the inventory without images if the inventory does not match
+   * Method that returns the inventory without images if the inventory does not match.
    * the enum types set in the InventoryType class
    *
    * @return the inventory without images
@@ -200,21 +208,22 @@ public class GameViewController {
   }
 
   /**
-   * Method that resets the inventory images
+   * Method that resets the inventory images.
    */
   public void resetInventoryImages() {
     inventoryIcon.getInventoryIcons().clear();
   }
 
   /**
-   * Method that resets the inventory list
+   * Method that resets the inventory list.
    */
   public void resetInventoryList() {
     inventoryList.clear();
   }
 
   /**
-   * Method that resets game. The method resets the current passage to the opening passage, and resets the player.
+   * Method that resets game.
+   * The method resets the current passage to the opening passage, and resets the player.
    */
   public void resetGame() {
     game.setCurrentPassage(story.getOpeningPassage());
@@ -278,7 +287,8 @@ public class GameViewController {
   }
 
   /**
-   * Method that checks if all the goals are fulfilled
+   * Method that checks if all the goals are fulfilled.
+   *
    * @return true if all the goals are fulfilled, false otherwise
    */
   public boolean checkIfAllGoalsAreFulfilled() {
@@ -286,18 +296,20 @@ public class GameViewController {
   }
 
   /**
-   * Method that checks if the inventory goals are fulfilled
+   * Method that checks if the inventory goals are fulfilled.
+   *
    * @return the total number of inventory goals fulfilled
    */
   public double checkIfInventoryGoalsAreFulfilled() {
     return game.getGoals().stream()
-            .filter(InventoryGoal.class::isInstance)
-            .mapToDouble(goal -> goal.isFulfilled(player) ? 1.0 : 0.0)
-            .sum();
+        .filter(InventoryGoal.class::isInstance)
+        .mapToDouble(goal -> goal.isFulfilled(player) ? 1.0 : 0.0)
+        .sum();
   }
 
   /**
-   * Method that returns the goal summary
+   * Method that returns the goal summary.
+   *
    * @return the goal summary
    */
   public List<Pair<String, String>> getGoalSummary() {

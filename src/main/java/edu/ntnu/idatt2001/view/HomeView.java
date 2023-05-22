@@ -3,13 +3,20 @@ package edu.ntnu.idatt2001.view;
 
 
 import edu.ntnu.idatt2001.controller.ScreenController;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.scene.control.Button;
-
 import java.util.Objects;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * This class extends the View class and is responsible for the home view of the application.
@@ -38,6 +45,7 @@ public class HomeView extends View {
 
   /**
    * Constructor of the class.
+   *
    * @param screenController the screen controller of the application.
    */
   public HomeView(ScreenController screenController) {
@@ -49,6 +57,7 @@ public class HomeView extends View {
 
   /**
    * Returns the pane.
+   *
    * @return pane
    */
   public Pane getPane() {
@@ -64,9 +73,12 @@ public class HomeView extends View {
   public void setUp() {
     this.resetPane();
 
-    Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/background.png")));
-    BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-            new BackgroundSize(1.0 , 1.0 , true, true, false, true));
+    Image backgroundImage =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/background.png")));
+    BackgroundImage background =
+        new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            new BackgroundSize(1.0, 1.0, true, true, false, true));
 
     root.setBackground(new Background(background));
 

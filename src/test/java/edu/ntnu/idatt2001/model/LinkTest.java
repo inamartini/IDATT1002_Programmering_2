@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class LinkTest {
@@ -52,6 +51,7 @@ public class LinkTest {
       link = new Link("Text", "Reference");
       healthAction = new HealthAction(5);
     }
+
     @Test
     @DisplayName("The correct actions are returned")
     void addActionsReturnsCorrectActions() {
@@ -61,11 +61,13 @@ public class LinkTest {
       link.addAction(goldAction);
       assertEquals(2, link.getActions().size());
     }
+
     @Test
     @DisplayName("Returns true if action is not null")
     void returnsTrueIfActionIsNotNull() {
       assertTrue(link.actionIsValid(healthAction));
     }
+
     @Test
     @DisplayName("Empty list is returned when no actions are added")
     void getActionsReturnsEmptyList() {
@@ -80,6 +82,7 @@ public class LinkTest {
     public void setUp() {
       notEmptyString = "Test";
     }
+
     @Test
     @DisplayName("IllegalArgumentException is thrown if text is null")
     void textThrowIllegalArgumentExceptionTest() {
@@ -91,6 +94,7 @@ public class LinkTest {
     void throwsIllegalArgumentExceptionIfReferenceIsNull() {
       assertThrows(IllegalArgumentException.class, () -> link = new Link(notEmptyString, null));
     }
+
     @Test
     @DisplayName("IllegalArgumentException is thrown if action is null")
     void throwsIllegalArgumentExceptionIfActionIsNull() {
