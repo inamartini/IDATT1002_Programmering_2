@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
  * This class extends the View class and is responsible for the home view of the application.
  * The home view is the first page of the application.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

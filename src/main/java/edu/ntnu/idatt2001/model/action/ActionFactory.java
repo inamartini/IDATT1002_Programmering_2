@@ -6,7 +6,7 @@ package edu.ntnu.idatt2001.model.action;
  * and the other types of actions. This class uses the ActionType
  * class in order to decide what type of action to create.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class represents a test class for the Game class.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

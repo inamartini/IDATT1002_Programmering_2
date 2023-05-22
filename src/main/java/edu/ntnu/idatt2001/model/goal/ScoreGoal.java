@@ -7,7 +7,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  * It implements the Goal interface and overrides the isFulfilled method to check if the
  * player's score is greater than or equal to a minimum score required to fulfill the goal.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

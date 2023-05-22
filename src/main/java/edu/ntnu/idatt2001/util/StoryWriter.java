@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * This class writes a story to a file. Includes a method for writing.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2021.05.22
  */

@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
  * The user can also choose to go back to the home view.
  * The load game view is the second page of the application.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

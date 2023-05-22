@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Nested;
 /**
  * Test class for StoryReader
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

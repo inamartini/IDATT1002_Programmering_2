@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
  * difficulty or to custom their own or play without goals.
  * Includes methods for setting up the view and handling button actions.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

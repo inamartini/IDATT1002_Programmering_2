@@ -17,7 +17,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * The class is used to play sounds when the
  * user clicks on buttons and during the game.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

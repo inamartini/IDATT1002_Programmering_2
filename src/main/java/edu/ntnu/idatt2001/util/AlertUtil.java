@@ -7,7 +7,7 @@ import javafx.scene.control.Alert.AlertType;
  * Class for showing alerts. The class has one method for showing alerts with different alert types.
  * Used in the views to display alerts to the user.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

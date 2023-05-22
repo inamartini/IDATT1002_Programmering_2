@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * a method for validating the file. The file must be in the correct format, if not,
  * an exception will be thrown from wrong formatted files.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2021.05.22
  */

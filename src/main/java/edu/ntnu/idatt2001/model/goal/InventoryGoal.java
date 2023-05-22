@@ -9,7 +9,7 @@ import java.util.List;
  * The inventory goal is fulfilled when the player has a
  * certain set of mandatory items in their inventory.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

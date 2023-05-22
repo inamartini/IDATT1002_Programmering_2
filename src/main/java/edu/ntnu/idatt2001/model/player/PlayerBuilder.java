@@ -6,7 +6,7 @@ import java.util.List;
  * This class is responsible for building the player and will be
  * used to build the player in the game.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

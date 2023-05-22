@@ -8,7 +8,7 @@ import java.util.List;
  * and the other types of goals. This class uses the goalType
  * class in order to decide what type of goal to create.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

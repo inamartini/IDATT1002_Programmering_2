@@ -9,7 +9,7 @@ import java.util.Objects;
  * This class represents a link in a story. It contains the text of the link,
  * reference to the next and a list of actions connected to the link.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

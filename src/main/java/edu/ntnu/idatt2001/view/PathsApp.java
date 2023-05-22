@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * The main class of the application.
  * This class extends the Application class and is the entry point of the application.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

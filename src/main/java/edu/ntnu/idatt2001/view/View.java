@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 /**
  * Abstract class for all views.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */
