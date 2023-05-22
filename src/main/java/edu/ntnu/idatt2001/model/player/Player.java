@@ -47,10 +47,10 @@ public class Player {
    * @param health The health to add to the player.
    */
   public void addHealth(int health) {
-    if (health <= 0) {
-      throw new IllegalArgumentException("Health can't be negative or zero");
-    }
     this.health += health;
+    if (this.health <= 0) {
+      throw new IllegalArgumentException("Health can't be 0 or less");
+    }
   }
 
   /**
@@ -86,9 +86,6 @@ public class Player {
    * @param gold The gold to add to the player.
    */
   public void addGold(int gold) {
-    if (gold < 0) {
-      throw new IllegalArgumentException("Gold can't be negative");
-    }
     this.gold += gold;
   }
 
