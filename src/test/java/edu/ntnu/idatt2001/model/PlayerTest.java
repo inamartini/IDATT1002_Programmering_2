@@ -33,13 +33,6 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("IllegalArgumentException is thrown if health is negative")
-    void constructorThrowsIllegalArgumentExceptionIfHealthIsNegative() {
-      assertThrows(IllegalArgumentException.class, () ->
-              player = new PlayerBuilder("Player").health(-1).build());
-    }
-
-    @Test
     @DisplayName("IllegalArgumentException is thrown if item is null")
     void throwsIllegalArgumentExceptionIfItemIsNull() {
       player = new PlayerBuilder("Player")
@@ -50,10 +43,10 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("IllegalArgumentException is thrown if health is negative")
-    void throwsIllegalArgumentExceptionIfHealthIsNegative() {
+    @DisplayName("IllegalArgumentException is thrown if health is zero or negative")
+    void throwsIllegalArgumentExceptionIfHealthIsZeroOrNegative() {
       player = new PlayerBuilder("Player")
-              .score(100)
+              .health(1)
               .build();
       assertThrows(IllegalArgumentException.class, () -> player.addHealth(-1));
     }
@@ -79,6 +72,13 @@ public class PlayerTest {
     }
 
     @Test
+    @DisplayName("Negative gold is not added to player")
+    void addNegativeGoldToPlayer() {
+      player.addGold(-10);
+      assertEquals(90, player.getGold());
+    }
+
+    @Test
     @DisplayName("Health is added to player")
     void addHealthToPlayer() {
       player.addHealth(10);
@@ -86,10 +86,24 @@ public class PlayerTest {
     }
 
     @Test
+    @DisplayName("Negative health is not added to player")
+    void addNegativeHealthToPlayer() {
+      player.addHealth(-10);
+      assertEquals(90, player.getHealth());
+    }
+
+    @Test
     @DisplayName("Score is added to player")
     void addScoreToPlayer() {
       player.addScore(10);
       assertEquals(110, player.getScore());
+    }
+
+    @Test
+    @DisplayName("Negative score is added to player")
+    void addNegativeScoreToPlayer() {
+      player.addScore(-10);
+      assertEquals(90, player.getScore());
     }
 
     @Test

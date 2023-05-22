@@ -87,7 +87,6 @@ public class StoryWriter {
         }
       }
       passagesAlreadyWritten.add(story.getOpeningPassage().getTitle());
-      allLinks.addAll(story.getOpeningPassage().getListOfLinks());
 
       story.getPassages().forEach(passage -> {
         if (!passagesAlreadyWritten.contains(passage.getTitle())) {
@@ -111,5 +110,11 @@ public class StoryWriter {
     catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Private constructor to prevent instantiation.
+   */
+  private StoryWriter() {
   }
 }

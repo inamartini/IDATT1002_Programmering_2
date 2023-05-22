@@ -11,6 +11,6 @@ public enum ActionType {
     HEALTH,
     GOLD,
     INVENTORY,
-    SCORE;
+    SCORE
 }
 

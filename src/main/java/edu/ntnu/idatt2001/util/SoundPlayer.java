@@ -25,8 +25,9 @@ public class SoundPlayer {
    */
   public void playOnce(String filename) throws Exception {
     try (InputStream is = getClass().getResourceAsStream(filename)) {
+      assert is != null;
       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(is);
-      Clip clip = AudioSystem.getClip();
+      clip = AudioSystem.getClip();
       clip.open(audioInputStream);
       clip.start();
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -42,6 +43,7 @@ public class SoundPlayer {
    */
   public void playOnLoop(String filename) throws Exception {
     try (InputStream is = getClass().getResourceAsStream(filename)) {
+      assert is != null;
       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(is);
       clip = AudioSystem.getClip();
       clip.open(audioInputStream);

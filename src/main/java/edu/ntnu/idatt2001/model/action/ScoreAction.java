@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.action;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * ScoreAction is an action that adds a certain amount of points to the player's score.

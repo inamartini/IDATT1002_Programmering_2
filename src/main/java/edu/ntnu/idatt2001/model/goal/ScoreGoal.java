@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.goal;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * ScoreGoal is a class that checks if the player has reached a certain score.

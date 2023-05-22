@@ -43,7 +43,7 @@ public class InventoryGoal implements Goal {
      * The goal is considered fulfilled if the player has all the mandatory items in their inventory.
      *
      * @param player the player to check for the fulfillment of the goal
-     * @return true if the player has all of the mandatory items in their inventory, false otherwise
+     * @return true if the player has all the mandatory items in their inventory, false otherwise
      * @throws IllegalArgumentException if the player parameter is null
      */
     @Override
@@ -52,7 +52,7 @@ public class InventoryGoal implements Goal {
             throw new IllegalArgumentException("Player can't be null");
         }
         try {
-            return player.getInventory().containsAll(mandatoryItems);
+            return new HashSet<>(player.getInventory()).containsAll(mandatoryItems);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to retrieve inventory from player");
         }

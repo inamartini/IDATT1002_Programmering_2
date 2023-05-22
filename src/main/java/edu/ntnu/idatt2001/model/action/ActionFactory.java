@@ -55,4 +55,10 @@ public class ActionFactory {
             throw new IllegalArgumentException("Failed to create inventory action with given parameters");
         }
     }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private ActionFactory() {
+    }
 }

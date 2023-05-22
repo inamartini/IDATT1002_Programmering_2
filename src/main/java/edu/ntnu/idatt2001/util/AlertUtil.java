@@ -26,4 +26,11 @@ public class AlertUtil {
         alertUtil.setContentText(message);
         alertUtil.showAndWait();
     }
+
+    /**
+     * Private constructor to hide the implicit public one.
+     */
+    private AlertUtil() {
+    }
+
 }

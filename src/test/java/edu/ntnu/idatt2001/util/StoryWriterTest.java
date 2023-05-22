@@ -45,7 +45,7 @@ public class StoryWriterTest {
         @Test
         @DisplayName("Story is correctly written to file")
         void writeStoryToFile() throws IOException {
-            //arrange
+
             Passage openingPassage = new Passage("Title of the opening passage", "Content in the opening passage");
             story = new Story("Test Story", openingPassage);
             Link link1 = new Link("Test Link 1", "Title of the second passage");
@@ -67,18 +67,16 @@ public class StoryWriterTest {
 
             File file = new File(path);
 
-            //act
             StoryWriter.writeStoryToFile(story, path);
             StoryReader.readStoryFromFile(file);
 
-            //assert
             assertEquals(story.getTitle(), StoryReader.readStoryFromFile(file).getTitle());
             assertEquals(story.getOpeningPassage().getTitle(), StoryReader.readStoryFromFile(file).getOpeningPassage().getTitle());
             assertEquals(story.getOpeningPassage().getContent(), StoryReader.readStoryFromFile(file).getOpeningPassage().getContent());
             assertEquals(story.getPassages().size(), StoryReader.readStoryFromFile(file).getPassages().size());
             assertEquals(story.getOpeningPassage().getListOfLinks(), StoryReader.readStoryFromFile(file).getOpeningPassage().getListOfLinks());
             assertEquals(story.getPassage(link2).getListOfLinks(), StoryReader.readStoryFromFile(file).getPassage(link2).getListOfLinks());
-            assertEquals(player.getHealth(), 10);
+            assertEquals(10, player.getHealth());
         }
     }
 

@@ -58,4 +58,10 @@ public class GoalFactory {
             throw new IllegalArgumentException("Failed to create inventory goal with given parameters");
         }
     }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private GoalFactory() {
+    }
 }
