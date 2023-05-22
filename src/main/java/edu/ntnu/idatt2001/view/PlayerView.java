@@ -37,14 +37,14 @@ public class PlayerView extends View {
   private BorderPane borderPane;
 
   /**
-   * The player image view is the image of the player.
-   */
-  private ImageView playerImageView;
-
-  /**
    * The player controller is used to create a player.
    */
   private PlayerController playerController = PlayerController.getInstance();
+
+  /**
+   * The player view slider text styling class.
+   */
+  private static final String PLAYERVIEW_SLIDER_TEXT = "playerView-slider-text";
 
   /**
    * The PlayerView constructor. It takes in a screen controller as a parameter.
@@ -82,6 +82,7 @@ public class PlayerView extends View {
    *  7. Set up the main content layout and add all the components to it.
    */
   public void setUp() {
+    ImageView playerImageView;
     this.resetPane();
 
     Text title = new Text();
@@ -138,7 +139,7 @@ public class PlayerView extends View {
     nameBox.setAlignment(Pos.CENTER);
 
     Text health = new Text("Health: ");
-    health.getStyleClass().add("playerView-slider-text");
+    health.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
     Text playerHealth = new Text("1");
 
     Slider healthSlider = new Slider();
@@ -148,22 +149,22 @@ public class PlayerView extends View {
     healthSlider.setShowTickMarks(true);
     healthSlider.setBlockIncrement(1);
     healthSlider.setPrefWidth(150);
-    healthSlider.setValue(0);
+    healthSlider.setValue(1);
 
     healthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
       healthSlider.setValue(newValue.intValue());
       String valueAsString = Integer.toString(newValue.intValue());
       playerHealth.setText(valueAsString);
     });
-    healthSlider.getStyleClass().add("playerView-slider");
+    healthSlider.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
 
-    playerHealth.getStyleClass().add("playerView-slider-text");
+    playerHealth.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
 
     HBox healthBox = new HBox(10, health, healthSlider, playerHealth);
     healthBox.setAlignment(Pos.CENTER);
 
     Text gold = new Text("Gold:");
-    gold.getStyleClass().add("playerView-slider-text");
+    gold.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
     Text playerGold = new Text("0");
 
     Slider goldSlider = new Slider();
@@ -184,7 +185,7 @@ public class PlayerView extends View {
     });
     goldSlider.getStyleClass().add("playerView-slider");
 
-    playerGold.getStyleClass().add("playerView-slider-text");
+    playerGold.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
 
     HBox goldBox = new HBox(10, gold, goldSlider, playerGold);
     goldBox.setAlignment(Pos.CENTER);

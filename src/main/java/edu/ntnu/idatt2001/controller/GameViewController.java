@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -241,10 +242,10 @@ public class GameViewController {
     for (Goal goal : game.getGoals()) {
       HBox goalBox = new HBox();
       goalBox.setSpacing(10);
-      goalBox.setAlignment(Pos.CENTER_RIGHT);  // Align the goalBox to the right
+      goalBox.setAlignment(Pos.CENTER_RIGHT);
 
       Label goalName = new Label(goal.toString());
-      goalName.setAlignment(Pos.CENTER_LEFT);  // Align the goalName label to the left
+      goalName.setAlignment(Pos.CENTER_LEFT);
 
       ProgressBar goalProgress = new ProgressBar();
       goalProgress.setProgress(0.0);
@@ -276,20 +277,40 @@ public class GameViewController {
     return goalStatus;
   }
 
-
-
-  public void checkIfAllGoalsAreFulfilled() {
-    if (game.getGoals().stream().allMatch(goal -> goal.isFulfilled(player))) {
-      System.out.println("You won!");
-    } else {
-      System.out.println("You lost!");
-    }
+  /**
+   * Method that checks if all the goals are fulfilled
+   * @return true if all the goals are fulfilled, false otherwise
+   */
+  public boolean checkIfAllGoalsAreFulfilled() {
+    return game.getGoals().stream().allMatch(goal -> goal.isFulfilled(player));
   }
 
+  /**
+   * Method that checks if the inventory goals are fulfilled
+   * @return the total number of inventory goals fulfilled
+   */
   public double checkIfInventoryGoalsAreFulfilled() {
     return game.getGoals().stream()
-            .filter(goal -> goal instanceof InventoryGoal)
+            .filter(InventoryGoal.class::isInstance)
             .mapToDouble(goal -> goal.isFulfilled(player) ? 1.0 : 0.0)
             .sum();
+  }
+
+  /**
+   * Method that returns the goal summary
+   * @return the goal summary
+   */
+  public List<Pair<String, String>> getGoalSummary() {
+    List<Pair<String, String>> summaries = new ArrayList<>();
+
+    for (Goal goal : game.getGoals()) {
+      String goalName = goal.toString();
+      boolean fulfilled = goal.isFulfilled(player);
+      String status = fulfilled ? "Fulfilled" : "Not Fulfilled";
+
+      summaries.add(new Pair<>(goalName, status));
+    }
+
+    return summaries;
   }
 }

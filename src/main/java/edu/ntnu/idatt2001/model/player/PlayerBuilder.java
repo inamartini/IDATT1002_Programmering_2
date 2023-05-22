@@ -55,9 +55,6 @@ public class PlayerBuilder {
      * @return The Builder object.
      */
   public PlayerBuilder health(int health) {
-      if (health < 0) {
-          throw new IllegalArgumentException("Health can't be negative");
-      }
       this.health = health;
       return this;
   }
@@ -69,9 +66,6 @@ public class PlayerBuilder {
      * @return The Builder object.
    */
   public PlayerBuilder score(int score) {
-      if(score < 0) {
-          throw new IllegalArgumentException("Score can't be negative");
-      }
       this.score = score;
       return this;
   }
@@ -83,9 +77,6 @@ public class PlayerBuilder {
      * @return The Builder object.
    */
   public PlayerBuilder gold(int gold) {
-     if(gold < 0) {
-         throw new IllegalArgumentException("Gold can't be negative");
-     }
      this.gold = gold;
      return this;
   }

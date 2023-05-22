@@ -5,6 +5,9 @@ import edu.ntnu.idatt2001.model.player.PlayerBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  *
  */
 public class PlayerBuilderTest {
@@ -21,6 +24,9 @@ public class PlayerBuilderTest {
     @Test
     @DisplayName("Correct values are set")
     void correctValuesInBuilderPatternAreSet() {
+        List<String> inventory = new ArrayList<>();
+        inventory.add("Item");
+
         Player player = new PlayerBuilder("Player")
                     .gold(100)
                     .health(100)
@@ -33,20 +39,17 @@ public class PlayerBuilderTest {
     }
 
     @Test
-    @DisplayName("IllegalArgumentException is thrown if name in builder is null")
-    void builderPatternThrowsExceptionIfNameIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder(null));
+    @DisplayName("IllegalArgumentException is thrown if inventory is null")
+    void constructorThrowsIllegalArgumentExceptionIfInventoryIsNull() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new PlayerBuilder("Player").inventory(null));
     }
 
     @Test
-    @DisplayName("IllegalArgumentException is thrown if health in builder is negative")
-    void builderPatternThrowsExceptionIfHealthIsNegative() {
-        assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("Player").health(-1));
+    @DisplayName("IllegalArgumentException is thrown if inventory is empty")
+    void constructorThrowsIllegalArgumentExceptionIfInventoryIsEmpty() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new PlayerBuilder("Player").inventory(new ArrayList<>()));
     }
 
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if gold in builder is negative")
-    void builderPatternThrowsExceptionIfGoldIsNegative() {
-        assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("Player").gold(-1));
-    }
 }
