@@ -1,11 +1,10 @@
 package edu.ntnu.idatt2001.util;
 
-import edu.ntnu.idatt2001.model.action.Action;
-import edu.ntnu.idatt2001.model.action.ActionFactory;
 import edu.ntnu.idatt2001.model.Link;
 import edu.ntnu.idatt2001.model.Passage;
 import edu.ntnu.idatt2001.model.Story;
-
+import edu.ntnu.idatt2001.model.action.Action;
+import edu.ntnu.idatt2001.model.action.ActionFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -13,7 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class for reading a story from a file. Includes one method for reading a story from a file and
+ * Class for reading a story from a file.
+ * Includes one method for reading a story from a file and
  * a method for validating the file. The file must be in the correct format, if not,
  * an exception will be thrown from wrong formatted files.
  *
@@ -36,7 +36,7 @@ public class StoryReader {
   /**
    * Regex pattern to match actions in a passage.
    */
-  private static final String ACTION_PATTERN =  "\\{(.*?)\\}\\((.*?)\\)";
+  private static final String ACTION_PATTERN = "\\{(.*?)\\}\\((.*?)\\)";
 
   /**
    * Pattern object that compiles the regex pattern for passages.
@@ -54,31 +54,40 @@ public class StoryReader {
   private static final Pattern ACTION = Pattern.compile(ACTION_PATTERN);
 
   /**
-   * Method that reads a story from a file and returns a story object. Before reading the file, the file is validated.
-   * A scanner object is used to read in the lines from the given file. The first line is the title of the story.
-   * The second line is blank. Each new passage starts with a new line and "::" followed by the title of the passage.
-   * The second line in each passage should be the content of the passage. The third line should be blank.
-   * Optional links follows the format: [link text](passage reference), and should be written on the next lines.
-   * Optional actions will be written in the format: {action type}(action value), on the same line as the link.
-   * <p>
-   * If the Matcher object finds a match, the passage title and content is added to a new Passage object. The first passage
-   * added will be the opening passage, and the next passage will be the set as the current passage.
-   * The passage is then added to the story object. If the Matcher object finds a match for links, the link text and
-   * passage reference is added to a new Link object. The link is then added to the current passage. When link matches are found,
-   * it will also look for actions. If actions are found, the action type and value is added to a new Action object
-   * through the ActionFactory methods.
-   * <p>
+   * Method that reads a story from a file and returns a story object.
+   * Before reading the file, the file is validated.
+   * A scanner object is used to read in the lines from the given file.
+   * The first line is the title of the story. The second line is blank.
+   * Each new passage starts with a new line and "::" followed by the title of the passage.
+   * The second line in each passage should be the content of the passage.
+   * The third line should be blank. Optional links follows the format:
+   * [link text](passage reference), and should be written on the next lines.
+   * Optional actions will be written in the format: {action type}(action value),
+   * on the same line as the link.
+   * <p></p>
+   * If the Matcher object finds a match, the passage title and
+   * content is added to a new Passage object. The first passage added will be the opening passage,
+   * and the next passage will be the set as the current passage.
+   * The passage is then added to the story object.
+   * If the Matcher object finds a match for links,
+   * the link text and passage reference is added to a new Link object.
+   * The link is then added to the current passage.
+   * When link matches are found, it will also look for actions.
+   * If actions are found, the action type and value is added to
+   * a new Action object through the ActionFactory methods.
+   * <p></p>
    * The story object will be returned when the scanner object has no more lines to read.
    *
    * @param file The file to read from.
-   * @throws FileNotFoundException if the file is not found.
-   * @throws IllegalArgumentException if the file format is wrong.
    * @return Story object.
+   * @throws FileNotFoundException    if the file is not found.
+   * @throws IllegalArgumentException if the file format is wrong.
    */
-  public static Story readStoryFromFile(File file) throws FileNotFoundException, IllegalArgumentException {
+  public static Story readStoryFromFile(File file)
+      throws FileNotFoundException, IllegalArgumentException {
     try {
       validateFile(file);
-    } catch (FileNotFoundException e)  {
+    } catch (FileNotFoundException e) {
       throw new FileNotFoundException("File not found");
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("File format is wrong");
@@ -95,7 +104,7 @@ public class StoryReader {
 
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
-        if(line.isEmpty()){
+        if (line.isEmpty()) {
           continue;
         }
 
@@ -116,18 +125,17 @@ public class StoryReader {
             currentPassage = newPassage;
             story.addPassage(currentPassage);
           }
-        }
-        else if (linkMatcher.find()) {
+        } else if (linkMatcher.find()) {
           String linkText = linkMatcher.group(1);
           String linkReference = linkMatcher.group(2);
           Link link = new Link(linkText, linkReference);
           currentPassage.addLink(link);
 
-          while(actionMatcher.find()){
+          while (actionMatcher.find()) {
             String actionType = actionMatcher.group(1).toUpperCase();
             String actionValue = actionMatcher.group(2);
 
-            if(actionType.equalsIgnoreCase("Inventory")) {
+            if (actionType.equalsIgnoreCase("Inventory")) {
               action = ActionFactory.createInventoryAction(actionType, actionValue);
             } else {
               int actionValueInt = Integer.parseInt(actionValue);
@@ -135,13 +143,13 @@ public class StoryReader {
             }
             link.addAction(action);
           }
-        }
-        else {
+        } else {
           throw new IllegalArgumentException("Line is not on the correct format: " + line);
         }
       }
-    } catch(FileNotFoundException e){
-       throw new FileNotFoundException("There is a problem with the file: " + file.getAbsolutePath());
+    } catch (FileNotFoundException e) {
+      throw new FileNotFoundException(
+          "There is a problem with the file: " + file.getAbsolutePath());
     }
     return story;
   }
@@ -150,13 +158,14 @@ public class StoryReader {
    * Method that validates the file. Checks for several conditions for the file to be valid.
    *
    * @param file The file to validate.
-   * @throws FileNotFoundException if the file is null
+   * @throws FileNotFoundException    if the file is null
    * @throws IllegalArgumentException if the file is not a .paths file, if the file does not exist,
-   * if the file is not readable or if the file is empty.
+   *                                  if the file is not readable or if the file is empty.
    */
 
-  private static void validateFile(File file) throws FileNotFoundException, IllegalArgumentException {
-    if(file == null) {
+  private static void validateFile(File file)
+      throws FileNotFoundException, IllegalArgumentException {
+    if (file == null) {
       throw new FileNotFoundException("File is null.");
     }
     if (!file.getName().endsWith(".paths")) {

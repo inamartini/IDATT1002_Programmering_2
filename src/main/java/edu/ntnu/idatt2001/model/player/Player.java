@@ -38,12 +38,12 @@ public class Player {
    */
   private List<String> inventory;
 
-    /**
-     * Constructor for the Player class.
-     * Takes in the playerBuilder class used to build a player.
-     *
-     * @param playerBuilder The playerBuilder class used to build a player.
-     */
+  /**
+   * Constructor for the Player class.
+   * Takes in the playerBuilder class used to build a player.
+   *
+   * @param playerBuilder The playerBuilder class used to build a player.
+   */
   Player(PlayerBuilder playerBuilder) {
     this.name = playerBuilder.name;
     this.health = playerBuilder.health;

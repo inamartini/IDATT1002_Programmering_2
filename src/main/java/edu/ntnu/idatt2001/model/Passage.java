@@ -9,6 +9,7 @@ import java.util.Objects;
  * It is responsible for creating a passage with a title and content, and
  * includes a method to add links to the passage as well as several getters to retrieve
  * the passage content, title and link.
+ *
  * @author Malin Haugland Høli
  * @author Ina Martini
  * @version 2023.05.22
@@ -19,24 +20,24 @@ public class Passage {
   /**
    * The title of the passage.
    */
-  private String title ;
+  private String title;
 
   /**
    * The content of the passage.
    */
-  private String content ;
+  private String content;
 
   /**
    * The links of the passage.
    */
-  private List<Link> links ;
+  private List<Link> links;
 
   /**
    * Constructor for the Passage class. Takes in the title and
    * content and sets this if the parameters are valid.
    * Creates a new list of links.
    *
-   * @param title The title of the passage.
+   * @param title   The title of the passage.
    * @param content The content of the passage.
    */
   public Passage(String title, String content) {
@@ -69,8 +70,15 @@ public class Passage {
     return content;
   }
 
+  /**
+   * Adds a link to the passage.
+   *
+   * @param link The link to be added.
+   *
+   * @return True if the link is added, false if not as boolean.
+   */
   public boolean addLink(Link link) {
-    if(link == null) {
+    if (link == null) {
       throw new IllegalArgumentException("Link can't be null");
     }
     links.add(link);
@@ -102,9 +110,14 @@ public class Passage {
    */
   @Override
   public String toString() {
-    return "Title='" + title + '\'' +
-            ", Content='" + content + '\'' +
-            ", Links=" + links;
+    return "Title='"
+        + title
+        + '\''
+        + ", Content='"
+        + content
+        + '\''
+        + ", Links="
+        + links;
   }
 
   /**
@@ -115,11 +128,15 @@ public class Passage {
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Passage passage = (Passage) o;
     return Objects.equals(title, passage.title) && Objects.equals(content, passage.content)
-            && Objects.equals(links, passage.links);
+        && Objects.equals(links, passage.links);
   }
 
   /**

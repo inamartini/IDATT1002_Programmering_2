@@ -9,8 +9,8 @@ package edu.ntnu.idatt2001.model.goal;
  */
 public enum GoalType {
 
-    HEALTH_GOAL,
-    SCORE_GOAL,
-    GOLD_GOAL,
-    INVENTORY_GOAL;
+  HEALTH_GOAL,
+  SCORE_GOAL,
+  GOLD_GOAL,
+  INVENTORY_GOAL;
 }

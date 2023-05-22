@@ -11,48 +11,47 @@ import javafx.scene.image.Image;
  * @author Malin Haugland Høli
  * @author Ina Martini
  * @version 2023.05.22
- *
  */
 public class PlayerController {
 
   /**
-   * The singleton instance of this class
+   * The singleton instance of this class.
    */
   private static PlayerController playerController = new PlayerController();
 
   /**
-   * The player image
+   * The player image.
    */
   private Image playerImage;
 
   /**
-   * The player
+   * The player.
    */
   private Player player;
 
   /**
-   * The initial player name
+   * The initial player name.
    */
   private String initialPlayerName;
 
   /**
-   *
+   * The initial player health.
    */
   private int initialPlayerHealth;
 
   /**
-   * The initial player gold
+   * The initial player gold.
    */
   private int initialPlayerGold;
 
   /**
-   * Private constructor to make this a singleton class
+   * Private constructor to make this a singleton class.
    */
   private PlayerController() {
   }
 
   /**
-   * Returns the instance of this class
+   * Returns the instance of this class.
    *
    * @return the instance of this class
    */
@@ -61,7 +60,7 @@ public class PlayerController {
   }
 
   /**
-   * Returns the player image
+   * Returns the player image.
    *
    * @return the player image
    */
@@ -70,7 +69,7 @@ public class PlayerController {
   }
 
   /**
-   * Sets the player image
+   * Sets the player image.
    *
    * @param playerImage the player image
    */
@@ -79,7 +78,7 @@ public class PlayerController {
   }
 
   /**
-   * Returns the player
+   * Returns the player.
    *
    * @return the player
    */
@@ -88,7 +87,7 @@ public class PlayerController {
   }
 
   /**
-   * Sets the player
+   * Sets the player.
    *
    * @param player the player
    */
@@ -108,10 +107,10 @@ public class PlayerController {
     this.initialPlayerHealth = playerHealth;
     this.initialPlayerGold = playerGold;
 
-    this.player= new PlayerBuilder(playerName)
-            .health(playerHealth)
-            .gold(playerGold)
-            .build();
+    this.player = new PlayerBuilder(playerName)
+        .health(playerHealth)
+        .gold(playerGold)
+        .build();
   }
 
   /**
@@ -119,8 +118,8 @@ public class PlayerController {
    */
   public void resetPlayer() {
     this.player = new PlayerBuilder(initialPlayerName)
-            .health(initialPlayerHealth)
-            .gold(initialPlayerGold)
-            .build();
+        .health(initialPlayerHealth)
+        .gold(initialPlayerGold)
+        .build();
   }
 }

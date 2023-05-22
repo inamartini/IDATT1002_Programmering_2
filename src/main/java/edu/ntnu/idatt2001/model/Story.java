@@ -10,8 +10,9 @@ import java.util.stream.Stream;
 /**
  * Story class that represents a story. A story has a title, passages and an opening passage.
  * This class provides methods for getting and setting the title and opening passage of the story.
- * It also provides methods for adding or removing passages to the story and getting all passages of the story.
- * There is also a method for getting broken links from the story.
+ * It also provides methods for adding or removing passages to
+ * the story and getting all passages of the story. There is also a method
+ * for getting broken links from the story.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
@@ -30,16 +31,17 @@ public class Story {
   private Map<Link, Passage> passages;
 
   /**
-   *  The opening passage of the story.
+   * The opening passage of the story.
    */
   private Passage openingPassage;
 
   /**
    * Constructor for the Story class. Takes in a title and an opening passage and checks if the
-   * parameters are valid. Sets the opening passage of the story to the opening passage.
-   * Tries to add the opening passage to the story, and if it is not able to, an exception is thrown.
+   * parameters are valid. Sets the opening passage of
+   * the story to the opening passage. Tries to add the opening passage to the story,
+   * and if it is not able to, an exception is thrown.
    *
-   * @param title The title of the story.
+   * @param title          The title of the story.
    * @param openingPassage The opening passage of the story.
    */
   public Story(String title, Passage openingPassage) {
@@ -130,8 +132,8 @@ public class Story {
     Passage passage = getPassage(link);
 
     if (allLinks.stream().filter(key -> !link.equals(key))
-            .flatMap(key -> passages.get(key).getListOfLinks().stream())
-            .anyMatch(link1 -> link1.getReference().equals(passage.getTitle()))) {
+        .flatMap(key -> passages.get(key).getListOfLinks().stream())
+        .anyMatch(link1 -> link1.getReference().equals(passage.getTitle()))) {
       return;
     }
     passages.remove(new Link(link.getReference(), link.getReference()));
@@ -139,7 +141,8 @@ public class Story {
 
   /**
    * Returns the broken links of the story. This is done by checking if the reference of the link
-   * is equal to the title of any passage in the story. If not, the link is added to the list of broken links.
+   * is equal to the title of any passage in the story.
+   * If not, the link is added to the list of broken links.
    * The list of broken links is then returned.
    *
    * @return The broken links of the story as List.
@@ -147,7 +150,7 @@ public class Story {
   public List<Link> getBrokenLinks() {
     Stream<Link> allLinks = getPassages().stream().flatMap(p -> p.getListOfLinks().stream());
     return allLinks.distinct().filter(l -> getPassages().stream()
-            .noneMatch(p -> p.getTitle().equals(l.getReference()))).toList();
+        .noneMatch(p -> p.getTitle().equals(l.getReference()))).toList();
   }
 }
 

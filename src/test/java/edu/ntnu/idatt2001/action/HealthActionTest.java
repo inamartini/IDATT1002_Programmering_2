@@ -12,34 +12,33 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test class for HealthAction
+ *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.MM.DD
- *
+ * @version 2023.05.22
  */
 public class HealthActionTest {
 
-    private PlayerBuilder playerBuilder;
-    private Player player;
-    private HealthAction healthAction;
+  private Player player;
+  private HealthAction healthAction;
 
-    @BeforeEach
-    public void setUp() {
-        player = new PlayerBuilder("Player 1")
-                .health(3).build();
-        healthAction = new HealthAction(3);
-    }
+  @BeforeEach
+  public void setUp() {
+    player = new PlayerBuilder("Player 1")
+        .health(3).build();
+    healthAction = new HealthAction(3);
+  }
 
-    @Test
-    @DisplayName("The player's health is increased by the correct amount")
-    public void executeAddsCorrectHealthToPlayer() {
-        healthAction.execute(player);
-        assertEquals(6, player.getHealth());
-    }
-    @Test
-    @DisplayName("IllegalArgumentException is thrown if player is null")
-    public void executeThrowsIllegalArgumentExceptionIfPlayerIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> healthAction.execute(null));
-    }
+  @Test
+  @DisplayName("The player's health is increased by the correct amount")
+  public void executeAddsCorrectHealthToPlayer() {
+    healthAction.execute(player);
+    assertEquals(6, player.getHealth());
+  }
+
+  @Test
+  @DisplayName("IllegalArgumentException is thrown if player is null")
+  public void executeThrowsIllegalArgumentExceptionIfPlayerIsNull() {
+    assertThrows(IllegalArgumentException.class, () -> healthAction.execute(null));
+  }
 }

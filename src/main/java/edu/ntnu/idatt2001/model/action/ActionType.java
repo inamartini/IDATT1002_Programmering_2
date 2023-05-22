@@ -8,9 +8,9 @@ package edu.ntnu.idatt2001.model.action;
  * @version 2023.05.22
  */
 public enum ActionType {
-    HEALTH,
-    GOLD,
-    INVENTORY,
-    SCORE
+  HEALTH,
+  GOLD,
+  INVENTORY,
+  SCORE
 }
 

@@ -2,7 +2,6 @@ package edu.ntnu.idatt2001.model;
 
 import edu.ntnu.idatt2001.model.goal.Goal;
 import edu.ntnu.idatt2001.model.player.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +42,8 @@ public class Game {
    * if the parameters are valid. Sets the current passage to the opening passage of the story.
    *
    * @param player The player of the game.
-   * @param story The story of the game.
-   * @param goals The goals of the game.
+   * @param story  The story of the game.
+   * @param goals  The goals of the game.
    */
   public Game(Player player, Story story, List<Goal> goals) {
     if (player == null) {

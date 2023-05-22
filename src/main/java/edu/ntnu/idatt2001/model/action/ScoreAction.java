@@ -14,46 +14,49 @@ import edu.ntnu.idatt2001.model.player.Player;
 
 public class ScoreAction implements Action {
 
-    /**
-     * The number of points to add to the player's score.
-     */
-    private int points;
+  /**
+   * The number of points to add to the player's score.
+   */
+  private int points;
 
-    /**
-     * Constructs a new ScoreAction with the specified number of points to add to the player's score.
-     *
-     * @param points the number of points to add to the player's score
-     */
-    public ScoreAction(int points) {
-        this.points = points;
-    }
+  /**
+   * Constructs a new ScoreAction with the specified number of points to add to the player's score.
+   *
+   * @param points the number of points to add to the player's score
+   */
+  public ScoreAction(int points) {
+    this.points = points;
+  }
 
-    /**
-     * Executes the ScoreAction by adding the specified number of points to the player's score.
-     *
-     * @param player the player whose score should be updated
-     * @throws IllegalArgumentException if the player parameter is null
-     */
-    @Override
-    public void execute(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player can't be null");
-        }
-        try {
-            player.addScore(points);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Failed to execute score action with given parameters");
-        }
+  /**
+   * Executes the ScoreAction by adding the specified number of points to the player's score.
+   *
+   * @param player the player whose score should be updated
+   * @throws IllegalArgumentException if the player parameter is null
+   */
+  @Override
+  public void execute(Player player) {
+    if (player == null) {
+      throw new IllegalArgumentException("Player can't be null");
     }
+    try {
+      player.addScore(points);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Failed to execute score action with given parameters");
+    }
+  }
 
-    /**
-     * Returns a string representation of the ScoreAction.
-     * @return score action as a string
-     */
-    @Override
-    public String toString() {
-        return "{" +
-                "Score}" + "(" + points +
-                ')';
-    }
+  /**
+   * Returns a string representation of the ScoreAction.
+   *
+   * @return score action as a string
+   */
+  @Override
+  public String toString() {
+    return "{"
+        + "Score}"
+        + "("
+        + points
+        + ')';
+  }
 }

@@ -4,16 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *  Test class for Passage.
+ * Test class for Passage.
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 
@@ -36,14 +34,14 @@ public class PassageTest {
     @DisplayName("IllegalArgumentException is thrown if title is null")
     void throwsIllegalArgumentExceptionIfTitleIsNull() {
       assertThrows(IllegalArgumentException.class,
-              () -> passage = new Passage(null, notEmptyString));
+          () -> passage = new Passage(null, notEmptyString));
     }
 
     @Test
     @DisplayName("IllegalArgumentException is thrown if content is null")
     void throwsIllegalArgumentExceptionIfContentIsNull() {
       assertThrows(IllegalArgumentException.class,
-              () -> passage = new Passage(notEmptyString, null));
+          () -> passage = new Passage(notEmptyString, null));
     }
 
     @Test
@@ -51,7 +49,7 @@ public class PassageTest {
     void throwsIllegalArgumentExceptionIfLinkIsNull() {
       passage = new Passage(notEmptyString, notEmptyString);
       assertThrows(IllegalArgumentException.class,
-              () -> passage.addLink(null));
+          () -> passage.addLink(null));
     }
   }
 

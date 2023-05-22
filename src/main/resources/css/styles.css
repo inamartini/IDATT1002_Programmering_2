@@ -20,14 +20,16 @@
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
     -fx-font-family: Arial;
-    -fx-effect: dropshadow( gaussian , rgb(100, 3, 244), 0,0,0,1 );
+    -fx-effect: dropshadow(gaussian, rgb(100, 3, 244), 0, 0, 0, 1);
 }
+
 .loadGameView-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-fill: #F28482;
     -fx-font-family: Arial;
 }
+
 .table-view {
     -fx-text-fill: #F28482;
     -fx-background-color: #F7EDE2;
@@ -89,6 +91,7 @@
     -fx-fill: #1596c0;
     -fx-font-family: Arial;
 }
+
 .view-background {
     -fx-background-color: #d9e7ff;
 }
@@ -133,11 +136,11 @@
     -fx-font-weight: bold;
 }
 
-.playerView-slider .track {
+.playerView-slider-text .track {
     -fx-background-color: linear-gradient(to left, #F28482, #ffdc00);
 }
 
-.playerView-slider .thumb {
+.playerView-slider-text .thumb {
     -fx-pref-height: 20px;
     -fx-pref-width: 10px;
     -fx-background-color: #F28482;
@@ -189,7 +192,7 @@
 }
 
 .difficultyButton:selected, .difficultyButton-normal:selected, .difficultyButton-hard:selected {
-    -fx-background-color: #1596c0 ;
+    -fx-background-color: #1596c0;
     -fx-text-fill: #FFF2F1;
     -fx-border-color: #FFF2F1;
 }
@@ -205,14 +208,17 @@
     -fx-background-color: #eeb2b1;
     -fx-text-fill: #f5f2f0;
 }
+
 .gameView-returnHome-button, .gameView-help-button {
     -fx-effect: dropshadow(three-pass-box, rgb(10, 7, 8), 10, 0, 0, 0);
     -fx-background-color: transparent;
 }
+
 .gameView-restartGame-button, .gameView-seeResults-button {
     -fx-background-color: #72A1E5;
     -fx-text-fill: #FFF2F1;
 }
+
 .gameView-restartGame-button:hover, .gameView-seeResults-button:hover {
     -fx-background-color: #FFF2F1;
     -fx-text-fill: #72A1E5;

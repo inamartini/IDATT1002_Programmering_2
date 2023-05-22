@@ -8,10 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -19,25 +17,24 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- *
- * @version 2023.05.20
+ * @version 2023.05.22
  */
 
 public class GameTest {
 
   private Game game;
   private Passage openingPassage;
-  private List<Goal> goals ;
-  private Story story ;
-  private Player player ;
+  private List<Goal> goals;
+  private Story story;
+  private Player player;
 
   @BeforeEach
   void setUp() {
     player = new PlayerBuilder("Player")
-            .score(2)
-            .health(1)
-            .gold(3)
-            .build();
+        .score(2)
+        .health(1)
+        .gold(3)
+        .build();
     openingPassage = new Passage("PassageTitle", "Content");
     story = new Story("Title", openingPassage);
     goals = new ArrayList<>();
@@ -83,19 +80,19 @@ public class GameTest {
     @DisplayName("Correct players are returned")
     void getPlayerTest() {
       assertAll("Player",
-              () -> assertEquals("Player", game.getPlayer().getName()),
-              () -> assertEquals(1, game.getPlayer().getHealth()),
-              () -> assertEquals(2, game.getPlayer().getScore()),
-              () -> assertEquals(3, game.getPlayer().getGold()));
+          () -> assertEquals("Player", game.getPlayer().getName()),
+          () -> assertEquals(1, game.getPlayer().getHealth()),
+          () -> assertEquals(2, game.getPlayer().getScore()),
+          () -> assertEquals(3, game.getPlayer().getGold()));
     }
 
     @Test
     @DisplayName("Correct info about the story is returned")
     void correctValuesForStoryIsReturned() {
       assertAll("Story",
-              () -> assertEquals("Title", game.getStory().getTitle()),
-              () -> assertEquals("PassageTitle", game.getStory().getOpeningPassage().getTitle()),
-              () -> assertEquals("Content", game.getStory().getOpeningPassage().getContent()));
+          () -> assertEquals("Title", game.getStory().getTitle()),
+          () -> assertEquals("PassageTitle", game.getStory().getOpeningPassage().getTitle()),
+          () -> assertEquals("Content", game.getStory().getOpeningPassage().getContent()));
     }
 
     @Test

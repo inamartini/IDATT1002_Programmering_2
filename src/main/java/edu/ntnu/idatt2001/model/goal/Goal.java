@@ -12,17 +12,17 @@ import edu.ntnu.idatt2001.model.player.Player;
  */
 
 public interface Goal {
-    /**
-     * Checks if the goal is fulfilled by the player.
-     *
-     * @param player the player
-     * @return true if the goal is fulfilled, false otherwise
-     */
-    boolean isFulfilled(Player player);
+  /**
+   * Checks if the goal is fulfilled by the player.
+   *
+   * @param player the player
+   * @return true if the goal is fulfilled, false otherwise
+   */
+  boolean isFulfilled(Player player);
 
-    /**
-     * ToString method for the goal.
-     */
-    @Override
-    String toString();
+  /**
+   * ToString method for the goal.
+   */
+  @Override
+  String toString();
 }

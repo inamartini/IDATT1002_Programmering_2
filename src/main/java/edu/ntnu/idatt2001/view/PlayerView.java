@@ -3,14 +3,20 @@ package edu.ntnu.idatt2001.view;
 import edu.ntnu.idatt2001.controller.PlayerController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
+import java.util.Objects;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import java.util.Objects;
 
 /**
  * This class extends the View class and is responsible for the player view of the application.
@@ -27,7 +33,7 @@ public class PlayerView extends View {
    */
   private ScreenController screenController;
 
-  /***
+  /**
    * The root is the main layout of the player view.
    */
   private StackPane root;
@@ -69,9 +75,10 @@ public class PlayerView extends View {
 
   /**
    *  This method configures the layout and components of the player view.
-   *  It allows the player to choose their character, enter their name, set health and gold values using sliders,
+   *  It allows the player to choose their character,
+   *  enter their name, set health and gold values using sliders,
    *  and create a player profile.
-   * <p>
+   * <p></p>
    *  This method performs the following steps:
    *  1. Reset the pane to its initial state.
    *  2. Create and configure the title text.
@@ -81,8 +88,8 @@ public class PlayerView extends View {
    *  6. Set up the create player button, go back button
    *  7. Set up the main content layout and add all the components to it.
    */
+  @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
   public void setUp() {
-    ImageView playerImageView;
     this.resetPane();
 
     Text title = new Text();
@@ -90,18 +97,19 @@ public class PlayerView extends View {
     title.getStyleClass().add("playerView-title");
 
     Image princessImage = new Image("images/princess.png");
-
     Image princeImage = new Image("images/prince.png");
 
-    playerImageView = new ImageView();
+    ImageView playerImageView = new ImageView();
     playerImageView.setFitHeight(120);
     playerImageView.setFitWidth(150);
     playerImageView.setImage(princessImage);
 
-    Image leftArrowIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/left.png")));
+    Image leftArrowIcon =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/left.png")));
     ImageView leftArrow = new ImageView(leftArrowIcon);
     leftArrow.setFitHeight(30);
     leftArrow.setFitWidth(30);
+
     Button btnLastPlayer = new Button();
     btnLastPlayer.setGraphic(leftArrow);
     btnLastPlayer.getStyleClass().add("playerView-player-button");
@@ -113,7 +121,8 @@ public class PlayerView extends View {
       }
     });
 
-    Image rightArrowIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/right.png")));
+    Image rightArrowIcon =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/right.png")));
     ImageView rightArrow = new ImageView(rightArrowIcon);
     rightArrow.setFitHeight(30);
     rightArrow.setFitWidth(30);
@@ -183,7 +192,7 @@ public class PlayerView extends View {
       String valueAsString = Integer.toString(newValue.intValue());
       playerGold.setText(valueAsString);
     });
-    goldSlider.getStyleClass().add("playerView-slider");
+    goldSlider.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
 
     playerGold.getStyleClass().add(PLAYERVIEW_SLIDER_TEXT);
 
@@ -200,7 +209,8 @@ public class PlayerView extends View {
                 "Name field is empty. Please enter a name to create a player.");
       } else {
         playerController.setPlayerImage(playerImageView.getImage());
-        playerController.createPlayer(nameField.getText(), (int) healthSlider.getValue(), (int) goldSlider.getValue());
+        playerController.createPlayer(nameField.getText(),
+            (int) healthSlider.getValue(), (int) goldSlider.getValue());
         screenController.activate("goalView");
       }
     });
@@ -210,7 +220,8 @@ public class PlayerView extends View {
     createPlayerBox.setAlignment(Pos.CENTER);
 
 
-    Image goBackIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backbutton.png")));
+    Image goBackIcon =
+        new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backbutton.png")));
     ImageView back = new ImageView(goBackIcon);
     back.setFitHeight(50);
     back.setFitWidth(50);

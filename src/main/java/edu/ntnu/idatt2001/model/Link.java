@@ -1,7 +1,6 @@
 package edu.ntnu.idatt2001.model;
 
 import edu.ntnu.idatt2001.model.action.Action;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +34,7 @@ public class Link {
    * Constructor for the Link class.It takes in the text
    * and reference and sets this if the parameters are valid.
    *
-   * @param text The text of the link.
+   * @param text      The text of the link.
    * @param reference The reference of the link.
    */
   public Link(String text, String reference) {
@@ -77,10 +76,10 @@ public class Link {
   public void addAction(Action action) {
     if (actionIsValid(action)) {
       try {
-      this.actions.add(action);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("The action cannot be blank.");
-        }
+        this.actions.add(action);
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("The action cannot be blank.");
+      }
     }
   }
 
@@ -112,7 +111,7 @@ public class Link {
    *
    * @return Representation of the object as String
    */
-  public String toString()   {
+  public String toString() {
     return "Link: " + this.text + this.reference;
   }
 
@@ -120,24 +119,25 @@ public class Link {
   /**
    * Returns a String of a link with its actions.
    * Uses a string builder to properly format the string.
+   *
    * @return The link with actions as String.
    */
   public String toStringWithActions() {
     StringBuilder sb = new StringBuilder();
     sb.append("[")
-            .append(this.text)
-            .append("](")
-            .append(this.reference)
-            .append(")");
+        .append(this.text)
+        .append("](")
+        .append(this.reference)
+        .append(")");
 
-      if (!actions.isEmpty()) {
-        sb.append("[");
-        for (Action action : actions) {
-          sb.append(action.toString());
-        }
-        sb.append("]");
+    if (!actions.isEmpty()) {
+      sb.append("[");
+      for (Action action : actions) {
+        sb.append(action.toString());
       }
-      return sb.toString();
+      sb.append("]");
+    }
+    return sb.toString();
   }
 
 
