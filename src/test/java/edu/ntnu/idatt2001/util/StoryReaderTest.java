@@ -2,7 +2,6 @@ package edu.ntnu.idatt2001.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.ntnu.idatt2001.model.action.Action;
 import edu.ntnu.idatt2001.model.action.ActionFactory;
@@ -16,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Nested;
  * @author Malin Haugland Høli
  * @author Ina Martini
  *
- * @version 2023.MM.DD
+ * @version 2023.05.22
  *
  */
 
@@ -44,31 +44,20 @@ public class StoryReaderTest {
 
     @Nested
     class TestExceptions {
-        @Test
-        @DisplayName("IllegalArgumentException is thrown if filename does not end with .paths")
-        void shouldThrowIllegalArgumentExceptionIfFilenameDoesNotEndWithPaths() {
-            File testFile = new File("src/test/resources/test.txt");
-            assertThrows(IllegalArgumentException.class, () -> StoryReader.readStoryFromFile(testFile));
-        }
+        private static final List<String> INVALID_FILE_PATHS = Arrays.asList(
+                "src/test/resources/test.txt",
+                "src/test/resources/test1.paths",
+                "src/test/resources/test2.paths",
+                "src/test/resources/test3.paths"
+        );
 
         @Test
-        @DisplayName("Test1 file throws IllegalArgumentException")
-        void shouldThrowIllegalArgumentExceptionIfTest1FileIsRead() {
-            File testFile = new File("src/test/resources/test1.paths");
-            assertThrows(IllegalArgumentException.class, () -> StoryReader.readStoryFromFile(testFile));
-        }
-
-        @Test
-        @DisplayName("Test2 file throws IllegalArgumentException")
-        void shouldThrowIllegalArgumentExceptionIfTest2FileIsRead() {
-            File testFile = new File("src/test/resources/test2.paths");
-            assertThrows(IllegalArgumentException.class, () -> StoryReader.readStoryFromFile(testFile));
-        }
-        @Test
-        @DisplayName("Test3 file throws IllegalArgumentException")
-        void shouldThrowIllegalArgumentExceptionIfTest3FileIsRead() {
-            File testFile = new File("src/test/resources/test3.paths");
-            assertThrows(IllegalArgumentException.class, () -> StoryReader.readStoryFromFile(testFile));
+        @DisplayName("IllegalArgumentException is thrown for invalid files")
+        void shouldThrowIllegalArgumentExceptionForInvalidFiles() {
+            for (String filePath : INVALID_FILE_PATHS) {
+                File testFile = new File(filePath);
+                assertThrows(IllegalArgumentException.class, () -> StoryReader.readStoryFromFile(testFile));
+            }
         }
     }
 
@@ -79,7 +68,6 @@ public class StoryReaderTest {
         @Test
         @DisplayName("File is read correctly")
         void readStoryFromFile1() throws FileNotFoundException {
-            //arrange
             File testFile = new File(testFilePath);
             Passage openingPassage = new Passage("Title of the opening passage", "Content in the opening passage");
             Story expectedStory = new Story("Test Story", openingPassage);
@@ -96,10 +84,8 @@ public class StoryReaderTest {
             expectedStory.addPassage(secondPassage);
             expectedStory.addPassage(thirdPassage);
 
-            //act
             Story actualStory = StoryReader.readStoryFromFile(testFile);
 
-            //assert
             assertEquals(expectedStory.getTitle(), actualStory.getTitle());
             assertEquals(expectedStory.getOpeningPassage().getTitle(), actualStory.getOpeningPassage().getTitle());
             assertEquals(expectedStory.getOpeningPassage().getContent(), actualStory.getOpeningPassage().getContent());
