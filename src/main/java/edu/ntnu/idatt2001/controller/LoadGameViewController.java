@@ -130,7 +130,7 @@ public class LoadGameViewController {
             if (story != null) {
                 brokenLinks = story.getBrokenLinks();
             }
-            if (brokenLinks != null && brokenLinks.size() > 0) {
+            if (brokenLinks != null && !brokenLinks.isEmpty()) {
                 return brokenLinks.stream().map(Link::getText).collect(Collectors.joining(", "));
             } else {
                 return "No broken links.";
