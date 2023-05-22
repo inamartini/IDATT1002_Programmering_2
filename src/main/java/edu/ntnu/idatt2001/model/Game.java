@@ -89,7 +89,8 @@ public class Game {
     if (currentPassage == null) {
       throw new IllegalArgumentException("Current passage can't be null");
     }
-    return this.currentPassage = currentPassage;
+    this.currentPassage = currentPassage;
+    return currentPassage;
   }
 
   /**

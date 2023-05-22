@@ -5,5 +5,5 @@ public enum InventoryType {
   SWORD,
   SHIELD,
   POTION,
-  COMPUTER;
+  COMPUTER
 }

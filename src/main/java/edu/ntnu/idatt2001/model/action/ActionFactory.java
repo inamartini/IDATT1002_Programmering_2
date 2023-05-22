@@ -1,7 +1,5 @@
 package edu.ntnu.idatt2001.model.action;
 
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 public class ActionFactory {
 
@@ -45,5 +43,11 @@ public class ActionFactory {
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to create inventory action with given parameters");
         }
+    }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private ActionFactory() {
     }
 }

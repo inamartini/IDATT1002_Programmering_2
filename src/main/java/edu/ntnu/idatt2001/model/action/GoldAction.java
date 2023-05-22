@@ -1,8 +1,6 @@
 package edu.ntnu.idatt2001.model.action;
 
 import edu.ntnu.idatt2001.model.player.Player;
-import edu.ntnu.idatt2001.util.AlertUtil;
-import javafx.scene.control.Alert;
 
 /**
  * GoldAction is a class that represents an action that adds gold to a player.
@@ -10,7 +8,7 @@ import javafx.scene.control.Alert;
  *
  * @author Malin Haugland Høli
  * @author Ina Martini
- * @version 2023.MM.DD
+ * @version 2023.05.22
  */
 
 public class GoldAction implements Action {

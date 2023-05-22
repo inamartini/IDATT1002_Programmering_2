@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2001.model.player;
 
-import edu.ntnu.idatt2001.model.player.InventoryType;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
