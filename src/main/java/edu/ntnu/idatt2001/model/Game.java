@@ -11,7 +11,7 @@ import java.util.List;
  * It also provides methods for getting and setting the current passage of the game.
  * The game class is used in order to start a game and go between passages.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

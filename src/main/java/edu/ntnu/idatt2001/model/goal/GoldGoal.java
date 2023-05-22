@@ -6,7 +6,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  * The GoldGoal class represents a goal that requires a player to have a certain amount of gold.
  * The goal is considered fulfilled if the player has at least the specified minimum amount of gold.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

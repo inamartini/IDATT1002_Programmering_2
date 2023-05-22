@@ -5,7 +5,7 @@ import edu.ntnu.idatt2001.model.player.Player;
 /**
  * An interface for actions that can be performed on a player.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

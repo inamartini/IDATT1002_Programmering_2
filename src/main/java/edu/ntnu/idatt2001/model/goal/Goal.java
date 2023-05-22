@@ -6,7 +6,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  * The Goal interface represents a goal that can be fulfilled by a player.
  * This interface provides a method for doing certain actions if the goal is fulfilled.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

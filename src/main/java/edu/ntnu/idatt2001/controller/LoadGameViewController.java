@@ -34,7 +34,7 @@ import javafx.stage.FileChooser;
  * Includes method to upload files from the computer, load a game from a file and displaying the
  * files in the paths folder with the number of broken links.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

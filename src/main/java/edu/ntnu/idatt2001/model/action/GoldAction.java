@@ -6,7 +6,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  * GoldAction is a class that represents an action that adds gold to a player.
  * The amount of gold to add is specified in the constructor.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

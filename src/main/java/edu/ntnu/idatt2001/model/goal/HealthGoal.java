@@ -10,7 +10,7 @@ import edu.ntnu.idatt2001.model.player.Player;
  * which takes a Player object as input and returns a boolean indicating
  * whether the goal is fulfilled or not.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

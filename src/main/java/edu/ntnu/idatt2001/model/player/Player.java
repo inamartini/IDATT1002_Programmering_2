@@ -7,7 +7,7 @@ import java.util.List;
  * This class represents a player in a game.
  * The player has a name, health, score, gold and inventory.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

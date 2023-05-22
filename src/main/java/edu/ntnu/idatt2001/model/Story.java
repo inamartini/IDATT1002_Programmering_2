@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * the story and getting all passages of the story. There is also a method
  * for getting broken links from the story.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

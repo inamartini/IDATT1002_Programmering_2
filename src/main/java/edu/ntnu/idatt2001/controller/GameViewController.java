@@ -30,7 +30,7 @@ import javafx.util.Pair;
  * Singleton class that handles the game view. The class includes several methods
  * that are used to display the game view, and to update the game view.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

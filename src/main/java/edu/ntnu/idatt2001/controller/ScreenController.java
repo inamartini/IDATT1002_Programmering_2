@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
  * adding screens to the screenMap and viewMap, and activating the screen that is to be shown.
  * The class is also responsible for setting the current scene of the application.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

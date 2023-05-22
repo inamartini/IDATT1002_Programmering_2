@@ -10,7 +10,7 @@ import java.util.Objects;
  * includes a method to add links to the passage as well as several getters to retrieve
  * the passage content, title and link.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

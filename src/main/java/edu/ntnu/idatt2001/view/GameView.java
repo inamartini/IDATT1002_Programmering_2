@@ -35,7 +35,7 @@ import javafx.util.Pair;
  * It displays the story title, passage title, passage content,
  * player image, troll image, inventory, goals, and buttons.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for HealthAction
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

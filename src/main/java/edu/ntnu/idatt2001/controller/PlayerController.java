@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * Class that handles the player view. This class is responsible for creating the player
  * and resetting the player when a game is restarted.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

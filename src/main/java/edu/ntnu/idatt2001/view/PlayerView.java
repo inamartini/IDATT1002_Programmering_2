@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
  * This class extends the View class and is responsible for the player view of the application.
  * The player view is the page where the user can choose a character.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
  * This class represents the inventory icon of the player.
  * The inventory icon is set depending on the inventory type.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */

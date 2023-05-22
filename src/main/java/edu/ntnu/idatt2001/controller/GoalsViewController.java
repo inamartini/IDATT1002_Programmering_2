@@ -13,7 +13,7 @@ import javafx.scene.control.ToggleButton;
  * Controller class for the GoalsView. Handles the logic for the GoalsView.
  * Includes several methods to handle the goals chosen by the user.
  *
- * @author Malin Haugland Høli
+ * @author Malin Haugland Holi
  * @author Ina Martini
  * @version 2023.05.22
  */
