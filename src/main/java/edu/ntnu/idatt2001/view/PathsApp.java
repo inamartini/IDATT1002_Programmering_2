@@ -86,7 +86,7 @@ public class PathsApp extends Application {
     primaryStage.getIcons().add(new Image("images/princess.png"));
     primaryStage.show();
 
-    frontPageScene.getStylesheets().add("css/styles.css");
+    frontPageScene.getStylesheets().add("stylesheet/stylesheet.css");
 
     screenController.activate("homeView");
   }
