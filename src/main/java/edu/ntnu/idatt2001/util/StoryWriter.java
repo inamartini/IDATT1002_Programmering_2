@@ -39,8 +39,6 @@ public class StoryWriter {
 
   private static final String NEWLINE = "\n";
   private static ArrayList<String> passagesAlreadyWritten = new ArrayList<>();
-  private static ArrayList<Link> allLinks = new ArrayList<>();
-
 
   /**
    * Method that writes a story to a file on the format .paths.
@@ -74,7 +72,6 @@ public class StoryWriter {
         }
       }
       passagesAlreadyWritten.add(story.getOpeningPassage().getTitle());
-      allLinks.addAll(story.getOpeningPassage().getListOfLinks());
 
       story.getPassages().forEach(passage -> {
         if (!passagesAlreadyWritten.contains(passage.getTitle())) {
@@ -98,5 +95,11 @@ public class StoryWriter {
     catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Private constructor to prevent instantiation.
+   */
+  private StoryWriter() {
   }
 }
