@@ -24,6 +24,7 @@ public class GoalsViewController {
    * List of goals to be used in the game
    */
   private List<Goal> goals;
+  private static final String INVENTORY_GOAL = "inventory_goal";
 
   /**
    * Constructor for GoalsViewController. Initializes the goals list.
@@ -57,20 +58,19 @@ public class GoalsViewController {
       toggleMap.put(gold, "Gold_goal");
       toggleMap.put(score, "Score_goal");
       toggleMap.put(health, "Health_goal");
-      toggleMap.put(inventory, "Inventory_goal");
+      toggleMap.put(inventory, INVENTORY_GOAL);
 
       for (Map.Entry<Toggle, String> entry : toggleMap.entrySet()) {
         Toggle toggle = entry.getKey();
         String goalType = entry.getValue();
-        if (toggle instanceof ToggleButton toggleButton) {
-          if (toggleButton.isSelected()) {
+        if (toggle instanceof ToggleButton toggleButton && (toggleButton.isSelected())) {
             String goalValue = toggleButton.getText();
-            if (goalType.equalsIgnoreCase("Inventory_goal")) {
+            if (goalType.equalsIgnoreCase(INVENTORY_GOAL)) {
               goals.add(GoalFactory.createInventoryGoal(goalType, goalValue));
             } else {
               goals.add(GoalFactory.createGoal(goalType, Integer.parseInt(goalValue)));
             }
-          }
+
         }
       }
     } catch (IllegalArgumentException e) {
@@ -89,6 +89,7 @@ public class GoalsViewController {
    * @param inventoryGoal the inventory goal chosen by the user
    */
   public void saveCustomGoals(String goldGoal, String scoreGoal, String healthGoal, String inventoryGoal) {
+    this.goals.clear();
     try {
       if (goldGoal != null && !goldGoal.isEmpty()) {
         goals.add(GoalFactory.createGoal("Gold_goal", Integer.parseInt(goldGoal)));
@@ -100,9 +101,9 @@ public class GoalsViewController {
         goals.add(GoalFactory.createGoal("Health_goal", Integer.parseInt(healthGoal)));
       }
       if (inventoryGoal != null && !inventoryGoal.isEmpty()) {
-        goals.add(GoalFactory.createInventoryGoal("Inventory_goal", inventoryGoal));
+        goals.add(GoalFactory.createInventoryGoal(INVENTORY_GOAL, inventoryGoal));
       }
-    } catch (IllegalArgumentException e) {
+  } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Failed to create goal with given parameters");
     }
   }
