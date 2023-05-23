@@ -5,7 +5,6 @@ import edu.ntnu.idatt2001.controller.LoadGameViewController;
 import edu.ntnu.idatt2001.controller.ScreenController;
 import edu.ntnu.idatt2001.util.AlertUtil;
 import java.io.File;
-import java.io.IOException;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
