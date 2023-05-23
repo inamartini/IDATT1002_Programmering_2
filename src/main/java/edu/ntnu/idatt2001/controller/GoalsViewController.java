@@ -23,6 +23,10 @@ public class GoalsViewController {
    * List of goals to be used in the game.
    */
   private List<Goal> goals;
+
+  /**
+   * String representing the inventory goal.
+   */
   private static final String INVENTORY_GOAL = "inventory_goal";
 
   /**

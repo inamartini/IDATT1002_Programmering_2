@@ -109,12 +109,16 @@ public class StoryWriter {
             }
             passagesAlreadyWritten.add(passage.getTitle());
           } catch (IOException e) {
-            e.printStackTrace();
+            try {
+              throw new IOException("Error writing to file");
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
           }
         }
       });
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
